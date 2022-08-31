@@ -10,25 +10,27 @@
                         <el-button type="primary" :icon="Edit" circle />
                     </div>
                 </div>
-                <div class="row margin-1 hover-when-mouse-on" v-for="(content, index) in content_list.value"
-                    :key="index">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-1">
+                <template v-for="(content, index) in content_list.value">
+                    <div class="row margin-1 hover-when-mouse-on" v-if="content.status === 0" :key="index">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-1">
 
-                                    <el-button type="success" :icon="Check" circle />
+                                        <el-button type="success" :icon="Check" circle />
 
+                                    </div>
+                                    <div class="col-10">{{ content.content }}</div>
+                                    <div class="col-1">
+                                        <el-button type="danger" :icon="Delete" @click="delete_a_todo(content)"
+                                            circle />
+                                    </div>
                                 </div>
-                                <div class="col-10">{{ content.content }}</div>
-                                <div class="col-1">
-                                    <el-button type="danger" :icon="Delete" @click="delete_a_todo" circle />
-                                </div>
+
                             </div>
-
                         </div>
                     </div>
-                </div>
+                </template>
                 <div class="row"></div>
 
             </div>
@@ -41,9 +43,8 @@
 
 <script >
 import { Check, Delete, Edit } from '@element-plus/icons-vue';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import $ from 'jquery';
-import { computed } from '@vue/reactivity';
 
 export default {
     name: "EventList",
@@ -51,24 +52,26 @@ export default {
         const content_list = reactive({});
 
         $.ajax({
-            url: "http://152.136.154.181:8060/demo/todos",
+            url: "http://152.136.154.181:8060/todos",
             type: "GET",
             success(resp) {
+                // console.log(resp);
                 content_list.value = JSON.parse(resp);
-
             }
         });
-        const content_list_disp = computed((content_list) => {
-            content_list.filter((item) => {
-                return item.status == 0
+
+        let delete_a_todo = (content) => {
+            console.log(content.id);
+            $.ajax({
+                url: "http://152.136.154.181:8060/delete",
+                type: "POST",
+                data: content.id,
+                success(resp) {
+                    console.log(resp);
+                    content.status = 1;
+                }
             })
-        })
 
-        console.log(content_list_disp);
-
-
-        let delete_a_todo = () => {
-            console.log("aaa");
         }
 
         return {
@@ -76,8 +79,7 @@ export default {
             Delete,
             Edit,
             delete_a_todo,
-            content_list,
-            content_list_disp
+            content_list
         }
     }
 }
