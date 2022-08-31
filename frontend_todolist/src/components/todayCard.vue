@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card w-25 hover-when-mouse-on">
+    <div class="card hover-when-mouse-on">
         <div class="card-body">
             <div class="row">
                 <h5 class="card-title">Today</h5>
@@ -36,9 +36,9 @@ import $ from 'jquery';
 import { ref } from 'vue';
 
 // 后端获取数据！
-let task_done = 10;
-let task_all = 10;
-let todo_portion = computed(() => (task_done / task_all) * 100);
+let task_done = 5;
+let task_all = 23;
+let todo_portion = computed(() => (task_done / task_all).toFixed(2) * 100);
 
 
 const today_weather_city = ref("");
