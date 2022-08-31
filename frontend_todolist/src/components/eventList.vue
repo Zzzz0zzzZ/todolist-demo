@@ -43,7 +43,7 @@
 
 <script >
 import { Check, Delete, Edit } from '@element-plus/icons-vue';
-import { reactive } from 'vue';
+import { reactive, toRaw } from 'vue';
 import $ from 'jquery';
 
 export default {
@@ -61,17 +61,16 @@ export default {
         });
 
         let delete_a_todo = (content) => {
-            console.log(content.id);
             $.ajax({
                 url: "http://152.136.154.181:8060/delete",
                 type: "POST",
-                data: content.id,
+                contentType: 'application/json; charset=UTF-8',
+                data: JSON.stringify(toRaw(content)),
                 success(resp) {
                     console.log(resp);
                     content.status = 1;
                 }
             })
-
         }
 
         return {
