@@ -25,18 +25,17 @@
       </div>
       <div class="card-footer text-muted">
         <div class="row">
-          <div class="col-3"></div>
-          <div class="col-5">
+          <div class="col-4"></div>
+          <div class="col-4">
             <span>@contributers:&nbsp;&nbsp;&nbsp;</span>
             <img src="@/assets/user_photo.png" class="adj-footer-img">
             <a target="_blank" href="https://github.com/Zzzz0zzzZ" class="adj-link-style">Zzzz0zzzZ</a>
 
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <img src="@/assets/user_photo_2.png" class="adj-footer-img">
             <a target="_blank" href="https://github.com/teashirtt" class="adj-link-style">teashirtt</a>
 
-            <div class="col-1"></div>
-            <div class="col-3"></div>
+            <div class="col-4"></div>
           </div>
         </div>
       </div>
@@ -77,7 +76,7 @@ export default {
 }
 
 .adj-footer-img {
-  border-radius: 30%;
+  border-radius: 50%;
   width: 30px;
 }
 

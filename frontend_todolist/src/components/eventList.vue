@@ -40,6 +40,8 @@ import { Check, Delete, Edit } from '@element-plus/icons-vue';
 import { reactive, toRaw } from 'vue';
 import $ from 'jquery';
 import editAreaVue from './editArea.vue';
+import { countStore } from '@/stores/countStore';
+import { storeToRefs } from 'pinia';
 
 export default {
     name: "EventList",
@@ -48,7 +50,8 @@ export default {
     },
     setup() {
         const content_list = reactive([]);
-
+        const store = countStore();
+        const { count_total, count_finish } = storeToRefs(store);
         const addTodo = (todoObj) => {
             $.ajax({
                 url: "http://152.136.154.181:8060/add",
@@ -67,8 +70,13 @@ export default {
                         success(resp) {
                             content_list.value = JSON.parse(resp);
                             content_list.value = content_list.value.reverse();
+                            store.updateCount()
+                            console.log(count_total.value, count_finish.value);
+                            let a = store.getPortion
+                            console.log("aaa", a);
                         }
                     });
+
                 }
             })
 
@@ -95,6 +103,7 @@ export default {
                     console.log(resp);
                     content.status = 1;
                     // content_list.value = content_list.value.filter(ct => ct.id != content.id)
+                    store.updateCount()
                 }
             })
         }
@@ -115,12 +124,13 @@ export default {
                     console.log(resp);
                     content.status = 1;
                     // content_list.value = content_list.value.filter(ct => ct.id != content.id)
+                    store.updateCount()
                 }
             })
         }
 
         return {
-
+            store,
             Check,
             Delete,
             Edit,
