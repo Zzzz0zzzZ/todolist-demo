@@ -8,11 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.0.9",
     "bootstrap": "^5.2.0",
     "core-js": "^3.8.3",
     "element-plus": "^2.2.15",
     "pinia": "^2.0.21",
     "vue": "^3.2.13",
+    "vue-baidu-calendar": "^1.0.8",
+    "vue-calendar-component": "^2.8.2",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

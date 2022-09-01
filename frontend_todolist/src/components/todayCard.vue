@@ -1,5 +1,4 @@
 <template>
-
     <div class="card hover-when-mouse-on">
         <div class="card-body">
             <div class="row">
@@ -20,55 +19,59 @@
                     </el-progress>
                 </div>
             </div>
-
             <p class="card-text">城市：{{ today_weather_city }}</p>
             <p class="card-text">天气：{{ today_weather_forecast.type }}</p>
             <p class="card-text">气温：{{ today_weather_forecast.low }} - {{ today_weather_forecast.high }}</p>
         </div>
     </div>
-
 </template>
 
 <script setup>
-
 import { computed } from '@vue/reactivity';
 import $ from 'jquery';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-const props = defineProps({
-    task_all: {
-        type: Number,
-        required: true,
-    },
-    task_done: {
-        type: Number,
-        required: true,
-    },
+const task_done = ref(0);
+const task_all = ref(0);
 
-});
+onMounted(() => {
 
+    setInterval(() => {
+        $.ajax({
+            url: "http://152.136.154.181:8060/count_finish",
+            type: "GET",
+            success(resp) {
+                task_done.value = parseInt(resp)
+            }
+        })
 
-// 后端获取数据！
+        $.ajax({
+            url: "http://152.136.154.181:8060/count_total",
+            type: "GET",
+            success(resp) {
+                task_all.value = parseInt(resp)
+            }
+        })
+    }, 1000)
+})
 
 let todo_portion = computed(() => {
-    if (props.task_done === 0 || props.task_all === 0) {
+    if (task_all.value === 0) {
+        return 100;
+    }
+    else if (task_done.value === 0) {
         return 0;
     }
     else {
-        return (props.task_done / props.task_all).toFixed(2) * 100;
+        return parseInt((task_done.value / task_all.value).toFixed(2) * 100);
     }
 });
-
-
 
 const today_weather_city = ref("");
 const today_weather_forecast = ref({});
 const today_week = ref("")
-
-
 const date = new Date();
 const today_date = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
-
 
 $.ajax({
     type: 'GET',
@@ -128,5 +131,15 @@ $.ajax({
 
 .demo-progress .el-progress--circle {
     margin-right: 15px;
+}
+
+.router-link-active {
+    text-decoration: none;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
 }
 </style>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import calenderView from '../views/CalenderView.vue'
 
 const routes = [
   {
@@ -7,6 +8,11 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  {
+    path: '/calender/',
+    name: 'calender',
+    component: calenderView
+  }
 
 ]
 

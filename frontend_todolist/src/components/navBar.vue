@@ -1,5 +1,4 @@
 <template>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid ">
             <a target="_blank" class="navbar-brand " href="https://github.com/Zzzz0zzzZ/todolist-demo">
@@ -21,16 +20,35 @@
 
             </div>
         </div>
+        <router-link :to="{ name: 'home' }" class="router-link-active ">
+            <div class="font-title aaa home-style">
+                Home
+            </div>
+        </router-link>
     </nav>
 </template>
-
 
 <script setup></script>
 
 <style scoped>
+.home-style {
+    text-decoration: underline;
+}
+
+.aaa {
+    cursor: pointer;
+    font-size: large;
+    margin-right: 25px;
+}
+
 .user-photo {
     border-radius: 50%;
     line-height: 50%;
+}
+
+.router-link-active {
+    text-decoration: none;
+    color: black;
 }
 
 .img-adj {
