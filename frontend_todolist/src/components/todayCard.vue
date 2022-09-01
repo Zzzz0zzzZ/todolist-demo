@@ -35,36 +35,30 @@ import { computed } from '@vue/reactivity';
 import $ from 'jquery';
 import { ref } from 'vue';
 
+const props = defineProps({
+    task_all: {
+        type: Number,
+        required: true,
+    },
+    task_done: {
+        type: Number,
+        required: true,
+    },
+
+});
+
 
 // 后端获取数据！
-const task_done = ref('');
-const task_all = ref('');
+
 let todo_portion = computed(() => {
-    if (task_done.value === 0 || task_all.value === 0) {
+    if (props.task_done === 0 || props.task_all === 0) {
         return 0;
     }
     else {
-        return (task_done.value / task_all.value).toFixed(2) * 100;
+        return (props.task_done / props.task_all).toFixed(2) * 100;
     }
 });
 
-$.ajax({
-    url: "http://152.136.154.181:8060/count_finish",
-    type: "GET",
-    success(resp) {
-        task_done.value = parseInt(resp)
-
-    }
-})
-
-$.ajax({
-    url: "http://152.136.154.181:8060/count_total",
-    type: "GET",
-    success(resp) {
-        task_all.value = parseInt(resp)
-
-    }
-})
 
 
 const today_weather_city = ref("");

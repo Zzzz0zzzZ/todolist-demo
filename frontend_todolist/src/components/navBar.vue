@@ -1,8 +1,12 @@
 <template>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">To-Do List</a>
+        <div class="container-fluid ">
+            <a target="_blank" class="navbar-brand " href="https://github.com/Zzzz0zzzZ/todolist-demo">
+                <div class="font-title">
+                    To-Do List
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -36,5 +40,21 @@
 
 .adj-where {
     text-align: right;
+}
+
+.font-title {
+
+    font-family: "站酷酷黑 Regular";
+    font-weight: bolder;
+    src: url("//at.alicdn.com/wf/webfont/thn1lMFJ8K4a/CBopGTQxjP2mk9OlxDMGZ.woff2") format("woff2"),
+        url("//at.alicdn.com/wf/webfont/thn1lMFJ8K4a/QP6dA6oMVAoUu_UG5Cc73.woff") format("woff");
+    font-display: swap;
+}
+
+.font-title:hover {
+    text-shadow: 0px 0px 10px grey;
+    /* text-decoration: underline; */
+    font-size: larger;
+    transition: 0.3s;
 }
 </style>

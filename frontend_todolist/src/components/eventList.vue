@@ -17,7 +17,8 @@
                                 <div class="row">
                                     <div class="col-1">
 
-                                        <el-button type="success" :icon="Check" circle />
+                                        <el-button type="success" :icon="Check" @click="complete_a_todo(content)"
+                                            circle />
 
                                     </div>
                                     <div class="col-10">{{ content.content }}</div>
@@ -48,15 +49,16 @@ import $ from 'jquery';
 
 export default {
     name: "EventList",
-    setup() {
+    setup(context) {
         const content_list = reactive({});
 
         $.ajax({
             url: "http://152.136.154.181:8060/todos",
+            // url: "https://console-mock.apipost.cn/app/mock/project/b981c44b-3b55-4dcf-875e-f806c0bd3a83//todos",
             type: "GET",
             success(resp) {
-                // console.log(resp);
                 content_list.value = JSON.parse(resp);
+
             }
         });
 
@@ -68,9 +70,16 @@ export default {
                 data: JSON.stringify(toRaw(content)),
                 success(resp) {
                     console.log(resp);
+                    context.emit('change_ta')
                     content.status = 1;
                 }
             })
+        }
+
+        let complete_a_todo = (content) => {
+            console.log(content.status);
+            context.emit('change_td')
+            content.status = 1
         }
 
         return {
@@ -78,6 +87,7 @@ export default {
             Delete,
             Edit,
             delete_a_todo,
+            complete_a_todo,
             content_list
         }
     }
