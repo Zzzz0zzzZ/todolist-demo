@@ -19,8 +19,6 @@
     </div>
 </template>
 
-<script setup></script>
-
 <style scoped>
 .mar {
     margin-top: 5px;

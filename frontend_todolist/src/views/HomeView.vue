@@ -39,21 +39,11 @@
   </div>
 </template>
 
-<script>
-import TodayCard from "../components/todayCard.vue";
-import NavBar from "@/components/navBar.vue";
-import EventList from "@/components/eventList.vue";
-import CheckCalender from "@/components/checkCalender.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    TodayCard,
-    NavBar,
-    EventList,
-    CheckCalender,
-  },
-}
+<script setup>
+import TodayCard from "../components/todayCard.vue"
+import NavBar from "@/components/navBar.vue"
+import EventList from "@/components/eventList.vue"
+import CheckCalender from "@/components/checkCalender.vue"
 </script>
 
 <style scoped>

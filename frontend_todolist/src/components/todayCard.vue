@@ -27,27 +27,23 @@
 </template>
 
 <script setup>
-import { computed } from '@vue/reactivity';
-import $ from 'jquery';
-import { ref, onMounted } from 'vue';
-import { countStore } from '@/stores/countStore';
-import { storeToRefs } from 'pinia';
+import { computed } from '@vue/reactivity'
+import $ from 'jquery'
+import { ref, onMounted } from 'vue'
+import { countStore } from '@/stores/countStore'
+import { storeToRefs } from 'pinia'
 
-let store = countStore();
-const { count_total, count_finish } = storeToRefs(store);
-// console.log(count_total);
-store.updateCount();
+let store = countStore()
+const { count_total, count_finish } = storeToRefs(store)
+store.updateCount()
 const portT = ref()
 
 onMounted(() => {
     setInterval(() => {
         store = countStore()
-        store.updateCount();
-        // console.log("getStoreCount", store.count_finish, store.count_total);
+        store.updateCount()
         portT.value = store.getPortion
-        // console.log("portion_display", portT.value, "%");
     }, 1000 * 60 * 60 * 24)
-
 })
 
 $.ajax({
@@ -68,40 +64,38 @@ $.ajax({
 
 let todo_portion = computed(() => {
     if (count_total.value === 0) {
-        return 100;
+        return 100
     }
     else if (count_finish.value === 0) {
-        return 0;
+        return 0
     }
     else {
-        return parseInt((count_finish.value / count_total.value).toFixed(2) * 100);
+        return parseInt((count_finish.value / count_total.value).toFixed(2) * 100)
     }
-});
+})
 
-const today_weather_city = ref("");
-const today_weather_forecast = ref({});
-const today_week = ref("")
-const date = new Date();
-const today_date = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
+const today_weather_city = ref('')
+const today_weather_forecast = ref({})
+const today_week = ref('')
+const date = new Date()
+const today_date = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日'
 
 $.ajax({
     type: 'GET',
     url: 'http://wthrcdn.etouch.cn/weather_mini?city=北京',
     dataType: 'JSON',
     error: function () {
-        alert('网络错误');
+        alert('网络错误')
     },
     success: function (res) {
-        today_weather_city.value = res.data.city;
-        today_weather_forecast.value = res.data.forecast[0];
-        today_week.value = res.data.forecast[0].date;
+        today_weather_city.value = res.data.city
+        today_weather_forecast.value = res.data.forecast[0]
+        today_week.value = res.data.forecast[0].date
         let lenn = today_week.value.length
         today_week.value = today_week.value.substring(lenn - 3, lenn)
 
     }
-});
-
-
+})
 </script>
 
 <style scoped>

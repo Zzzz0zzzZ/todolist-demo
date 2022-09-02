@@ -35,107 +35,79 @@
     </div>
 </template>
 
-<script >
-import { Check, Delete, Edit } from '@element-plus/icons-vue';
+<script setup>
+import { Check, Delete } from '@element-plus/icons-vue';
 import { reactive, toRaw } from 'vue';
 import $ from 'jquery';
 import editAreaVue from './editArea.vue';
 import { countStore } from '@/stores/countStore';
 
-export default {
-    name: "EventList",
-    components: {
-        editAreaVue,
-    },
-    setup() {
-        const content_list = reactive([]);
-        const store = countStore();
-        const addTodo = (todoObj) => {
+const content_list = reactive([]);
+const store = countStore();
+const addTodo = (todoObj) => {
+    $.ajax({
+        url: "http://152.136.154.181:8060/add",
+        type: "POST",
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify({
+            "userid": 1,
+            "content": todoObj.content
+        }),
+        success() {
+            content_list.value.unshift(todoObj)
             $.ajax({
-                url: "http://152.136.154.181:8060/add",
-                type: "POST",
-                contentType: 'application/json; charset=UTF-8',
-                data: JSON.stringify({
-                    "userid": 1,
-                    "content": todoObj.content
-                }),
+                url: "http://152.136.154.181:8060/todos",
+                type: "GET",
                 success(resp) {
-                    console.log(resp);
-                    content_list.value.unshift(todoObj)
-                    $.ajax({
-                        url: "http://152.136.154.181:8060/todos",
-                        type: "GET",
-                        success(resp) {
-                            content_list.value = JSON.parse(resp);
-                            content_list.value = content_list.value.reverse();
-                            store.updateCount()
-                        }
-                    });
-                }
-            })
-        }
-
-        $.ajax({
-            url: "http://152.136.154.181:8060/todos",
-            type: "GET",
-            success(resp) {
-                content_list.value = JSON.parse(resp);
-                content_list.value = content_list.value.reverse();
-            }
-        });
-
-        let delete_a_todo = (content) => {
-            $.ajax({
-                url: "http://152.136.154.181:8060/delete",
-                type: "POST",
-                contentType: 'application/json; charset=UTF-8',
-                data: JSON.stringify(toRaw(content)),
-                success(resp) {
-                    console.log(resp);
-                    content.status = 1;
+                    content_list.value = JSON.parse(resp);
+                    content_list.value = content_list.value.reverse();
                     store.updateCount()
                 }
-            })
+            });
         }
-
-        let complete_a_todo = (content) => {
-            let content_ori = toRaw(content);
-            $.ajax({
-                url: "http://152.136.154.181:8060/update",
-                type: "POST",
-                contentType: 'application/json; charset=UTF-8',
-                data: JSON.stringify({
-                    id: content_ori.id,
-                    userid: content_ori.userid,
-                    content: content_ori.content,
-                    status: 1
-                }),
-                success(resp) {
-                    console.log(resp);
-                    content.status = 1;
-                    store.updateCount()
-                }
-            })
-        }
-
-        return {
-            store,
-            Check,
-            Delete,
-            Edit,
-            delete_a_todo,
-            complete_a_todo,
-            content_list,
-            addTodo,
-        }
-    }
+    })
 }
 
+$.ajax({
+    url: "http://152.136.154.181:8060/todos",
+    type: "GET",
+    success(resp) {
+        content_list.value = JSON.parse(resp);
+        content_list.value = content_list.value.reverse();
+    }
+})
 
+let delete_a_todo = (content) => {
+    $.ajax({
+        url: "http://152.136.154.181:8060/delete",
+        type: "POST",
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(toRaw(content)),
+        success() {
+            content.status = 1;
+            store.updateCount()
+        }
+    })
+}
 
-
-
-
+let complete_a_todo = (content) => {
+    let content_ori = toRaw(content);
+    $.ajax({
+        url: "http://152.136.154.181:8060/update",
+        type: "POST",
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify({
+            id: content_ori.id,
+            userid: content_ori.userid,
+            content: content_ori.content,
+            status: 1
+        }),
+        success() {
+            content.status = 1;
+            store.updateCount()
+        }
+    })
+}
 </script>
 
 <style scoped>

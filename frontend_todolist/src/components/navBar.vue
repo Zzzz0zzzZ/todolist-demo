@@ -27,8 +27,6 @@
     </nav>
 </template>
 
-<script setup></script>
-
 <style scoped>
 .home-style {
     text-decoration: underline;
