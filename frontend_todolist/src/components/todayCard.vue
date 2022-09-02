@@ -35,24 +35,17 @@ import { storeToRefs } from 'pinia';
 
 let store = countStore();
 const { count_total, count_finish } = storeToRefs(store);
-console.log(count_total);
+// console.log(count_total);
 store.updateCount();
-
 const portT = ref()
-// setInterval(() => {
-//     store = countStore()
-//     store.updateCount();
-//     console.log("getStoreCount", store.count_finish, store.count_total);
-//     portT.value = store.getPortion
-//     console.log("portion_display", portT.value, "%");
-// }, 1000)
+
 onMounted(() => {
     setInterval(() => {
         store = countStore()
         store.updateCount();
-        console.log("getStoreCount", store.count_finish, store.count_total);
+        // console.log("getStoreCount", store.count_finish, store.count_total);
         portT.value = store.getPortion
-        console.log("portion_display", portT.value, "%");
+        // console.log("portion_display", portT.value, "%");
     }, 1000)
 
 })
@@ -72,29 +65,8 @@ $.ajax({
         count_total.value = parseInt(resp)
     }
 })
-// onMounted(() => {
-
-//     setInterval(() => {
-//         $.ajax({
-//             url: "http://152.136.154.181:8060/count_finish",
-//             type: "GET",
-//             success(resp) {
-//                 task_done.value = parseInt(resp)
-//             }
-//         })
-
-//         $.ajax({
-//             url: "http://152.136.154.181:8060/count_total",
-//             type: "GET",
-//             success(resp) {
-//                 task_all.value = parseInt(resp)
-//             }
-//         })
-//     }, 60 * 60 * 1000)
-// })
 
 let todo_portion = computed(() => {
-
     if (count_total.value === 0) {
         return 100;
     }

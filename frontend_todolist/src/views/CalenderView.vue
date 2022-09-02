@@ -1,5 +1,4 @@
 <template>
-    <!-- 要给外层div指定合适的宽度 -->
     <div class="container">
         <div class="card card-height">
             <div class="card-header">
@@ -21,14 +20,12 @@
                     </div>
                     <div class="col-1"></div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
 </template>
-    <script setup>
+
+<script setup>
 import { ref } from "vue";
 import NavBar from "@/components/navBar.vue";
 //date改变触发事件
@@ -38,12 +35,13 @@ const change = (obj) => {
 const date = ref("") //设置日期，若不设置，则默认为今天
 const range = [2002, 2102] //设置年份范围 默认[2010,2030]
 </script>
-    <style scoped>
-    .card-height {
-        height: 800px;
-    }
-    
-    .title-adj {
-        font-size: 50px;
-    }
-    </style>
+
+<style scoped>
+.card-height {
+    height: 800px;
+}
+
+.title-adj {
+    font-size: 50px;
+}
+</style>

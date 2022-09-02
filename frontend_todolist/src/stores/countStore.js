@@ -17,7 +17,7 @@ export const countStore = defineStore('countStore', {
                 type: "GET",
                 success(resp) {
                     this.count_finish = parseInt(resp)
-                    console.log("updateCount_finish", this.count_finish);
+                    // console.log("updateCount_finish", this.count_finish);
                 }
             })
             $.ajax({
@@ -25,7 +25,7 @@ export const countStore = defineStore('countStore', {
                 type: "GET",
                 success(resp) {
                     this.count_total = parseInt(resp)
-                    console.log("updateCount_total", this.count_total);
+                    // console.log("updateCount_total", this.count_total);
                 }
             })
         }
@@ -33,7 +33,7 @@ export const countStore = defineStore('countStore', {
     // 相当于 computed 调用时可直接当作属性
     getters: {
         getPortion(state) {
-            console.log("getPortion_func called", state.count_finish, state.count_total);
+            // console.log("getPortion_func called", state.count_finish, state.count_total);
             if (state.count_total === 0) {
                 return 100;
             }

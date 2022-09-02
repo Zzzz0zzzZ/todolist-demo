@@ -76,10 +76,8 @@ export default {
                             console.log("aaa", a);
                         }
                     });
-
                 }
             })
-
         }
 
         $.ajax({
@@ -88,7 +86,6 @@ export default {
             success(resp) {
                 content_list.value = JSON.parse(resp);
                 content_list.value = content_list.value.reverse();
-                // console.log(content_list.value);
             }
         });
 
@@ -102,7 +99,6 @@ export default {
                 success(resp) {
                     console.log(resp);
                     content.status = 1;
-                    // content_list.value = content_list.value.filter(ct => ct.id != content.id)
                     store.updateCount()
                 }
             })
@@ -123,7 +119,6 @@ export default {
                 success(resp) {
                     console.log(resp);
                     content.status = 1;
-                    // content_list.value = content_list.value.filter(ct => ct.id != content.id)
                     store.updateCount()
                 }
             })

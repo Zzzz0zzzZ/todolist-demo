@@ -13,7 +13,6 @@ const routes = [
     name: 'calender',
     component: calenderView
   }
-
 ]
 
 const router = createRouter({

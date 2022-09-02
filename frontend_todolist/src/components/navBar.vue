@@ -17,7 +17,6 @@
                         <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="">
                     </li>
                 </ul>
-
             </div>
         </div>
         <router-link :to="{ name: 'home' }" class="router-link-active ">

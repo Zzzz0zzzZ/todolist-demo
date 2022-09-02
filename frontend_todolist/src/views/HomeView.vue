@@ -1,5 +1,4 @@
 <template>
-
   <div class="container">
     <div class="card card-adjust-size ">
       <div class="card-header">
@@ -8,7 +7,6 @@
         </div>
       </div>
       <div class="card-body">
-
         <div class="row">
           <div class="col-9">
             <EventList />
@@ -30,32 +28,22 @@
             <span>@contributers:&nbsp;&nbsp;&nbsp;</span>
             <img src="@/assets/user_photo.png" class="adj-footer-img">
             <a target="_blank" href="https://github.com/Zzzz0zzzZ" class="adj-link-style">Zzzz0zzzZ</a>
-
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <img src="@/assets/user_photo_2.png" class="adj-footer-img">
             <a target="_blank" href="https://github.com/teashirtt" class="adj-link-style">teashirtt</a>
-
             <div class="col-4"></div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
 </template>
-
 
 <script>
 import TodayCard from "../components/todayCard.vue";
 import NavBar from "@/components/navBar.vue";
 import EventList from "@/components/eventList.vue";
 import CheckCalender from "@/components/checkCalender.vue";
-
-
-// @ is an alias to /src
-
-
 
 export default {
   name: "HomeView",
@@ -65,7 +53,6 @@ export default {
     EventList,
     CheckCalender,
   },
-
 }
 </script>
 
@@ -83,8 +70,6 @@ export default {
 .div-head {
   background-color: black;
 }
-
-
 
 .div-footer {
   background-color: black;

@@ -8,19 +8,15 @@
                             <button type="button" class="btn btn-outline-primary">查看日历</button>
                         </router-link>
                     </div>
-
-
                     <div class="col">
                         <a target="_blank" href="https://github.com/Zzzz0zzzZ/todolist-demo" class="router-link-active">
                             <button type="button" class="btn btn-outline-secondary">联系作者</button>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup></script>
