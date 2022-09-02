@@ -9,11 +9,11 @@
       <div class="card-body">
         <div class="row">
           <div class="col-9">
-            <EventList />
+            <EventList @change="change" />
           </div>
           <div class="col-3">
             <div class="row">
-              <TodayCard />
+              <TodayCard ref="eventlist" />
             </div>
             <div class="row">
               <CheckCalender />
@@ -44,6 +44,11 @@ import TodayCard from "../components/todayCard.vue"
 import NavBar from "@/components/navBar.vue"
 import EventList from "@/components/eventList.vue"
 import CheckCalender from "@/components/checkCalender.vue"
+import { ref } from "vue"
+const eventlist = ref('')
+const change = () => {
+  eventlist.value.getlist()
+}
 </script>
 
 <style scoped>

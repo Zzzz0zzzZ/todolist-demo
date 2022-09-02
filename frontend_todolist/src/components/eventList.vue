@@ -37,14 +37,16 @@
 
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue';
-import { reactive, toRaw } from 'vue';
+import { reactive, toRaw, defineEmits } from 'vue';
 import $ from 'jquery';
 import editAreaVue from './editArea.vue';
 import { countStore } from '@/stores/countStore';
 
 const content_list = reactive([]);
 const store = countStore();
+const emit = defineEmits(['change'])
 const addTodo = (todoObj) => {
+    emit('change')
     $.ajax({
         url: "http://152.136.154.181:8060/add",
         type: "POST",
@@ -78,6 +80,7 @@ $.ajax({
 })
 
 let delete_a_todo = (content) => {
+    emit('change')
     $.ajax({
         url: "http://152.136.154.181:8060/delete",
         type: "POST",
@@ -91,6 +94,7 @@ let delete_a_todo = (content) => {
 }
 
 let complete_a_todo = (content) => {
+    emit('change')
     let content_ori = toRaw(content);
     $.ajax({
         url: "http://152.136.154.181:8060/update",

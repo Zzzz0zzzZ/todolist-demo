@@ -27,40 +27,66 @@
 </template>
 
 <script setup>
-import { computed } from '@vue/reactivity'
 import $ from 'jquery'
-import { ref, onMounted } from 'vue'
-import { countStore } from '@/stores/countStore'
-import { storeToRefs } from 'pinia'
+import { ref, defineExpose } from 'vue'
+import { computed } from '@vue/reactivity';
+// import { onMounted } from 'vue'
+// import { countStore } from '@/stores/countStore'
 
-let store = countStore()
-const { count_total, count_finish } = storeToRefs(store)
-store.updateCount()
-const portT = ref()
+// let store = countStore()
+// onMounted(() => {
 
-onMounted(() => {
-    setInterval(() => {
-        store = countStore()
-        store.updateCount()
-        portT.value = store.getPortion
-    }, 1000 * 60 * 60 * 24)
-})
+//     async function func() {
+//         await store.updateCount()
+//         await console.log(store.count_total, store.count_finish)
+//         await console.log(store.count_total)
 
-$.ajax({
-    url: "http://152.136.154.181:8060/count_finish",
-    type: "GET",
-    success(resp) {
-        count_finish.value = parseInt(resp)
-    }
-})
 
-$.ajax({
-    url: "http://152.136.154.181:8060/count_total",
-    type: "GET",
-    success(resp) {
-        count_total.value = parseInt(resp)
-    }
-})
+//     }func()
+// })
+
+
+
+
+// async function func() {
+//     await console.log(store.count_total.value, store.count_finish.value);
+//     await console.log(store.count_total);
+// }
+// func()
+
+// watch(store.count_total, (newx, oldx) => {
+//     console.log("new: ", newx);
+//     console.log("old: ", oldx);
+// })
+// onMounted(() => {
+//     setInterval(() => {
+//         store = countStore()
+//         store.updateCount()
+//         portT.value = store.getPortion
+//     }, 1000 * 60 * 60 * 24)
+// })
+const count_total = ref('')
+const count_finish = ref('')
+getdata()
+const getlist = () => {
+    getdata()
+}
+async function getdata() {
+    await $.ajax({
+        url: "http://152.136.154.181:8060/count_finish",
+        type: "GET",
+        success(resp) {
+            count_finish.value = parseInt(resp)
+        }
+    })
+    await $.ajax({
+        url: "http://152.136.154.181:8060/count_total",
+        type: "GET",
+        success(resp) {
+            count_total.value = parseInt(resp)
+        }
+    })
+}
 
 let todo_portion = computed(() => {
     if (count_total.value === 0) {
@@ -95,6 +121,9 @@ $.ajax({
         today_week.value = today_week.value.substring(lenn - 3, lenn)
 
     }
+})
+defineExpose({
+    getlist
 })
 </script>
 
