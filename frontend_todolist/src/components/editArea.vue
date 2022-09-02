@@ -19,7 +19,6 @@ export default {
     methods: {
         add() {
             const todoObj = { id: nanoid(), content: this.title, status: 0 }  //按下回车生成数据
-            console.log(todoObj);
             this.addTodo(todoObj)   //把生成的数据作为参数传递给addTodo
             this.title = ''  //清空input表单
         }

@@ -41,7 +41,6 @@ import { reactive, toRaw } from 'vue';
 import $ from 'jquery';
 import editAreaVue from './editArea.vue';
 import { countStore } from '@/stores/countStore';
-import { storeToRefs } from 'pinia';
 
 export default {
     name: "EventList",
@@ -51,7 +50,6 @@ export default {
     setup() {
         const content_list = reactive([]);
         const store = countStore();
-        const { count_total, count_finish } = storeToRefs(store);
         const addTodo = (todoObj) => {
             $.ajax({
                 url: "http://152.136.154.181:8060/add",
@@ -71,9 +69,6 @@ export default {
                             content_list.value = JSON.parse(resp);
                             content_list.value = content_list.value.reverse();
                             store.updateCount()
-                            console.log(count_total.value, count_finish.value);
-                            let a = store.getPortion
-                            console.log("aaa", a);
                         }
                     });
                 }
@@ -90,7 +85,6 @@ export default {
         });
 
         let delete_a_todo = (content) => {
-            console.log(toRaw(content));
             $.ajax({
                 url: "http://152.136.154.181:8060/delete",
                 type: "POST",

@@ -46,7 +46,7 @@ onMounted(() => {
         // console.log("getStoreCount", store.count_finish, store.count_total);
         portT.value = store.getPortion
         // console.log("portion_display", portT.value, "%");
-    }, 1000)
+    }, 1000 * 60 * 60 * 24)
 
 })
 
