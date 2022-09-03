@@ -36,17 +36,27 @@
 </template>
 
 <script setup>
-import { Check, Delete } from '@element-plus/icons-vue';
-import { reactive, toRaw, defineEmits } from 'vue';
-import $ from 'jquery';
-import editAreaVue from './editArea.vue';
-import { countStore } from '@/stores/countStore';
+import { Check, Delete } from '@element-plus/icons-vue'
+import { reactive, toRaw, defineEmits } from 'vue'
+import $ from 'jquery'
+import editAreaVue from './editArea.vue'
+import { countStore } from '@/stores/countStore'
 
-const content_list = reactive([]);
-const store = countStore();
+const content_list = reactive([])
+const store = countStore()
 const emit = defineEmits(['change'])
+
+$.ajax({
+    url: "http://152.136.154.181:8060/todos",
+    type: "GET",
+    success(resp) {
+        content_list.value = JSON.parse(resp)
+        content_list.value = content_list.value.reverse()
+    }
+})
+
 const addTodo = (todoObj) => {
-    emit('change')
+    
     $.ajax({
         url: "http://152.136.154.181:8060/add",
         type: "POST",
@@ -61,41 +71,34 @@ const addTodo = (todoObj) => {
                 url: "http://152.136.154.181:8060/todos",
                 type: "GET",
                 success(resp) {
-                    content_list.value = JSON.parse(resp);
-                    content_list.value = content_list.value.reverse();
+                    content_list.value = JSON.parse(resp)
+                    content_list.value = content_list.value.reverse()
                     store.updateCount()
+                    emit('change')
                 }
             });
         }
     })
 }
 
-$.ajax({
-    url: "http://152.136.154.181:8060/todos",
-    type: "GET",
-    success(resp) {
-        content_list.value = JSON.parse(resp);
-        content_list.value = content_list.value.reverse();
-    }
-})
 
 let delete_a_todo = (content) => {
-    emit('change')
+    
     $.ajax({
         url: "http://152.136.154.181:8060/delete",
         type: "POST",
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify(toRaw(content)),
         success() {
-            content.status = 1;
+            content.status = 1
             store.updateCount()
+            emit('change')
         }
     })
 }
 
 let complete_a_todo = (content) => {
-    emit('change')
-    let content_ori = toRaw(content);
+    let content_ori = toRaw(content)
     $.ajax({
         url: "http://152.136.154.181:8060/update",
         type: "POST",
@@ -107,8 +110,9 @@ let complete_a_todo = (content) => {
             status: 1
         }),
         success() {
-            content.status = 1;
+            content.status = 1
             store.updateCount()
+            emit('change')
         }
     })
 }

@@ -29,42 +29,8 @@
 <script setup>
 import $ from 'jquery'
 import { ref, defineExpose } from 'vue'
-import { computed } from '@vue/reactivity';
-// import { onMounted } from 'vue'
-// import { countStore } from '@/stores/countStore'
+import { computed } from '@vue/reactivity'
 
-// let store = countStore()
-// onMounted(() => {
-
-//     async function func() {
-//         await store.updateCount()
-//         await console.log(store.count_total, store.count_finish)
-//         await console.log(store.count_total)
-
-
-//     }func()
-// })
-
-
-
-
-// async function func() {
-//     await console.log(store.count_total.value, store.count_finish.value);
-//     await console.log(store.count_total);
-// }
-// func()
-
-// watch(store.count_total, (newx, oldx) => {
-//     console.log("new: ", newx);
-//     console.log("old: ", oldx);
-// })
-// onMounted(() => {
-//     setInterval(() => {
-//         store = countStore()
-//         store.updateCount()
-//         portT.value = store.getPortion
-//     }, 1000 * 60 * 60 * 24)
-// })
 const count_total = ref('')
 const count_finish = ref('')
 getdata()
