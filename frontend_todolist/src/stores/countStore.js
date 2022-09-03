@@ -1,6 +1,5 @@
 import { defineStore } from "pinia"
-import $ from 'jquery'
-
+import axios from 'axios'
 export const countStore = defineStore('countStore', {
     state: () => {
         return {
@@ -10,19 +9,17 @@ export const countStore = defineStore('countStore', {
     },
     actions: {
         updateCount() {
-            $.ajax({
+            axios({
+                method: "GET",
                 url: "http://152.136.154.181:8060/count_finish",
-                type: "GET",
-                success(resp) {
-                    this.count_finish = parseInt(resp)
-                }
+            }).then(res => {
+                this.count_finish = parseInt(res.data)
             })
-            $.ajax({
+            axios({
+                method: "GET",
                 url: "http://152.136.154.181:8060/count_total",
-                type: "GET",
-                success(resp) {
-                    this.count_total = parseInt(resp)
-                }
+            }).then(res => {
+                this.count_total = parseInt(res.data)
             })
         }
     },

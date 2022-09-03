@@ -4,12 +4,12 @@ import calenderView from '../views/CalenderView.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/todo/',
     name: 'home',
     component: HomeView
   },
   {
-    path: '/calender/',
+    path: '/todo/calender/',
     name: 'calender',
     component: calenderView
   }

@@ -5,13 +5,13 @@
                 <h5 class="card-title">Today</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ today_date }} {{ today_week }}</h6>
                 <div class="today-info-body">
-                    <el-progress type="dashboard" :percentage="todo_portion" v-if="todo_portion < 100">
+                    <el-progress type="dashboard" :percentage="store.getPortion" v-if="store.getPortion < 100">
                         <template #default="{ percentage }">
                             <span class="percentage-value">{{ percentage }}%</span>
                             <span class="percentage-label">今日待办</span>
                         </template>
                     </el-progress>
-                    <el-progress type="dashboard" :percentage="todo_portion" status="success" v-else>
+                    <el-progress type="dashboard" :percentage="store.getPortion" status="success" v-else>
                         <template #default="{ percentage }">
                             <span class="percentage-value">{{ percentage }}%</span>
                             <span class="percentage-label">今日待办</span>
@@ -27,52 +27,12 @@
 </template>
 
 <script setup>
-import { computed } from '@vue/reactivity'
 import $ from 'jquery'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { countStore } from '@/stores/countStore'
-import { storeToRefs } from 'pinia'
 
 let store = countStore()
-const { count_total, count_finish } = storeToRefs(store)
 store.updateCount()
-const portT = ref()
-
-onMounted(() => {
-    setInterval(() => {
-        store = countStore()
-        store.updateCount()
-        portT.value = store.getPortion
-    }, 1000 * 60 * 60 * 24)
-})
-
-$.ajax({
-    url: "http://152.136.154.181:8060/count_finish",
-    type: "GET",
-    success(resp) {
-        count_finish.value = parseInt(resp)
-    }
-})
-
-$.ajax({
-    url: "http://152.136.154.181:8060/count_total",
-    type: "GET",
-    success(resp) {
-        count_total.value = parseInt(resp)
-    }
-})
-
-let todo_portion = computed(() => {
-    if (count_total.value === 0) {
-        return 100
-    }
-    else if (count_finish.value === 0) {
-        return 0
-    }
-    else {
-        return parseInt((count_finish.value / count_total.value).toFixed(2) * 100)
-    }
-})
 
 const today_weather_city = ref('')
 const today_weather_forecast = ref({})
@@ -93,7 +53,6 @@ $.ajax({
         today_week.value = res.data.forecast[0].date
         let lenn = today_week.value.length
         today_week.value = today_week.value.substring(lenn - 3, lenn)
-
     }
 })
 </script>

@@ -75,4 +75,3 @@ CREATE TABLE `todolist` (
 PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 ```
-

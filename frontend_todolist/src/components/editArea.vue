@@ -27,7 +27,6 @@ export default {
 </script>
  
 <style scoped>
-/*header*/
 .todo-header input {
     width: 560px;
     height: 28px;
