@@ -19,10 +19,14 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
 
         <span>welcome:{{store.username}}</span>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
         <router-link :to="{ path: `/todo/todolist/${userid}` }" class="router-link-active ">
+=======
+        <router-link :to="{ name: 'home' }" class="router-link-active ">
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
             <div class="font-title aaa home-style">
                 Home
             </div>
@@ -30,12 +34,15 @@
     </nav>
 </template>
 
+<<<<<<< HEAD
 <script setup>
 import { countStore } from '@/stores/countStore'
 const store = countStore()
 const userid = store.userid
 </script>
 
+=======
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
 <style scoped>
 .home-style {
     text-decoration: underline;
@@ -67,6 +74,10 @@ const userid = store.userid
 }
 
 .font-title {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     font-family: "站酷酷黑 Regular";
     font-weight: bolder;
     src: url("//at.alicdn.com/wf/webfont/thn1lMFJ8K4a/CBopGTQxjP2mk9OlxDMGZ.woff2") format("woff2"),
@@ -76,6 +87,10 @@ const userid = store.userid
 
 .font-title:hover {
     text-shadow: 0px 0px 10px grey;
+<<<<<<< HEAD
+=======
+    /* text-decoration: underline; */
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     font-size: larger;
     transition: 0.3s;
 }

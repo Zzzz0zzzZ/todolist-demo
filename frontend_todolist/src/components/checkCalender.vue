@@ -18,6 +18,10 @@
         </div>
     </div>
 </template>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
 <style scoped>
 .mar {
     margin-top: 5px;

@@ -2,9 +2,15 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    下面三项若使用请自行配置
+<<<<<<< HEAD
     url: jdbc:mysql://152.136.154.181:3306/todolist
     username: teashirt
     password: 123456
+=======
+    url:
+    username:
+    password:
+>>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
   main:
     banner-mode: off
 
