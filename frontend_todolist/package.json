@@ -14,11 +14,7 @@
     "core-js": "^3.8.3",
     "element-plus": "^2.2.15",
     "jquery": "^3.6.1",
-<<<<<<< HEAD
     "pinia": "^2.0.22",
-=======
-    "pinia": "^2.0.21",
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     "vue": "^3.2.13",
     "vue-baidu-calendar": "^1.0.8",
     "vue-calendar-component": "^2.8.2",

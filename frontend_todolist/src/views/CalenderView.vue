@@ -3,13 +3,8 @@
         <div class="card card-height">
             <div class="card-header">
                 <div class="row">
-<<<<<<< HEAD
                     <NavBar />
                 </div>
-=======
-                </div>
-                <NavBar />
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
             </div>
             <div class="card-body">
                 <div class="row title-adj">
@@ -19,11 +14,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-<<<<<<< HEAD
-                        <div style="width:700px;margin-top:16px;margin-left:16px">
-=======
                         <div style="width:600px;margin-top:16px;margin-left:16px">
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
                             <baidu-calendar @change="change" :date="date" :range="range" />
                         </div>
                     </div>
@@ -44,29 +35,20 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-            </div>
-=======
         </div>
-
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     </div>
 </template>
 
 <script setup>
 import { ref } from "vue"
 import NavBar from "@/components/navBar.vue"
-const date = ref("")                    //设置日期，若不设置，则默认为今天
+const date = ref('')                    //设置日期，若不设置，则默认为今天
 const range = [2002, 2102]              //设置年份范围 默认[2010,2030]
 </script>
 
 <style scoped>
 .card-height {
-<<<<<<< HEAD
     height: 900px;
-=======
-    height: 800px;
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
 }
 
 .title-adj {
@@ -82,8 +64,4 @@ const range = [2002, 2102]              //设置年份范围 默认[2010,2030]
     text-decoration: none;
     color: gray;
 }
-<<<<<<< HEAD
-</style> 
-=======
 </style>
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026

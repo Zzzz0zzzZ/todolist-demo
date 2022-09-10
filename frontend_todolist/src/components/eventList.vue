@@ -46,7 +46,6 @@ import { reactive, toRaw } from 'vue'
 import $ from 'jquery'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
-<<<<<<< HEAD
 import { useRoute } from 'vue-router'
 const content_list = reactive([])
 const store = countStore()
@@ -54,14 +53,6 @@ const route = useRoute()
 
 $.ajax({
     url: `http://152.136.154.181:8060/todos/${route.params.userid}`,
-=======
-
-const content_list = reactive([])
-const store = countStore()
-
-$.ajax({
-    url: "http://152.136.154.181:8060/todos",
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     type: "GET",
     success(resp) {
         content_list.value = JSON.parse(resp)
@@ -75,21 +66,13 @@ const addTodo = (todoObj) => {
         type: "POST",
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify({
-<<<<<<< HEAD
             "userid": route.params.userid,
-=======
-            "userid": 1,
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
             "content": todoObj.content
         }),
         success() {
             content_list.value.unshift(todoObj)
             $.ajax({
-<<<<<<< HEAD
                 url: `http://152.136.154.181:8060/todos/${route.params.userid}`,
-=======
-                url: "http://152.136.154.181:8060/todos",
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
                 type: "GET",
                 success(resp) {
                     content_list.value = JSON.parse(resp)
@@ -159,10 +142,7 @@ let complete_a_todo = (content) => {
 }
 
 .hover-when-mouse-on:hover {
-<<<<<<< HEAD
     border-radius: 8%;
-=======
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
     box-shadow: 0px 0px 5px grey;
     transition: 0.3s;
 }

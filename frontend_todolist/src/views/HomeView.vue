@@ -44,10 +44,6 @@ import TodayCard from "../components/todayCard.vue"
 import NavBar from "@/components/navBar.vue"
 import EventList from "@/components/eventList.vue"
 import CheckCalender from "@/components/checkCalender.vue"
-<<<<<<< HEAD
-
-=======
->>>>>>> 92346e44a1242d4e91f4a0938f50d67ff2487026
 </script>
 
 <style scoped>
