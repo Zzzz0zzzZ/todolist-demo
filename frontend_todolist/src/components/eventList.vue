@@ -46,13 +46,13 @@ import { reactive, toRaw } from 'vue'
 import $ from 'jquery'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
-import { useRoute } from 'vue-router'
 const content_list = reactive([])
 const store = countStore()
-const route = useRoute()
 
+let userid = parseInt(sessionStorage.getItem("userid"))
+console.log(userid);
 $.ajax({
-    url: `http://152.136.154.181:8060/todos/${route.params.userid}`,
+    url: `http://152.136.154.181:8060/todos/${userid}`,
     type: "GET",
     success(resp) {
         content_list.value = JSON.parse(resp)
@@ -66,13 +66,13 @@ const addTodo = (todoObj) => {
         type: "POST",
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify({
-            "userid": route.params.userid,
+            "userid": userid,
             "content": todoObj.content
         }),
         success() {
             content_list.value.unshift(todoObj)
             $.ajax({
-                url: `http://152.136.154.181:8060/todos/${route.params.userid}`,
+                url: `http://152.136.154.181:8060/todos/${userid}`,
                 type: "GET",
                 success(resp) {
                     content_list.value = JSON.parse(resp)

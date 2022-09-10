@@ -19,7 +19,9 @@
                 </ul>
             </div>
         </div>
-        <span>welcome:{{store.username}}</span>
+        <el-button type="primary" @click="logout">logout</el-button>
+        <el-button type="primary" @click="change_password">更改密码</el-button>
+        <span>welcome:{{username}}</span>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
         <router-link :to="{ path: `/todo/todolist/${userid}` }" class="router-link-active ">
             <div class="font-title aaa home-style">
@@ -31,9 +33,21 @@
 
 
 <script setup>
-import { countStore } from '@/stores/countStore'
-const store = countStore()
-const userid = store.userid
+import { useRouter } from 'vue-router';
+const username = sessionStorage.getItem("username")
+let userid = parseInt(sessionStorage.getItem("userid"))
+
+const router = useRouter()
+const logout = () => {
+    sessionStorage.removeItem("islogin")
+    sessionStorage.removeItem("userid")
+    sessionStorage.removeItem("username")
+    router.push({ name: "login" })
+}
+
+const change_password = () => {
+    router.push({ name: "change_password" })
+}
 </script>
 
 <style scoped>

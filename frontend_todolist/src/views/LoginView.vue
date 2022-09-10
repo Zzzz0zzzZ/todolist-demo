@@ -9,8 +9,8 @@
                     <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" />
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password"
-                        show-password @paste.capture.prevent="handlePaste"/>
+                    <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password" show-password
+                        @paste.capture.prevent="handlePaste" />
                 </el-form-item>
                 <div class="link">
                     <router-link :to="{ path: '/todo/register' }" class="link">没有用户名?请注册</router-link>
@@ -74,15 +74,11 @@ const submit = () => {
                         type: 'error',
                     })
                 } else {
-                    store.login_status = true
-                    store.userid = resp.data.userid
+                    sessionStorage.setItem("islogin", true)
+                    sessionStorage.setItem("userid", resp.data.userid)
+                    sessionStorage.setItem("username", resp.data.username)
                     store.username = resp.data.username
-                    router.push({
-                        name: 'home',
-                        params: {
-                            userid: resp.data.userid
-                        }
-                    })
+                    router.push({ path: `/todo/todolist/${resp.data.userid}` })
                 }
             })
         } else {

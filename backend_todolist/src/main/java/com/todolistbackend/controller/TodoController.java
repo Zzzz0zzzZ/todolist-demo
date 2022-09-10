@@ -2,10 +2,8 @@ package com.todolistbackend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.todolistbackend.entity.User;
-import com.todolistbackend.mapper.TodoMapper;
 import com.todolistbackend.entity.Todo;
-import com.todolistbackend.mapper.UserMapper;
+import com.todolistbackend.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
