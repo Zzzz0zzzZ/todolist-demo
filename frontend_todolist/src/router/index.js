@@ -3,10 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import calenderView from '../views/CalenderView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import pinia from '@/stores/store'
-import { countStore } from '@/stores/countStore'
-
-const store = countStore(pinia)
+import ChangePasswordView from '../views/ChangePasswordView'
 
 const routes = [
   {
@@ -28,6 +25,11 @@ const routes = [
     path: '/todo/register/',
     name: 'register',
     component: RegisterView
+  },
+  {
+    path: '/todo/change_password/',
+    name: 'change_password',
+    component: ChangePasswordView
   }
 ]
 
@@ -37,9 +39,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/todo/register' && to.path !== '/todo/login' && store.login_status === false) {
-    store.login_retry = true
-    if (to.path === '/todo/register') {
+  if (to.path !== '/todo/register' && to.path !== '/todo/login') {
+    if (sessionStorage.getItem("islogin") === "true") {
+      next()
+    } else if (to.path === '/todo/register') {
       next('/todo/register')
     } else {
       next('/todo/login')

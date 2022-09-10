@@ -44,6 +44,9 @@ import TodayCard from "../components/todayCard.vue"
 import NavBar from "@/components/navBar.vue"
 import EventList from "@/components/eventList.vue"
 import CheckCalender from "@/components/checkCalender.vue"
+import { countStore } from '@/stores/countStore'
+let store = countStore()
+store.updateCount()
 </script>
 
 <style scoped>
