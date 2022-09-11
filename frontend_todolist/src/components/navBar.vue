@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid ">
+        <div class="container-fluid">
             <a target="_blank" class="navbar-brand " href="https://github.com/Zzzz0zzzZ/todolist-demo">
                 <div class="font-title">
                     To-Do List
@@ -20,13 +20,13 @@
             </div>
         </div>
         <router-link :to="{ path: `/todo/todolist/${userid}` }" class="router-link-active ">
-            <div class="font-title aaa home-style">
+            <div class="font-title hometitle home-style">
                 Home
             </div>
         </router-link>
-        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span>&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <div class="userpart">
-            <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="" />
+            <!-- <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="" /> -->
             <el-dropdown>
                 <span class="el-dropdown-link">
                     {{username}}
@@ -71,10 +71,14 @@ const change_password = () => {
     text-decoration: underline;
 }
 
-.aaa {
+.navbar {
+    height: 80px;
+}
+
+.hometitle {
     cursor: pointer;
     font-size: large;
-    margin-right: 25px;
+    margin-right: 12px;
 }
 
 .user-photo {
@@ -126,6 +130,8 @@ const change_password = () => {
 }
 
 .userpart {
-    width: 30%;
+    display: flex;
+    margin-right: 6px;
+    width: auto;
 }
 </style>
