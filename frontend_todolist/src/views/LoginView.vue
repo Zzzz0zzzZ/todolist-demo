@@ -39,10 +39,10 @@ const user = reactive({
 
 const rules = reactive({
     username: [
-        { required: true, message: 'Please input Name', trigger: 'blur' }
+        { required: true, message: '请输入用户名', trigger: 'blur' }
     ],
     password: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
+        { required: true, message: '请输入密码', trigger: 'blur' }
     ]
 })
 
@@ -62,7 +62,7 @@ const submit = () => {
                     ElMessage({
                         showClose: true,
                         message: 'Oops, 用户名或密码错误',
-                        type: 'error',
+                        type: 'error'
                     })
                 } else {
                     sessionStorage.setItem("islogin", true)
@@ -76,7 +76,7 @@ const submit = () => {
             ElMessage({
                 showClose: true,
                 message: '用户名和密码不能为空哦',
-                type: 'warning',
+                type: 'warning'
             })
             return false
         }

@@ -12,20 +12,19 @@
                     <el-input placeholder="请输入原密码" :prefix-icon="Lock" class="item" v-model="user.password"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
-                <el-form-item prop="password">
+                <el-form-item prop="new_password">
                     <el-input placeholder="请输入更改密码" :prefix-icon="Lock" class="item" v-model="user.new_password"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input placeholder="请输入更改密码" :prefix-icon="Lock" class="item" v-model="new_password_confirm"
+                    <el-input placeholder="请再次输入更改密码" :prefix-icon="Lock" class="item" v-model="new_password_confirm"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
-                <div class="link">
-
-                    <router-link :to="{ path: `/todo/todolist/${userid}` }" class="link">返回</router-link>
-                </div>
                 <el-form-item>
-                    <el-button type="primary" class="item" @click="submit" @keyup.enter="submit">更改密码</el-button>
+                    <el-button type="info" class="item" @click="return_home">返回</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" class="item" @click="submit">更改密码</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -49,17 +48,14 @@ const user = reactive({
 const new_password_confirm = ref('')
 const rules = reactive({
     username: [
-        { required: true, message: 'Please input Name', trigger: 'blur' }
+        { required: true, message: '请输入用户名', trigger: 'blur' }
     ],
     password: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
+        { required: true, message: '请输入原密码', trigger: 'blur' }
     ],
     new_password: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
-    ],
-    new_password_confirm: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
-    ],
+        { required: true, message: '请输入新密码', trigger: 'blur' }
+    ]
 })
 
 const check = () => {
@@ -67,13 +63,13 @@ const check = () => {
         ElMessage({
             showClose: true,
             message: '密码似乎没变哦',
-            type: 'warning',
+            type: 'warning'
         })
     } else if (new_password_confirm.value !== user.new_password) {
         ElMessage({
             showClose: true,
             message: '两次密码不一致',
-            type: 'error',
+            type: 'error'
         })
         return false
     } else {
@@ -81,8 +77,12 @@ const check = () => {
     }
 }
 
-const form = ref('')
 const router = useRouter()
+const return_home = () => {
+    router.push({ path: `/todo/todolist/${userid}` })
+}
+const form = ref('')
+
 const submit = () => {
     form.value.validate((valid) => {
         if (valid && check()) {
@@ -95,21 +95,28 @@ const submit = () => {
                     ElMessage({
                         showClose: true,
                         message: '用户名或密码错误',
-                        type: 'error',
+                        type: 'error'
                     })
                 } else {
                     ElMessage({
                         showClose: true,
                         message: '更改成功',
-                        type: 'success',
+                        type: 'success'
                     })
                     sessionStorage.removeItem("islogin")
                     router.push({
-                        name: 'login',
+                        name: 'login'
                     })
                 }
             })
         } else {
+            if (!valid) {
+                ElMessage({
+                    showClose: true,
+                    message: '用户名和密码不能为空哦',
+                    type: 'warning',
+                })
+            }
             return false
         }
     })
@@ -122,7 +129,7 @@ const submit = () => {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: saddlebrown;
+    background-color: darkslategrey;
 }
 
 .login-container {
@@ -137,10 +144,5 @@ const submit = () => {
 h2 {
     text-align: center;
     margin-bottom: 15px;
-}
-
-.link {
-    color: indigo;
-    text-align: right;
 }
 </style>

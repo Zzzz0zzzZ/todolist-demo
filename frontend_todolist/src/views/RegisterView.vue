@@ -5,15 +5,16 @@
             <h2 style="color:white">注册</h2>
             <el-form :rules="rules" :model="user" ref="form">
                 <el-form-item prop="username">
-                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" @keyup.enter="submit"/>
+                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username"
+                        @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password"
-                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit"/>
+                    <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password" show-password
+                        @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请再次输入密码" :prefix-icon="Lock" class="item" v-model="password_confirm"
-                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit"/>
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <div class="link">
                     <router-link :to="{ path: '/todo/login' }" class="link">已注册?点此登录</router-link>
@@ -41,14 +42,14 @@ const user = reactive({
 const password_confirm = ref('')
 const rules = reactive({
     username: [
-        { required: true, message: 'Please input Name', trigger: 'blur' }
+        { required: true, message: '请输入用户名', trigger: 'blur' }
     ],
     password: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
+        { required: true, message: '请输入密码', trigger: 'blur' }
     ],
     password_confirm: [
-        { required: true, message: 'Please input Password', trigger: 'blur' }
-    ],
+        { required: true, message: '请确认密码', trigger: 'blur' }
+    ]
 })
 
 const check = () => {
@@ -56,7 +57,7 @@ const check = () => {
         ElMessage({
             showClose: true,
             message: '两次密码不一致',
-            type: 'error',
+            type: 'error'
         })
         return false
     } else {
@@ -78,25 +79,25 @@ const submit = () => {
                     ElMessage({
                         showClose: true,
                         message: '用户名太受欢迎了',
-                        type: 'error',
+                        type: 'error'
                     })
                 } else {
                     ElMessage({
                         showClose: true,
                         message: '注册成功',
-                        type: 'success',
+                        type: 'success'
                     })
-                    router.push({
-                        name: 'login',
-                    })
+                    router.push({ name: 'login' })
                 }
             })
         } else {
-            ElMessage({
-                showClose: true,
-                message: '用户名和密码不能为空哦',
-                type: 'warning',
-            })
+            if (!valid) {
+                ElMessage({
+                    showClose: true,
+                    message: '用户名和密码不能为空哦',
+                    type: 'warning'
+                })
+            }
             return false
         }
     })
@@ -129,6 +130,5 @@ h2 {
 .link {
     color: indigo;
     text-align: right;
-    /* margin-top: px; */
 }
 </style>
