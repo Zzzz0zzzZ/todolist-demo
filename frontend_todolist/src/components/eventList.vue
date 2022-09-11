@@ -43,76 +43,71 @@
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue'
 import { reactive, toRaw } from 'vue'
-import $ from 'jquery'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
+import axios from 'axios'
+
 const content_list = reactive([])
 const store = countStore()
 
 let userid = parseInt(sessionStorage.getItem("userid"))
-console.log("eventlist"+userid);
-$.ajax({
+
+axios({
+    method: "GET",
     url: `http://152.136.154.181:8060/todos/${userid}`,
-    type: "GET",
-    success(resp) {
-        content_list.value = JSON.parse(resp)
-        content_list.value = content_list.value.reverse()
-    }
+}).then(res => {
+    content_list.value = res.data
+    content_list.value = content_list.value.reverse()
 })
 
 const addTodo = (todoObj) => {
-    $.ajax({
+    axios({
         url: "http://152.136.154.181:8060/add",
-        type: "POST",
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify({
+        method: "POST",
+        data: ({
             "userid": userid,
             "content": todoObj.content
-        }),
-        success() {
-            content_list.value.unshift(todoObj)
-            $.ajax({
-                url: `http://152.136.154.181:8060/todos/${userid}`,
-                type: "GET",
-                success(resp) {
-                    content_list.value = JSON.parse(resp)
-                    content_list.value = content_list.value.reverse()
-                    store.updateCount()
-                }
-            })
-        }
+        })
+    }).then(() => {
+        content_list.value.unshift(todoObj)
+        axios({
+            url: `http://152.136.154.181:8060/todos/${userid}`,
+            method: "GET"
+        }).then(res => {
+            content_list.value = res.data
+            content_list.value = content_list.value.reverse()
+            store.updateCount()
+        })
     })
+
 }
 
 let delete_a_todo = (content) => {
-    $.ajax({
+    axios({
         url: "http://152.136.154.181:8060/delete",
-        type: "POST",
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify(toRaw(content)),
-        success() {
-            content.status = 1
-            store.updateCount()
-        }
+        method: "POST",
+        data: toRaw(content)
+    }).then(() => {
+        content.status = 1
+        store.updateCount()
     })
+
 }
 
 let complete_a_todo = (content) => {
     let content_ori = toRaw(content)
-    $.ajax({
+    axios({
         url: "http://152.136.154.181:8060/update",
-        type: "POST",
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify({
+        method: "POST",
+        data: ({
             id: content_ori.id,
             userid: content_ori.userid,
             content: content_ori.content,
             status: 1
-        }),
-        success() {
-            content.status = 1
-            store.updateCount()
-        }
+        })
+    }).then(() => {
+        content.status = 1
+        store.updateCount()
     })
 }
 </script>

@@ -42,6 +42,7 @@
 <script setup>
 import { ref } from "vue"
 import NavBar from "@/components/navBar.vue"
+
 const date = ref('')                    //设置日期，若不设置，则默认为今天
 const range = [2002, 2102]              //设置年份范围 默认[2010,2030]
 </script>

@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-import $ from 'jquery'
 import { ref } from 'vue'
 import { countStore } from '@/stores/countStore'
+import axios from 'axios'
 
 let store = countStore()
 store.updateCount()
@@ -40,20 +40,15 @@ const today_week = ref('')
 const date = new Date()
 const today_date = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日'
 
-$.ajax({
-    type: 'GET',
+axios({
+    method: "GET",
     url: 'http://wthrcdn.etouch.cn/weather_mini?city=北京',
-    dataType: 'JSON',
-    error: function () {
-        alert('网络错误')
-    },
-    success: function (res) {
-        today_weather_city.value = res.data.city
-        today_weather_forecast.value = res.data.forecast[0]
-        today_week.value = res.data.forecast[0].date
-        let lenn = today_week.value.length
-        today_week.value = today_week.value.substring(lenn - 3, lenn)
-    }
+}).then(res => {
+    today_weather_city.value = res.data.data.city
+    today_weather_forecast.value = res.data.data.forecast[0]
+    today_week.value = res.data.data.forecast[0].date
+    let lenn = today_week.value.length
+    today_week.value = today_week.value.substring(lenn - 3, lenn)
 })
 </script>
 
