@@ -76,7 +76,6 @@ const check = () => {
 const form = ref('')
 const router = useRouter()
 const submit = () => {
-    console.log(toRaw(user));
     form.value.validate((valid) => {
         if (valid && check()) {
             axios({
@@ -85,14 +84,12 @@ const submit = () => {
                 data: toRaw(user)
             }).then((resp) => {
                 if (resp.data !== true) {
-                    console.log("false");
                     ElMessage({
                         showClose: true,
                         message: '用户名或密码错误',
                         type: 'error',
                     })
                 } else {
-                    console.log("true");
                     ElMessage({
                         showClose: true,
                         message: '更改成功',

@@ -19,21 +19,36 @@
                 </ul>
             </div>
         </div>
-        <el-button type="primary" @click="logout">logout</el-button>
-        <el-button type="primary" @click="change_password">更改密码</el-button>
-        <span>welcome:{{username}}</span>
-        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
         <router-link :to="{ path: `/todo/todolist/${userid}` }" class="router-link-active ">
             <div class="font-title aaa home-style">
                 Home
             </div>
         </router-link>
+        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <div class="userpart">
+            <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="" />
+            <el-dropdown>
+                <span class="el-dropdown-link">
+                    {{username}}
+                    <el-icon class="el-icon--right">
+                        <arrow-down />
+                    </el-icon>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="change_password">更改密码</el-dropdown-item>
+                        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
     </nav>
 </template>
 
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { ArrowDown } from '@element-plus/icons-vue'
 const username = sessionStorage.getItem("username")
 let userid = parseInt(sessionStorage.getItem("userid"))
 
@@ -92,5 +107,24 @@ const change_password = () => {
     text-shadow: 0px 0px 10px grey;
     font-size: larger;
     transition: 0.3s;
+}
+
+.example-showcase .el-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
+    align-items: center;
+}
+
+.el-dropdown-link {
+    font-size: large;
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.userpart {
+    width: 30%;
 }
 </style>

@@ -50,7 +50,7 @@ const content_list = reactive([])
 const store = countStore()
 
 let userid = parseInt(sessionStorage.getItem("userid"))
-console.log(userid);
+console.log("eventlist"+userid);
 $.ajax({
     url: `http://152.136.154.181:8060/todos/${userid}`,
     type: "GET",
