@@ -1,31 +1,25 @@
 <template>
     <div class="todo-header">
-        <!-- 双向绑定 v-model="title",为了获取用户输入的内容，并当用户输入完毕清空input表单内容，@keyup.enter 绑定键盘事件 -->
-        <input type="text" placeholder="新建待办事项，按回车键确认" v-model="title" @keyup.enter="add" />
+        <input type="text" placeholder="新建待办事项，按回车键确认" v-model="content" @keyup.enter="add" />
     </div>
 </template>
- 
-<script>
-// 引入 nanoid 生成标准化随机的字符串，用于做 Id 
-import { nanoid } from 'nanoid'
-export default {
-    name: 'MyHeader',
-    props: ['addTodo'],  //从App组件那接收来的addTodo方法
-    data() {
-        return {
-            title: ''
-        }
-    },
-    methods: {
-        add() {
-            const todoObj = { id: nanoid(), content: this.title, status: 0 }  //按下回车生成数据
-            this.addTodo(todoObj)   //把生成的数据作为参数传递给addTodo
-            this.title = ''  //清空input表单
-        }
+
+<script setup>
+import { ref, defineProps } from 'vue'
+
+const content = ref('')
+const props = defineProps({
+    addTodo: {
+        type: Object
     }
+})
+const add = () => {
+    const todoObj = { content: content.value }
+    props.addTodo(todoObj)
+    content.value = ''
 }
 </script>
- 
+
 <style scoped>
 .todo-header input {
     width: 560px;

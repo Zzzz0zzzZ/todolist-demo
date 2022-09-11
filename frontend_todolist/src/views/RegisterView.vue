@@ -5,15 +5,15 @@
             <h2 style="color:white">注册</h2>
             <el-form :rules="rules" :model="user" ref="form">
                 <el-form-item prop="username">
-                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" />
+                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" @keyup.enter="submit"/>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password"
-                        show-password @paste.capture.prevent="handlePaste"/>
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit"/>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请再次输入密码" :prefix-icon="Lock" class="item" v-model="password_confirm"
-                        show-password @paste.capture.prevent="handlePaste"/>
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit"/>
                 </el-form-item>
                 <div class="link">
                     <router-link :to="{ path: '/todo/login' }" class="link">已注册?点此登录</router-link>
@@ -29,9 +29,10 @@
 <script setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
 import { reactive, ref, toRaw } from 'vue'
-import axios from 'axios';
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+
 const user = reactive({
     username: '',
     password: ''
@@ -91,7 +92,12 @@ const submit = () => {
                 }
             })
         } else {
-            return false;
+            ElMessage({
+                showClose: true,
+                message: '用户名和密码不能为空哦',
+                type: 'warning',
+            })
+            return false
         }
     })
 }

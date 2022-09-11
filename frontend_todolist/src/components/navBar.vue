@@ -47,12 +47,13 @@
 
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
+
 const username = sessionStorage.getItem("username")
 let userid = parseInt(sessionStorage.getItem("userid"))
-
 const router = useRouter()
+
 const logout = () => {
     sessionStorage.removeItem("islogin")
     sessionStorage.removeItem("userid")

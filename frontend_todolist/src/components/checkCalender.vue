@@ -18,6 +18,7 @@
         </div>
     </div>
 </template>
+
 <style scoped>
 .mar {
     margin-top: 5px;

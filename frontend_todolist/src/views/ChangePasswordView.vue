@@ -5,25 +5,27 @@
             <h2 style="color:white">更改密码</h2>
             <el-form :rules="rules" :model="user" ref="form">
                 <el-form-item prop="username">
-                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" />
+                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username"
+                        @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请输入原密码" :prefix-icon="Lock" class="item" v-model="user.password"
-                        show-password @paste.capture.prevent="handlePaste" />
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请输入更改密码" :prefix-icon="Lock" class="item" v-model="user.new_password"
-                        show-password @paste.capture.prevent="handlePaste" />
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请输入更改密码" :prefix-icon="Lock" class="item" v-model="new_password_confirm"
-                        show-password @paste.capture.prevent="handlePaste" />
+                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <div class="link">
+
                     <router-link :to="{ path: `/todo/todolist/${userid}` }" class="link">返回</router-link>
                 </div>
                 <el-form-item>
-                    <el-button type="primary" class="item" @click="submit">更改密码</el-button>
+                    <el-button type="primary" class="item" @click="submit" @keyup.enter="submit">更改密码</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -33,7 +35,7 @@
 <script setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
 import { reactive, ref, toRaw } from 'vue'
-import axios from 'axios';
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
@@ -61,7 +63,13 @@ const rules = reactive({
 })
 
 const check = () => {
-    if (new_password_confirm.value !== user.new_password) {
+    if (user.new_password === user.password) {
+        ElMessage({
+            showClose: true,
+            message: '密码似乎没变哦',
+            type: 'warning',
+        })
+    } else if (new_password_confirm.value !== user.new_password) {
         ElMessage({
             showClose: true,
             message: '两次密码不一致',
@@ -102,7 +110,7 @@ const submit = () => {
                 }
             })
         } else {
-            return false;
+            return false
         }
     })
 }
@@ -114,7 +122,7 @@ const submit = () => {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: darkolivegreen;
+    background-color: saddlebrown;
 }
 
 .login-container {
@@ -134,6 +142,5 @@ h2 {
 .link {
     color: indigo;
     text-align: right;
-    /* margin-top: px; */
 }
 </style>
