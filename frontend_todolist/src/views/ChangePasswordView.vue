@@ -104,9 +104,7 @@ const submit = () => {
                         type: 'success'
                     })
                     sessionStorage.removeItem("islogin")
-                    router.push({
-                        name: 'login'
-                    })
+                    router.push({ name: 'login' })
                 }
             })
         } else {

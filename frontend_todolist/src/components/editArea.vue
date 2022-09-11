@@ -10,7 +10,8 @@ import { ref, defineProps } from 'vue'
 const content = ref('')
 const props = defineProps({
     addTodo: {
-        type: Object
+        type: Object,
+        required: true
     }
 })
 const add = () => {

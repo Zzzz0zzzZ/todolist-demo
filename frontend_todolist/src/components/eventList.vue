@@ -79,7 +79,6 @@ const addTodo = (todoObj) => {
             store.updateCount()
         })
     })
-
 }
 
 let delete_a_todo = (content) => {
@@ -91,7 +90,6 @@ let delete_a_todo = (content) => {
         content.status = 1
         store.updateCount()
     })
-
 }
 
 let complete_a_todo = (content) => {
