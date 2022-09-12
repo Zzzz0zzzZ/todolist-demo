@@ -33,10 +33,11 @@
 
 <script setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
-import { reactive, ref, toRaw } from 'vue'
+import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { SHA256 } from '../utils/sha256'
 
 let userid = parseInt(sessionStorage.getItem("userid"))
 const user = reactive({
@@ -89,7 +90,11 @@ const submit = () => {
             axios({
                 method: 'post',
                 url: 'http://152.136.154.181:8060/change_password',
-                data: toRaw(user)
+                data: {
+                    "username": user.username,
+                    "password": SHA256(user.password),
+                    "new_password": SHA256(user.new_password)
+                }
             }).then((resp) => {
                 if (resp.data !== true) {
                     ElMessage({

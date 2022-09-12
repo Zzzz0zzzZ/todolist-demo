@@ -3,11 +3,12 @@ package com.todolistbackend.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.todolistbackend.entity.Newuser;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {"*", "null"})
@@ -40,13 +41,13 @@ public class UserContorller {
         }
     }
     @PostMapping("/change_password")
-    public Boolean change_password(@RequestBody Newuser newuser) {
+    public Boolean change_password(@RequestBody Map<String, String> mp) {
         QueryWrapper<User> us = new QueryWrapper<>();
-        us.eq("username", newuser.getUsername()).eq("password", newuser.getPassword());
+        us.eq("username", mp.get("username")).eq("password", mp.get("password"));
         User user = userMapper.selectOne(us);
         if (user != null) {
             UpdateWrapper<User> update_user = new UpdateWrapper<>();
-            update_user.eq("username", newuser.getUsername()).set("password", newuser.getNew_password());
+            update_user.eq("username", mp.get("username")).set("password", mp.get("new_password"));
             userMapper.update(new User(), update_user);
             return true;
         }

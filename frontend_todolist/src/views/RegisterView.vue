@@ -29,10 +29,11 @@
 
 <script setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
-import { reactive, ref, toRaw } from 'vue'
+import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { SHA256 } from '../utils/sha256'
 
 const user = reactive({
     username: '',
@@ -73,7 +74,10 @@ const submit = () => {
             axios({
                 method: 'post',
                 url: 'http://152.136.154.181:8060/register',
-                data: toRaw(user)
+                data: {
+                    "username": user.username,
+                    "password": SHA256(user.password)
+                }
             }).then((resp) => {
                 if (resp.data !== true) {
                     ElMessage({
