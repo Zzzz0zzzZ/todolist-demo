@@ -41,7 +41,7 @@ const date = new Date()
 const today_date = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日'
 
 axios({
-    method: "GET",
+    method: 'GET',
     url: 'http://wthrcdn.etouch.cn/weather_mini?city=北京',
 }).then(res => {
     today_weather_city.value = res.data.data.city

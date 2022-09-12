@@ -30,7 +30,6 @@ import { ElMessage } from 'element-plus'
 import axios from 'axios'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { countStore } from '@/stores/countStore'
 import { SHA256 } from '../utils/sha256'
 
 const user = reactive({
@@ -49,7 +48,6 @@ const rules = reactive({
 
 const form = ref('')
 const router = useRouter()
-const store = countStore()
 
 const submit = () => {
     form.value.validate((valid) => {
@@ -61,19 +59,18 @@ const submit = () => {
                     "username": user.username,
                     "password": SHA256(user.password)
                 }
-            }).then((resp) => {
-                if (resp.data === null) {
+            }).then(res => {
+                if (res.data.token === undefined) {
                     ElMessage({
                         showClose: true,
                         message: 'Oops, 用户名或密码错误',
                         type: 'error'
                     })
                 } else {
-                    sessionStorage.setItem("islogin", true)
-                    sessionStorage.setItem("userid", resp.data.userid)
-                    sessionStorage.setItem("username", resp.data.username)
-                    store.username = resp.data.username
-                    router.push({ path: `/todo/todolist/${resp.data.userid}` })
+                    localStorage.setItem("token", res.data.token)
+                    localStorage.setItem("userid", res.data.userid)
+                    localStorage.setItem("username", res.data.username)
+                    router.push({ path: `/todo/todolist/${res.data.userid}` })
                 }
             })
         } else {

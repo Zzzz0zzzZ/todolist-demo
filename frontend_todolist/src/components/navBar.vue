@@ -26,7 +26,6 @@
         </router-link>
         <span>&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <div class="userpart">
-            <!-- <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="" /> -->
             <el-dropdown>
                 <span class="el-dropdown-link">
                     {{username}}
@@ -50,14 +49,14 @@
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
 
-const username = sessionStorage.getItem("username")
-let userid = parseInt(sessionStorage.getItem("userid"))
+const username = localStorage.getItem("username")
+let userid = parseInt(localStorage.getItem("userid"))
 const router = useRouter()
 
 const logout = () => {
-    sessionStorage.removeItem("islogin")
-    sessionStorage.removeItem("userid")
-    sessionStorage.removeItem("username")
+    localStorage.removeItem("token")
+    localStorage.removeItem("userid")
+    localStorage.removeItem("username")
     router.push({ name: "login" })
 }
 

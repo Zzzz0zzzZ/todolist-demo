@@ -10,7 +10,7 @@ export const countStore = defineStore('countStore', {
     },
     actions: {
         updateCount() {
-            let userid = parseInt(sessionStorage.getItem("userid"))
+            let userid = parseInt(localStorage.getItem("userid"))
             axios({
                 method: "GET",
                 url: `http://152.136.154.181:8060/count_finish/${userid}`,

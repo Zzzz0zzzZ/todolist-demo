@@ -1,8 +1,0 @@
-com\todolistbackend\entity\User.class
-com\todolistbackend\ToDoListBackendApplication.class
-com\todolistbackend\entity\Todo.class
-com\todolistbackend\mapper\TodoMapper.class
-com\todolistbackend\controller\UserContorller.class
-com\todolistbackend\mapper\UserMapper.class
-com\todolistbackend\controller\TodoController.class
-com\todolistbackend\entity\Newuser.class

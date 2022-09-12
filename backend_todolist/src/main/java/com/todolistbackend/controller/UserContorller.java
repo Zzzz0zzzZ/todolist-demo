@@ -1,12 +1,16 @@
 package com.todolistbackend.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.UserMapper;
+import com.todolistbackend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -17,11 +21,18 @@ public class UserContorller {
     private UserMapper userMapper;
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public JSONObject login(@RequestBody User user) {
         QueryWrapper<User> qw = new QueryWrapper<>();
         qw.eq("password", user.getPassword()).eq("username", user.getUsername());
         User us = userMapper.selectOne(qw);
-        return JSON.toJSONString(us);
+        JSONObject res = new JSONObject();
+        if (us != null) {
+            res.put("username", us.getUsername());
+            res.put("userid", us.getUserid());
+            res.put("token", TokenUtils.createToken(us));
+            return res;
+        }
+        return res;
     }
 
     @PostMapping("/register")
@@ -52,5 +63,9 @@ public class UserContorller {
             return true;
         }
         return false;
+    }
+    @PostMapping("/checkToken")
+    public Boolean checkToken(@RequestBody Map<String, String> mp){
+        return TokenUtils.checkToken(mp.get("token"));
     }
 }

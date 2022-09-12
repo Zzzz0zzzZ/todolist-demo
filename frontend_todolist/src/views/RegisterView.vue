@@ -12,8 +12,8 @@
                     <el-input placeholder="请输入密码" :prefix-icon="Lock" class="item" v-model="user.password" show-password
                         @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
-                <el-form-item prop="password">
-                    <el-input placeholder="请再次输入密码" :prefix-icon="Lock" class="item" v-model="password_confirm"
+                <el-form-item prop="password_confirm">
+                    <el-input placeholder="请再次输入密码" :prefix-icon="Lock" class="item" v-model="user.password_confirm"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <div class="link">
@@ -37,10 +37,10 @@ import { SHA256 } from '../utils/sha256'
 
 const user = reactive({
     username: '',
-    password: ''
+    password: '',
+    password_confirm: ''
 })
 
-const password_confirm = ref('')
 const rules = reactive({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -54,7 +54,7 @@ const rules = reactive({
 })
 
 const check = () => {
-    if (password_confirm.value !== user.password) {
+    if (user.password_confirm !== user.password) {
         ElMessage({
             showClose: true,
             message: '两次密码不一致',
@@ -78,8 +78,8 @@ const submit = () => {
                     "username": user.username,
                     "password": SHA256(user.password)
                 }
-            }).then((resp) => {
-                if (resp.data !== true) {
+            }).then(res => {
+                if (res.data !== true) {
                     ElMessage({
                         showClose: true,
                         message: '用户名太受欢迎了',

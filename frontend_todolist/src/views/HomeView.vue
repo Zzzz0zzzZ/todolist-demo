@@ -45,9 +45,15 @@ import NavBar from "@/components/navBar.vue"
 import EventList from "@/components/eventList.vue"
 import CheckCalender from "@/components/checkCalender.vue"
 import { countStore } from '@/stores/countStore'
+import { useRoute, useRouter } from 'vue-router'
 
 let store = countStore()
 store.updateCount()
+const route = useRoute()
+const router = useRouter()
+if (route.path !== `/todo/todolist/${localStorage.userid}`) {
+  router.push({ path: `/todo/todolist/${localStorage.userid}` })
+}
 </script>
 
 <style scoped>

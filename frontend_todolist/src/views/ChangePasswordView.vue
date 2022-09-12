@@ -16,9 +16,10 @@
                     <el-input placeholder="请输入更改密码" :prefix-icon="Lock" class="item" v-model="user.new_password"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
-                <el-form-item prop="password">
-                    <el-input placeholder="请再次输入更改密码" :prefix-icon="Lock" class="item" v-model="new_password_confirm"
-                        show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
+                <el-form-item prop="new_password_confirm">
+                    <el-input placeholder="请再次输入更改密码" :prefix-icon="Lock" class="item"
+                        v-model="user.new_password_confirm" show-password @paste.capture.prevent="handlePaste"
+                        @keyup.enter="submit" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" class="item" @click="return_home">返回</el-button>
@@ -39,14 +40,14 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { SHA256 } from '../utils/sha256'
 
-let userid = parseInt(sessionStorage.getItem("userid"))
+let userid = parseInt(localStorage.getItem("userid"))
 const user = reactive({
     username: '',
     password: '',
-    new_password: ''
+    new_password: '',
+    new_password_confirm: ''
 })
 
-const new_password_confirm = ref('')
 const rules = reactive({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -56,6 +57,9 @@ const rules = reactive({
     ],
     new_password: [
         { required: true, message: '请输入新密码', trigger: 'blur' }
+    ],
+    new_password_confirm: [
+        { required: true, message: '请确定新密码', trigger: 'blur' }
     ]
 })
 
@@ -66,7 +70,7 @@ const check = () => {
             message: '密码似乎没变哦',
             type: 'warning'
         })
-    } else if (new_password_confirm.value !== user.new_password) {
+    } else if (user.new_password_confirm !== user.new_password) {
         ElMessage({
             showClose: true,
             message: '两次密码不一致',
@@ -95,8 +99,8 @@ const submit = () => {
                     "password": SHA256(user.password),
                     "new_password": SHA256(user.new_password)
                 }
-            }).then((resp) => {
-                if (resp.data !== true) {
+            }).then(res => {
+                if (res.data !== true) {
                     ElMessage({
                         showClose: true,
                         message: '用户名或密码错误',
@@ -108,7 +112,9 @@ const submit = () => {
                         message: '更改成功',
                         type: 'success'
                     })
-                    sessionStorage.removeItem("islogin")
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("userid")
+                    localStorage.removeItem("username")
                     router.push({ name: 'login' })
                 }
             })

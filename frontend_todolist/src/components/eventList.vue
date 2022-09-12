@@ -50,11 +50,11 @@ import axios from 'axios'
 const content_list = reactive([])
 const store = countStore()
 
-let userid = parseInt(sessionStorage.getItem("userid"))
+let userid = parseInt(localStorage.getItem("userid"))
 
 axios({
-    method: "GET",
-    url: `http://152.136.154.181:8060/todos/${userid}`,
+    method: 'GET',
+    url: `http://152.136.154.181:8060/todos/${userid}`
 }).then(res => {
     content_list.value = res.data
     content_list.value = content_list.value.reverse()
@@ -62,8 +62,8 @@ axios({
 
 const addTodo = (todoObj) => {
     axios({
-        url: "http://152.136.154.181:8060/add",
-        method: "POST",
+        url: 'http://152.136.154.181:8060/add',
+        method: 'POST',
         data: ({
             "userid": userid,
             "content": todoObj.content
@@ -72,7 +72,7 @@ const addTodo = (todoObj) => {
         content_list.value.unshift(todoObj)
         axios({
             url: `http://152.136.154.181:8060/todos/${userid}`,
-            method: "GET"
+            method: 'GET'
         }).then(res => {
             content_list.value = res.data
             content_list.value = content_list.value.reverse()
@@ -83,8 +83,8 @@ const addTodo = (todoObj) => {
 
 let delete_a_todo = (content) => {
     axios({
-        url: "http://152.136.154.181:8060/delete",
-        method: "POST",
+        url: 'http://152.136.154.181:8060/delete',
+        method: 'POST',
         data: toRaw(content)
     }).then(() => {
         content.status = 1
@@ -95,8 +95,8 @@ let delete_a_todo = (content) => {
 let complete_a_todo = (content) => {
     let content_ori = toRaw(content)
     axios({
-        url: "http://152.136.154.181:8060/update",
-        method: "POST",
+        url: 'http://152.136.154.181:8060/update',
+        method: 'POST',
         data: ({
             id: content_ori.id,
             userid: content_ori.userid,
