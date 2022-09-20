@@ -1,16 +1,19 @@
 <template>
-    <div class="todo-header">
-        <input type="text" placeholder="新建待办事项，按回车键确认" v-model="content" @keyup.enter="add" />
+    <div class="input-group flex-nowrap todo-header">
+        <input type="text" class="form-control" placeholder="新建待办事项，按回车键确认" aria-describedby="addon-wrapping"
+            v-model="content" @keyup.enter="add">
     </div>
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, onUpdated, onMounted } from 'vue'
+import { editAreaStore } from '../stores/editAreaStore'
 
+const edStore = editAreaStore()
 const content = ref('')
 const props = defineProps({
     addTodo: {
-        type: Object,
+        type: Function,
         required: true
     }
 })
@@ -19,16 +22,22 @@ const add = () => {
     props.addTodo(todoObj)
     content.value = ''
 }
+// 切换回来/初始化时，更改content值
+onMounted(() => {
+    content.value = edStore.content_storage
+})
+// 监听输入框内容，变化时存入editAreaStore.content_storage，实现页面切换后输入框内容仍然保持不变
+onUpdated(() => {
+    edStore.store_content(content.value)
+})
 </script>
 
 <style scoped>
 .todo-header input {
-    width: 560px;
-    height: 28px;
-    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 4px 7px;
+    margin: 4px;
 }
 
 .todo-header input:focus {
