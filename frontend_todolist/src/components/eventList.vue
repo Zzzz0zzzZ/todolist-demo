@@ -49,8 +49,7 @@ import axios from 'axios'
 
 const content_list = reactive([])
 const store = countStore()
-
-let userid = parseInt(localStorage.getItem("userid"))
+const userid = store.userid
 
 axios({
     method: 'GET',

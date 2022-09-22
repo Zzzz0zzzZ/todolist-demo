@@ -31,6 +31,7 @@ import axios from 'axios'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { SHA256 } from '../utils/sha256'
+import { countStore } from '@/stores/countStore'
 
 const user = reactive({
     username: '',
@@ -48,6 +49,7 @@ const rules = reactive({
 
 const form = ref('')
 const router = useRouter()
+const store = countStore()
 
 const submit = () => {
     form.value.validate((valid) => {
@@ -70,6 +72,8 @@ const submit = () => {
                     localStorage.setItem("token", res.data.token)
                     localStorage.setItem("userid", res.data.userid)
                     localStorage.setItem("username", res.data.username)
+                    store.userid = res.data.userid
+                    store.username = res.data.username
                     router.push({ path: `/todo/todolist/${res.data.userid}` })
                 }
             })

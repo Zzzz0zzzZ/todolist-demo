@@ -6,6 +6,8 @@ import RegisterView from '../views/RegisterView.vue'
 import ChangePasswordView from '../views/ChangePasswordView'
 import NotFoundView from '../views/NotFoundView';
 import axios from 'axios'
+import pinia from '@/stores/store'
+import { countStore } from '@/stores/countStore'
 
 const routes = [
   {
@@ -49,11 +51,12 @@ const router = createRouter({
   routes
 })
 
+const store = countStore(pinia)
 router.beforeEach((to, from, next) => {
   if (to.path === '/todo/register' || to.path === '/todo/login') {
     localStorage.removeItem("token")
-    localStorage.removeItem("username")
-    localStorage.removeItem("userid")
+    store.username = null
+    store.userid = null
     next()
   } else {
     let token = localStorage.getItem("token")

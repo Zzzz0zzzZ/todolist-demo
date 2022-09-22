@@ -10,13 +10,15 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { countStore } from '@/stores/countStore'
 
 const router = useRouter()
+const store = countStore()
+const userid = store.userid
 const tohome = () => {
     if (localStorage.getItem("token") === '' | localStorage.getItem("token") === null) {
         router.push({ name: 'login' })
     } else {
-        let userid = localStorage.getItem("userid")
         router.push({ path: `/todo/todolist/${userid}` })
     }
 }

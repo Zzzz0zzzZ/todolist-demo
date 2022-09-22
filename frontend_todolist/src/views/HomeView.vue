@@ -51,8 +51,9 @@ let store = countStore()
 store.updateCount()
 const route = useRoute()
 const router = useRouter()
-if (route.path !== `/todo/todolist/${localStorage.userid}`) {
-  router.push({ path: `/todo/todolist/${localStorage.userid}` })
+let userid = store.userid
+if (route.path !== `/todo/todolist/${userid}`) {
+  router.push({ path: `/todo/todolist/${userid}` })
 }
 </script>
 

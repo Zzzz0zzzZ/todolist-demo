@@ -9,3 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap';
 
 createApp(App).use(router).use(pinia).use(ElementPlus).use(BaiduCalendar).mount('#app')
+
+window.addEventListener('storage', function(e) {
+    localStorage.setItem(e.key, e.oldValue)
+})

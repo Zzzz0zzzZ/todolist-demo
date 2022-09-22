@@ -4,10 +4,6 @@
             <el-button :plain="true" v-if="false">error</el-button>
             <h2 style="color:white">更改密码</h2>
             <el-form :rules="rules" :model="user" ref="form">
-                <el-form-item prop="username">
-                    <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username"
-                        @keyup.enter="submit" />
-                </el-form-item>
                 <el-form-item prop="password">
                     <el-input placeholder="请输入原密码" :prefix-icon="Lock" class="item" v-model="user.password"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
@@ -33,25 +29,24 @@
 </template>
 
 <script setup>
-import { UserFilled, Lock } from '@element-plus/icons-vue'
+import { Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { SHA256 } from '../utils/sha256'
+import { countStore } from '@/stores/countStore'
 
-let userid = parseInt(localStorage.getItem("userid"))
+const store = countStore()
+let userid = store.userid
+let username = store.username
 const user = reactive({
-    username: '',
     password: '',
     new_password: '',
     new_password_confirm: ''
 })
 
 const rules = reactive({
-    username: [
-        { required: true, message: '请输入用户名', trigger: 'blur' }
-    ],
     password: [
         { required: true, message: '请输入原密码', trigger: 'blur' }
     ],
@@ -95,7 +90,7 @@ const submit = () => {
                 method: 'post',
                 url: 'http://152.136.154.181:8060/change_password',
                 data: {
-                    "username": user.username,
+                    "username": username,
                     "password": SHA256(user.password),
                     "new_password": SHA256(user.new_password)
                 }
@@ -113,8 +108,8 @@ const submit = () => {
                         type: 'success'
                     })
                     localStorage.removeItem("token")
-                    localStorage.removeItem("userid")
-                    localStorage.removeItem("username")
+                    store.username = null
+                    store.userid = null
                     router.push({ name: 'login' })
                 }
             })

@@ -5,21 +5,24 @@ export const countStore = defineStore('countStore', {
     state: () => {
         return {
             count_total: null,         // 帖子总数
-            count_finish: null         //帖子完成数
+            count_finish: null,        //帖子完成数
+            userid: null,
+            username: null
         }
     },
     actions: {
         updateCount() {
-            let userid = parseInt(localStorage.getItem("userid"))
+            this.userid = localStorage.getItem('userid')
+            this.username = localStorage.getItem('username')
             axios({
                 method: "GET",
-                url: `http://152.136.154.181:8060/count_finish/${userid}`,
+                url: `http://152.136.154.181:8060/count_finish/${this.userid}`,
             }).then(res => {
                 this.count_finish = parseInt(res.data)
             })
             axios({
                 method: "GET",
-                url: `http://152.136.154.181:8060/count_total/${userid}`,
+                url: `http://152.136.154.181:8060/count_total/${this.userid}`,
             }).then(res => {
                 this.count_total = parseInt(res.data)
             })

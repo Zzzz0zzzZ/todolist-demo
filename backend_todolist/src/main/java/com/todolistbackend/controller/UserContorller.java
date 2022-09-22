@@ -51,6 +51,7 @@ public class UserContorller {
             return true;
         }
     }
+
     @PostMapping("/change_password")
     public Boolean change_password(@RequestBody Map<String, String> mp) {
         QueryWrapper<User> us = new QueryWrapper<>();
@@ -64,8 +65,21 @@ public class UserContorller {
         }
         return false;
     }
+    @PostMapping("/change_username")
+    public Boolean change_username(@RequestBody Map<String, String> mp) {
+        QueryWrapper<User> us = new QueryWrapper<>();
+        us.eq("username", mp.get("new_username"));
+        User user = userMapper.selectOne(us);
+        if (user != null) {
+            return false;
+        }
+        UpdateWrapper<User> update_user = new UpdateWrapper<>();
+        update_user.eq("username", mp.get("username")).set("username", mp.get("new_username"));
+        userMapper.update(new User(), update_user);
+        return true;
+    }
     @PostMapping("/checkToken")
-    public Boolean checkToken(@RequestBody Map<String, String> mp){
+    public Boolean checkToken(@RequestBody Map<String, String> mp) {
         return TokenUtils.checkToken(mp.get("token"));
     }
 }

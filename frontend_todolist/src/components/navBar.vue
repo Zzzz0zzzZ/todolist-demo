@@ -35,29 +35,95 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
+                        <el-dropdown-item @click="dialogVisible=true">更改用户名</el-dropdown-item>
                         <el-dropdown-item @click="change_password">更改密码</el-dropdown-item>
                         <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
         </div>
+        <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
+            <div class="box">
+                <div class="login-container">
+                    <el-button :plain="true" v-if="false">error</el-button>
+                    <el-form :rules="rules" :model="user" ref="form">
+                        <el-form-item prop="new_username">
+                            <el-input placeholder="请输入新用户名" :prefix-icon="UserFilled" class="item"
+                                v-model="user.new_username" @keyup.enter="submit" />
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="change_username">更改</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </nav>
 </template>
 
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { ArrowDown } from '@element-plus/icons-vue'
+import { ArrowDown, UserFilled } from '@element-plus/icons-vue'
+import { countStore } from '@/stores/countStore'
+import { ElMessage } from 'element-plus'
+import axios from 'axios'
+import { reactive, ref } from 'vue'
 
-const username = localStorage.getItem("username")
-let userid = parseInt(localStorage.getItem("userid"))
+const user = reactive({
+    new_username: ''
+})
+
+const rules = reactive({
+    new_username: [
+        { required: true, message: '请输入新用户名', trigger: 'blur' }
+    ]
+})
+
+const form = ref('')
+const store = countStore()
+const username = store.username
+const userid = store.userid
 const router = useRouter()
+const dialogVisible = ref(false)
 
 const logout = () => {
     localStorage.removeItem("token")
-    localStorage.removeItem("userid")
-    localStorage.removeItem("username")
+    store.username = null
+    store.userid = null
     router.push({ name: "login" })
+}
+
+const change_username = () => {
+    dialogVisible.value = false
+    form.value.validate((valid) => {
+        if (valid) {
+            axios({
+                method: 'post',
+                url: 'http://152.136.154.181:8060/change_username',
+                data: {
+                    "username": username,
+                    "new_username": user.new_username
+                }
+            }).then(res => {
+                if (res.data == false) {
+                    ElMessage({
+                        showClose: true,
+                        message: 'Oops, 用户名重复',
+                        type: 'error'
+                    })
+                } else {
+                    localStorage.setItem("username", user.new_username)
+                    router.go(0)
+                }
+            })
+        } else {
+            return false
+        }
+    })
 }
 
 const change_password = () => {
