@@ -10,12 +10,10 @@
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
-                    <draggable v-model="content_list.value" item-key="content" animation="100" @start="drag=true"
-                        @end="drag=false">
-                        <template #item="{element}">
-                            <div class="row margin-1 hover-when-mouse-on">
-                                <!-- v-if="element.status === 0" -->
-                                <div class="card">
+                    <draggable v-model="content_list.value" item-key="index" animation="100" @start="drag=true" @end="drag=false">
+                        <template #item="{element}" >
+                            <div class="row margin-1 hover-when-mouse-on" v-if="element.status === 0">
+                                <div class="card" >
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-1">
@@ -46,7 +44,7 @@
 
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue'
-import { reactive, toRaw, ref, computed } from 'vue'
+import { reactive, toRaw, ref } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
@@ -56,11 +54,6 @@ const content_list = reactive([])
 const store = countStore()
 const userid = store.userid
 const drag = ref(false)
-
-// const arr = computed(()=>{
-//     return content_list.value.filter
-// })
-// console.log(arr);
 
 axios({
     method: 'GET',
