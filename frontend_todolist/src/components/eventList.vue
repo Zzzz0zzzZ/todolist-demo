@@ -10,30 +10,34 @@
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
-                    <template v-for="(content, index) in content_list.value">
-                        <div class="row margin-1 hover-when-mouse-on" v-if="content.status === 0" :key="index">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <el-button type="success" :icon="Check" @click="complete_a_todo(content)"
-                                                circle />
-                                        </div>
-                                        <div class="col-10 content-style">{{ content.content }}</div>
-                                        <div class="col-1">
-                                            <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
-                                                cancel-button-text="算了" :icon="Delete" icon-color="red"
-                                                @confirm="delete_a_todo(content)">
-                                                <template #reference>
-                                                    <el-button type="danger" :icon="Delete" circle />
-                                                </template>
-                                            </el-popconfirm>
+                    <draggable v-model="content_list.value" item-key="content" animation="100" @start="drag=true"
+                        @end="drag=false">
+                        <template #item="{element}">
+                            <div class="row margin-1 hover-when-mouse-on">
+                                <!-- v-if="element.status === 0" -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <el-button type="success" :icon="Check"
+                                                    @click="complete_a_todo(element)" circle />
+                                            </div>
+                                            <div class="col-10 content-style">{{ element.content }}</div>
+                                            <div class="col-1">
+                                                <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
+                                                    cancel-button-text="算了" :icon="Delete" icon-color="red"
+                                                    @confirm="delete_a_todo(element)">
+                                                    <template #reference>
+                                                        <el-button type="danger" :icon="Delete" circle />
+                                                    </template>
+                                                </el-popconfirm>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </template>
+                        </template>
+                    </draggable>
                 </div>
             </div>
         </div>
@@ -42,14 +46,21 @@
 
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue'
-import { reactive, toRaw } from 'vue'
+import { reactive, toRaw, ref, computed } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
+import draggable from 'vuedraggable'
 
 const content_list = reactive([])
 const store = countStore()
 const userid = store.userid
+const drag = ref(false)
+
+// const arr = computed(()=>{
+//     return content_list.value.filter
+// })
+// console.log(arr);
 
 axios({
     method: 'GET',
