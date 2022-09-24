@@ -61,6 +61,13 @@ const check = () => {
             type: 'error'
         })
         return false
+    } else if (user.username.match(/^[ ]*$/)) {
+        ElMessage({
+            showClose: true,
+            message: '用户名不能全为为空格哦',
+            type: 'error'
+        })
+        return false
     } else {
         return true
     }

@@ -49,7 +49,7 @@
                     <el-form :rules="rules" :model="user" ref="form">
                         <el-form-item prop="new_username">
                             <el-input placeholder="请输入新用户名" :prefix-icon="UserFilled" class="item"
-                                v-model="user.new_username" @keyup.enter="submit" />
+                                v-model="user.new_username" @keyup.enter="change_username" />
                         </el-form-item>
                     </el-form>
                 </div>
@@ -97,10 +97,18 @@ const logout = () => {
     router.push({ name: "login" })
 }
 
+const check = () => {
+    if (user.new_username.match(/^[ ]*$/)) {
+        return false
+    } else {
+        return true
+    }
+}
+
 const change_username = () => {
     dialogVisible.value = false
     form.value.validate((valid) => {
-        if (valid) {
+        if (valid && check()) {
             axios({
                 method: 'post',
                 url: 'http://152.136.154.181:8060/change_username',
@@ -121,6 +129,13 @@ const change_username = () => {
                 }
             })
         } else {
+            if (!check()) {
+                ElMessage({
+                    showClose: true,
+                    message: '用户名不能全为空格哦',
+                    type: 'warning'
+                })
+            }
             return false
         }
     })
