@@ -17,7 +17,7 @@ public class TodoController {
     @GetMapping("/todos/{userid}")
     public String getTodos(@PathVariable Integer userid) {
         QueryWrapper<Todo> qw = new QueryWrapper<>();
-        qw.eq("userid",userid);
+        qw.eq("userid", userid);
         List<Todo> todos = todoMapper.selectList(qw);
         return JSON.toJSONString(todos);
     }
@@ -28,24 +28,23 @@ public class TodoController {
     @GetMapping("/count_total/{userid}")
     public long countTodos(@PathVariable Integer userid) {
         QueryWrapper<Todo> wrapper = new QueryWrapper<>();
-        wrapper.eq("userid",userid);
+        wrapper.eq("userid", userid);
         return todoMapper.selectCount(wrapper);
     }
-
     @GetMapping("/count_finish/{userid}")
     public long countFinishTodos(@PathVariable Integer userid) {
         QueryWrapper<Todo> wrapper = new QueryWrapper<>();
-        wrapper.eq("status", 1).eq("userid",userid);
+        wrapper.eq("status", 1).eq("userid", userid);
         return todoMapper.selectCount(wrapper);
     }
-
     @PostMapping("/add")
     public void addTodo(@RequestBody Todo todo) {
         todoMapper.insert(todo);
     }
 
     @PostMapping("/update")
-    public void updateTodo(@RequestBody Todo todo) {
+    public String updateTodo(@RequestBody Todo todo) {
         todoMapper.updateById(todo);
+        return JSON.toJSONString(todo);
     }
 }

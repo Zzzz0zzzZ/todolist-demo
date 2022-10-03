@@ -15,4 +15,5 @@ public class Todo {
     private String create_time;
     private String update_time;
     private Integer status;
+    private String deadline;
 }
