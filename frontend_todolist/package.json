@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.5",
     "element-plus": "^2.2.15",
     "pinia": "^2.0.22",
     "vue": "^3.2.13",
@@ -27,7 +28,7 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vue": "^8.7.1",
     "node-sass": "^7.0.1",
     "sass-loader": "^13.0.2"
   },

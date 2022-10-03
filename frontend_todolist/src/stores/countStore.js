@@ -5,7 +5,7 @@ export const countStore = defineStore('countStore', {
     state: () => {
         return {
             count_total: null,         // 帖子总数
-            count_finish: null,        //帖子完成数
+            count_finish: null,        // 帖子完成数
             userid: null,
             username: null
         }
@@ -39,6 +39,10 @@ export const countStore = defineStore('countStore', {
             else {
                 return parseInt((state.count_finish / state.count_total).toFixed(2) * 100)
             }
+        },
+        // 获取待办事项总数
+        getListCount(state) {
+            return state.count_total - state.count_finish
         }
     }
 })
