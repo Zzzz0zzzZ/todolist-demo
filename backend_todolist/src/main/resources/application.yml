@@ -13,3 +13,5 @@ server:
 mybatis-plus:
   global-config:
     banner: false
+  configuration:
+    call-setters-on-nulls: true
