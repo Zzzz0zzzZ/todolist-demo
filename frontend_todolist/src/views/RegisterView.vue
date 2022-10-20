@@ -17,7 +17,7 @@
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
                 <div class="link">
-                    <router-link :to="{ path: '/todo/login' }" class="link">已注册?点此登录</router-link>
+                    <div class="link" @click="onClickAlreadyRegist">已注册?点此登录</div>
                 </div>
                 <el-form-item>
                     <el-button type="primary" class="item" @click="submit">注册</el-button>
@@ -75,6 +75,7 @@ const check = () => {
 
 const form = ref('')
 const router = useRouter()
+const onClickAlreadyRegist = () => history.back()
 const submit = () => {
     form.value.validate((valid) => {
         if (valid && check()) {
@@ -141,5 +142,6 @@ h2 {
 .link {
     color: indigo;
     text-align: right;
+    cursor: pointer;
 }
 </style>
