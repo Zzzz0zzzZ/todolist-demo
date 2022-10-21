@@ -38,7 +38,6 @@ import { SHA256 } from '../utils/sha256'
 import { countStore } from '@/stores/countStore'
 
 const store = countStore()
-let userid = store.userid
 let username = store.username
 const user = reactive({
     password: '',
@@ -78,9 +77,7 @@ const check = () => {
 }
 
 const router = useRouter()
-const return_home = () => {
-    router.push({ path: `/todo/todolist/${userid}` })
-}
+const return_home = () => history.back()
 const form = ref('')
 
 const submit = () => {
