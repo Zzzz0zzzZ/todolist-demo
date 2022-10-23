@@ -62,11 +62,14 @@ let get_placeholder_value = () => {
 onUpdated(() => {
     if (value.value != '' && value.value != null) {
         axios({
-            url: 'http://152.136.154.181:8060/update',
+            url: '/api/update',
             method: 'POST',
             data: ({
                 id: props.cont.id,
                 deadline: value.value
+            }),
+            headers: ({
+                "token": localStorage.getItem("token")
             })
         }).then(() => {
             emit('refresh')

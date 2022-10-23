@@ -11,7 +11,7 @@ import com.todolistbackend.entity.User;
 import java.util.Date;
 
 public class TokenUtils {
-    private final static long TIME = 24 * 60 * 60 * 1000;
+    private final static long TIME = 48 * 60 * 60 * 1000;
     private final static String KEY = "^A*DEMO*WITH*WHSJZ&";
     public static String createToken(User user) {
         String token = null;
@@ -23,7 +23,7 @@ public class TokenUtils {
                     .withClaim("id", user.getUserid())
                     .withExpiresAt(expire)
                     .sign(Algorithm.HMAC256(KEY));
-        } catch (IllegalArgumentException | JWTCreationException je) {
+        } catch (IllegalArgumentException | JWTCreationException ignored) {
         }
         return token;
     }

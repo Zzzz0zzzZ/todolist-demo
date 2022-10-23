@@ -80,12 +80,12 @@ const submit = () => {
     form.value.validate((valid) => {
         if (valid && check()) {
             axios({
-                method: 'post',
-                url: 'http://152.136.154.181:8060/register',
-                data: {
+                method: 'POST',
+                url: '/api/register',
+                data: ({
                     "username": user.username,
                     "password": SHA256(user.password)
-                }
+                })
             }).then(res => {
                 if (res.data !== true) {
                     ElMessage({

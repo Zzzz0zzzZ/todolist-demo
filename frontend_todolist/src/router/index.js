@@ -64,8 +64,8 @@ router.beforeEach((to, from, next) => {
       next('/todo/login')
     } else {
       axios({
-        method: "post",
-        url: 'http://152.136.154.181:8060/checkToken',
+        method: 'POST',
+        url: '/api/checkToken',
         data: {
           "token": token
         }

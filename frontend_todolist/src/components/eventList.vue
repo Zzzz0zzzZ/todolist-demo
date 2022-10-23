@@ -76,8 +76,11 @@ const show_clr_btn = ref([])            // 是否显示[清空]按钮
 
 
 axios({
+    url: `/api/todos/${userid}`,
     method: 'GET',
-    url: `http://152.136.154.181:8060/todos/${userid}`
+    headers: ({
+        "token": localStorage.getItem("token")
+    })
 }).then(res => {
     content_list.value = res.data
     content_list.value = content_list.value.reverse()
@@ -90,8 +93,11 @@ axios({
 
 const addTodo = (todoObj) => {
     axios({
-        url: 'http://152.136.154.181:8060/add',
+        url: '/api/add',
         method: 'POST',
+        headers: ({
+            "token": localStorage.getItem("token")
+        }),
         data: ({
             "userid": userid,
             "content": todoObj.content
@@ -99,8 +105,11 @@ const addTodo = (todoObj) => {
     }).then(() => {
         content_list.value.unshift(todoObj)
         axios({
-            url: `http://152.136.154.181:8060/todos/${userid}`,
-            method: 'GET'
+            url: `/api/todos/${userid}`,
+            method: 'GET',
+            headers: ({
+                "token": localStorage.getItem("token")
+            })
         }).then(res => {
             content_list.value = res.data
             content_list.value = content_list.value.reverse()
@@ -115,9 +124,12 @@ const addTodo = (todoObj) => {
 
 let delete_a_todo = (content) => {
     axios({
-        url: 'http://152.136.154.181:8060/delete',
+        url: '/api/delete',
         method: 'POST',
-        data: toRaw(content)
+        data: toRaw(content),
+        headers: ({
+            "token": localStorage.getItem("token")
+        })
     }).then(() => {
         content.status = 1
         store.updateCount()
@@ -129,13 +141,16 @@ let complete_a_todo = (content) => {
     click_complete.value = true
     let content_ori = toRaw(content)
     axios({
-        url: 'http://152.136.154.181:8060/update',
+        url: '/api/update',
         method: 'POST',
         data: ({
             id: content_ori.id,
             userid: content_ori.userid,
             content: content_ori.content,
             status: 1
+        }),
+        headers: ({
+            "token": localStorage.getItem("token")
         })
     }).then(() => {
         content.status = 1
@@ -163,8 +178,11 @@ let show_date_picker = (idx) => {
 // 刷新
 let refresh_list = () => {
     axios({
-        url: `http://152.136.154.181:8060/todos/${userid}`,
-        method: 'GET'
+        url: `/api/todos/${userid}`,
+        method: 'GET',
+        headers: ({
+            "token": localStorage.getItem("token")
+        })
     }).then(res => {
         content_list.value = res.data
         content_list.value = content_list.value.reverse()
@@ -175,11 +193,14 @@ let refresh_list = () => {
 // 清空deadline
 let clear_deadline = (content) => {
     axios({
-        url: 'http://152.136.154.181:8060/update',
+        url: '/api/update',
         method: 'POST',
         data: ({
             id: content.id,
             deadline: ''
+        }),
+        headers: ({
+            "token": localStorage.getItem("token")
         })
     }).then(() => {
         refresh_list()

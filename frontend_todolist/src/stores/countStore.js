@@ -16,13 +16,19 @@ export const countStore = defineStore('countStore', {
             this.username = localStorage.getItem('username')
             axios({
                 method: "GET",
-                url: `http://152.136.154.181:8060/count_finish/${this.userid}`,
+                url: `/api/count_finish/${this.userid}`,
+                headers: ({
+                    "token": localStorage.getItem("token")
+                })
             }).then(res => {
                 this.count_finish = parseInt(res.data)
             })
             axios({
                 method: "GET",
-                url: `http://152.136.154.181:8060/count_total/${this.userid}`,
+                url: `/api/count_total/${this.userid}`,
+                headers: ({
+                    "token": localStorage.getItem("token")
+                })
             }).then(res => {
                 this.count_total = parseInt(res.data)
             })

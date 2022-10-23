@@ -55,12 +55,12 @@ const submit = () => {
     form.value.validate((valid) => {
         if (valid) {
             axios({
-                method: 'post',
-                url: 'http://152.136.154.181:8060/login',
-                data: {
+                method: 'POST',
+                url: '/api/login',
+                data: ({
                     "username": user.username,
                     "password": SHA256(user.password)
-                }
+                })
             }).then(res => {
                 if (res.data.token === undefined) {
                     ElMessage({

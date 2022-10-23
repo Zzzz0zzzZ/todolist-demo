@@ -84,13 +84,16 @@ const submit = () => {
     form.value.validate((valid) => {
         if (valid && check()) {
             axios({
-                method: 'post',
-                url: 'http://152.136.154.181:8060/change_password',
-                data: {
+                method: 'POST',
+                url: '/api/change_password',
+                data: ({
                     "username": username,
                     "password": SHA256(user.password),
                     "new_password": SHA256(user.new_password)
-                }
+                }),
+                headers: ({
+                    "token": localStorage.getItem("token")
+                })
             }).then(res => {
                 if (res.data !== true) {
                     ElMessage({

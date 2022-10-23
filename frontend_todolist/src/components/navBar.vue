@@ -92,6 +92,8 @@ const dialogVisible = ref(false)
 
 const logout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("userid")
+    localStorage.removeItem("username")
     store.username = null
     store.userid = null
     router.push({ name: "login" })
@@ -110,12 +112,15 @@ const change_username = () => {
     form.value.validate((valid) => {
         if (valid && check()) {
             axios({
-                method: 'post',
-                url: 'http://152.136.154.181:8060/change_username',
-                data: {
+                method: 'POST',
+                url: '/api/change_username',
+                data: ({
                     "username": username,
                     "new_username": user.new_username
-                }
+                }),
+                headers: ({
+                    "token": localStorage.getItem("token")
+                })
             }).then(res => {
                 if (res.data == false) {
                     ElMessage({

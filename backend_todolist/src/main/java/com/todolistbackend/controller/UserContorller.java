@@ -7,7 +7,6 @@ import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.UserMapper;
 import com.todolistbackend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"*", "null"})
 public class UserContorller {
     @Autowired
     private UserMapper userMapper;
@@ -65,6 +63,7 @@ public class UserContorller {
         }
         return false;
     }
+
     @PostMapping("/change_username")
     public Boolean change_username(@RequestBody Map<String, String> mp) {
         QueryWrapper<User> us = new QueryWrapper<>();
@@ -78,6 +77,7 @@ public class UserContorller {
         userMapper.update(new User(), update_user);
         return true;
     }
+
     @PostMapping("/checkToken")
     public Boolean checkToken(@RequestBody Map<String, String> mp) {
         return TokenUtils.checkToken(mp.get("token"));
