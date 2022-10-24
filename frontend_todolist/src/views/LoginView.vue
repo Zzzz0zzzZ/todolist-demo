@@ -26,7 +26,7 @@
 
 <script setup>
 import { UserFilled, Lock } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 import axios from 'axios'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -75,6 +75,11 @@ const submit = () => {
                     store.userid = res.data.userid
                     store.username = res.data.username
                     router.push({ path: `/todo/todolist/${res.data.userid}` })
+                    ElNotification({
+                        title: `welcome ! ${store.username}`,
+                        center: 'true',
+                        duration:'4000'
+                    })
                 }
             })
         } else {

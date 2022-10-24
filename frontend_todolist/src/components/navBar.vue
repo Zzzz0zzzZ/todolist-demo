@@ -166,7 +166,6 @@ const url = ref('')
 url.value = localStorage.getItem("url")
 const get_url = () => {
     if (url.value === null) {
-        console.log("try")
         axios({
             url: `/api/getphoto/${userid}`,
             method: 'GET',

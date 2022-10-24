@@ -20,8 +20,8 @@
                 </div>
             </div>
             <p class="card-text">城市：{{ today_weather_city }}</p>
-            <p class="card-text">天气：{{ today_weather_forecast.type }}</p>
-            <p class="card-text">气温：{{ today_weather_forecast.low }} - {{ today_weather_forecast.high }}</p>
+            <p class="card-text">天气：{{ today_weather_forecast_type }}</p>
+            <p class="card-text">气温：{{ today_weather_forecast_low }} - {{ today_weather_forecast_high }}</p>
         </div>
     </div>
 </template>
@@ -35,20 +35,22 @@ let store = countStore()
 store.updateCount()
 
 const today_weather_city = ref('')
-const today_weather_forecast = ref({})
+const today_weather_forecast_type = ref('')
+const today_weather_forecast_high = ref('')
+const today_weather_forecast_low = ref('')
 const today_week = ref('')
 const date = new Date()
 const today_date = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日'
 
 axios({
     method: 'GET',
-    url: 'http://wthrcdn.etouch.cn/weather_mini?city=北京',
+    url: 'https://v0.yiketianqi.com/api?unescape=1&version=v61&appid=43429654&appsecret=qSjImVc6',
 }).then(res => {
-    today_weather_city.value = res.data.data.city
-    today_weather_forecast.value = res.data.data.forecast[0]
-    today_week.value = res.data.data.forecast[0].date
-    let lenn = today_week.value.length
-    today_week.value = today_week.value.substring(lenn - 3, lenn)
+    today_weather_city.value = res.data.city
+    today_weather_forecast_type.value = res.data.wea
+    today_weather_forecast_high.value = res.data.tem1 + "℃"
+    today_weather_forecast_low.value = res.data.tem2 + "℃"
+    today_week.value = res.data.week
 })
 </script>
 
