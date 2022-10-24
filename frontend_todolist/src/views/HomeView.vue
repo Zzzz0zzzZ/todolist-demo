@@ -47,13 +47,20 @@ import CheckCalender from "@/components/checkCalender.vue"
 import { countStore } from '@/stores/countStore'
 import { useRoute, useRouter } from 'vue-router'
 
-let store = countStore()
+const store = countStore()
 store.updateCount()
 const route = useRoute()
 const router = useRouter()
-let userid = store.userid
+const userid = localStorage.getItem("userid")
+
 if (route.path !== `/todo/todolist/${userid}`) {
-  router.push({ path: `/todo/todolist/${userid}` })
+  localStorage.removeItem("token")
+  localStorage.removeItem("userid")
+  localStorage.removeItem("username")
+  localStorage.removeItem("url")
+  store.username = null
+  store.userid = null
+  router.push({ name: "login" })
 }
 </script>
 

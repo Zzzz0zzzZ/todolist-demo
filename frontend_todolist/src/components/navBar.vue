@@ -14,7 +14,7 @@
             <div class="collapse navbar-collapse adj-where" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item ">
-                        <img class="img-fluid img-adj" src="../../src/assets/user_photo.png" alt="">
+                        <img class=" img-adj" :src="url">
                     </li>
                 </ul>
             </div>
@@ -28,15 +28,16 @@
         <div class="userpart">
             <el-dropdown>
                 <span class="el-dropdown-link">
-                    {{username}}
+                    {{ username }}
                     <el-icon class="el-icon--right">
                         <arrow-down />
                     </el-icon>
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item @click="dialogVisible=true">更改用户名</el-dropdown-item>
-                        <el-dropdown-item @click="change_password">更改密码</el-dropdown-item>
+                        <el-dropdown-item @click="to_change_username">更改用户名</el-dropdown-item>
+                        <el-dropdown-item @click="to_change_password">更改密码</el-dropdown-item>
+                        <el-dropdown-item @click="profile = true">上传头像</el-dropdown-item>
                         <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
@@ -61,6 +62,9 @@
                 </span>
             </template>
         </el-dialog>
+        <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">
+            <profilePhoto @change="upload" />
+        </el-dialog>
     </nav>
 </template>
 
@@ -72,6 +76,7 @@ import { countStore } from '@/stores/countStore'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
 import { reactive, ref } from 'vue'
+import profilePhoto from './profilePhoto.vue'
 
 const user = reactive({
     new_username: ''
@@ -85,15 +90,17 @@ const rules = reactive({
 
 const form = ref('')
 const store = countStore()
-const username = store.username
-const userid = store.userid
+const username = localStorage.getItem("username")
+const userid = localStorage.getItem("userid")
 const router = useRouter()
 const dialogVisible = ref(false)
+const profile = ref(false)
 
 const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("userid")
     localStorage.removeItem("username")
+    localStorage.removeItem("url")
     store.username = null
     store.userid = null
     router.push({ name: "login" })
@@ -105,6 +112,11 @@ const check = () => {
     } else {
         return true
     }
+}
+
+const to_change_username = () => {
+    user.new_username = ''
+    dialogVisible.value = true
 }
 
 const change_username = () => {
@@ -146,8 +158,43 @@ const change_username = () => {
     })
 }
 
-const change_password = () => {
+const to_change_password = () => {
     router.push({ name: "change_password" })
+}
+
+const url = ref('')
+url.value = localStorage.getItem("url")
+const get_url = () => {
+    if (url.value === null) {
+        console.log("try")
+        axios({
+            url: `/api/getphoto/${userid}`,
+            method: 'GET',
+            responseType: 'blob',
+            headers: ({
+                "token": localStorage.getItem("token")
+            })
+        }).then((res) => {
+            if (res.data.size !== 0) {
+                let blob = new window.Blob([res.data])
+                url.value = window.URL.createObjectURL(blob)
+                localStorage.setItem("url", url.value)
+            } else {
+                url.value = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201909%2F23%2F20190923182909_LPaCx.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669194227&t=4a2d6114b8faf2bb5c9c83e060fc61d7"
+                localStorage.setItem("url", url.value)
+            }
+        })
+    }
+}
+
+get_url()
+
+const uploadview = ref(true)
+const upload = () => {
+    localStorage.removeItem("url")
+    router.go(0)
+    get_url()
+    ElMessage.success('上传成功')
 }
 </script>
 
@@ -177,8 +224,16 @@ const change_password = () => {
 }
 
 .img-adj {
-    height: 50px;
+    height: 52px;
+    width: 52px;
     border-radius: 50%;
+    transition: transform 0.5s ease-out;
+}
+
+.img-adj:hover {
+    height: 56px;
+    width: 56px;
+    transform: rotateZ(720deg);
 }
 
 .adj-where {

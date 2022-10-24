@@ -20,6 +20,7 @@ public class IntercaptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JWTInterceptor())
                 .addPathPatterns("/**")
+                // 设置拦截器白名单
                 .excludePathPatterns("/login", "/register", "/checkToken");
     }
 }

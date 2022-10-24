@@ -68,7 +68,7 @@ import dayjs from 'dayjs'
 
 const content_list = reactive([])
 const store = countStore()
-const userid = store.userid
+const userid = localStorage.getItem("userid")
 const show_picker = ref([])             // 是否展开选择框
 const latest_pick = ref(0)              // 最后展开的框的下标
 const click_complete = ref(false)       // 是否点击[完成]按钮
@@ -238,7 +238,6 @@ let set_ddl_color = (ddl) => {
     }
     return text_color
 }
-
 </script>
 
 <style scoped>

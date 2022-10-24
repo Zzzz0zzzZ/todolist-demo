@@ -41,7 +41,7 @@ const shortcuts = [     // 快捷选择
             date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
             return date
         },
-    },
+    }
 ]
 
 // 未设置：显示[设置]  已设置：显示[更改]   ｜并根据是否设置的状态，决定是否显示[清空]按钮
@@ -77,8 +77,8 @@ onUpdated(() => {
         })
     }
 })
-
 </script>
+
 <style scoped>
 .demo-date-picker {
     display: flex;

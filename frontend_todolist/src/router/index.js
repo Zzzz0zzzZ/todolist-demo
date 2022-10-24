@@ -55,6 +55,9 @@ const store = countStore(pinia)
 router.beforeEach((to, from, next) => {
   if (to.path === '/todo/register' || to.path === '/todo/login') {
     localStorage.removeItem("token")
+    localStorage.removeItem("url")
+    localStorage.removeItem("userid")
+    localStorage.removeItem("username")
     store.username = null
     store.userid = null
     next()

@@ -3,7 +3,9 @@ package com.todolistbackend.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.todolistbackend.entity.Photo;
 import com.todolistbackend.entity.User;
+import com.todolistbackend.mapper.PhotoMapper;
 import com.todolistbackend.mapper.UserMapper;
 import com.todolistbackend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.Map;
 public class UserContorller {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PhotoMapper photoMapper;
 
     @PostMapping("/login")
     public JSONObject login(@RequestBody User user) {
@@ -41,11 +45,20 @@ public class UserContorller {
         if (us != null) {
             return false;
         } else {
+            // 根据递增算出新用户的 userid
             QueryWrapper<User> maxid = new QueryWrapper<>();
             maxid.select("max(userid) as userid");
+            // 表 userinfo 中插入数据
             User ur = userMapper.selectOne(maxid);
-            user.setUserid(ur.getUserid() + 1);
+            Integer id = ur.getUserid() + 1;
+            user.setUserid(id);
             userMapper.insert(user);
+
+            // 表 profilephoto 中插入数据
+            Photo photo = new Photo();
+            photo.setUserid(id);
+            photoMapper.insert(photo);
+
             return true;
         }
     }

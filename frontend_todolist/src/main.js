@@ -5,8 +5,8 @@ import router from './router'
 import pinia from '@/stores/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap'
 
 createApp(App).use(router).use(pinia).use(ElementPlus).use(BaiduCalendar).mount('#app')
 

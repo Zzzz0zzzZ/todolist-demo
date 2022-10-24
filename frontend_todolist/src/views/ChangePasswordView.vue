@@ -107,7 +107,6 @@ const submit = () => {
                         message: '更改成功',
                         type: 'success'
                     })
-                    localStorage.removeItem("token")
                     store.username = null
                     store.userid = null
                     router.push({ name: 'login' })
