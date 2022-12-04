@@ -14,6 +14,7 @@
     "core-js": "^3.8.3",
     "dayjs": "^1.11.5",
     "element-plus": "^2.2.15",
+    "image-conversion": "^2.1.1",
     "pinia": "^2.0.22",
     "vue": "^3.2.13",
     "vue-baidu-calendar": "^1.0.8",

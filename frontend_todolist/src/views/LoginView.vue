@@ -78,7 +78,7 @@ const submit = () => {
                     ElNotification({
                         title: `welcome ! ${store.username}`,
                         center: 'true',
-                        duration:'4000'
+                        duration:'2500'
                     })
                 }
             })

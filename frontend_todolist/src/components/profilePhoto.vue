@@ -17,6 +17,7 @@
 import { ref, defineEmits } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
+import * as imageConversion from 'image-conversion'
 
 const imageUrl = ref('')
 const token = localStorage.getItem("token")
@@ -35,6 +36,14 @@ const beforeAvatarUpload = (rawFile) => {
     } else if (rawFile.size / 1024 / 1024 > 1) {
         ElMessage.error('Avatar picture size can not exceed 1MB!')
         return false
+    } else if (rawFile.size / 1024 / 1024 > 0.05) {
+        // 图像压缩至 50KB
+        let myImg = new Promise((resolve) => {
+            imageConversion.compressAccurately(rawFile, 50).then((res) => {
+                resolve(res);
+            })
+        })
+        return myImg;
     }
     return true
 }
