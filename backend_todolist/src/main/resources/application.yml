@@ -6,6 +6,13 @@ spring:
     password: 123456
   main:
     banner-mode: off
+  redis:
+    database: 0
+    timeout: 500
+    host: 152.136.154.181
+    port: 6379
+    pool:
+      max-active: 8
 
 server:
   port: 8060
