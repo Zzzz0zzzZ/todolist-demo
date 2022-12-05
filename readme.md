@@ -1,10 +1,12 @@
-## ToDoList
+# ToDoList
 
-### 项目地址
+## 项目地址
 
 [To-Do List](http://152.136.154.181:4547/todo/login)
 
-### 项目功能
+<br/>
+
+## 项目功能
 
 ##### 已完成
 
@@ -17,9 +19,10 @@
 
 1. 样式美化
 2. 用户身份认证
-3. 头像储存方案
 
-### 项目构建
+<br/>
+
+## 项目构建
 
 ##### 前端
 
@@ -27,46 +30,80 @@ Vue3 + Bootstrap + Element Plus
 
 ##### 后端
 
-Springboot + myBatis Plus + mysql
+Springboot + MyBatis-Plus + MySQL + Redis
 
-### 项目说明
+<br/>
 
-#### 关于数据库
+## 更新日志
 
-- 出于安全性考虑，后端连接数据库代码部分未开源
+> 本项目自 2022/9/20 的提交后新增更新日志
 
-- 配置文件在`ToDoList-backend\src\main\resources\application.yml`
-  - 使用时请自行配置数据库信息 `{url, username, password}`
-  - 在端口正常的情况下即可直接使用
+##### 2022/12/05
 
-```yml
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: 
-    username:
-    password: 
-  main:
-    banner-mode: off
+---
 
-server:
-  port: 8060
+- 完成`Springboot`整合`Redis`
 
-mybatis-plus:
-  global-config:
-    banner: false
-```
+##### 2022/12/04
 
-- 数据库部分建表代码如下
+---
 
-```mysql
-CREATE TABLE `todolist` (
-`id` int NOT NULL AUTO_INCREMENT,
-`userid` INT NOT NULL ,
-`content` varchar(1000) NOT NULL,
-`create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-`update_time` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-`status` INT DEFAULT 0,
-PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
-```
+- 用户头像上传时将会被压缩至`50KB`
+- 登录欢迎弹窗持续时间缩短为`2.5s`
+
+##### 2022/10/25
+
+---
+
+- 更换天气数据`API`接口   [天气API接口](http://www.tianqiapi.com/)
+- 新增登录成功时的欢迎弹窗
+
+##### 2022/10/24
+
+---
+
+> 1024 程序员节快乐 😀
+
+- 新增用户上传头像功能
+- 修复由`url`与`localStorage`数据不同导致的路由跳转`bug`
+- 取消修改用户名时将不再保留相关记录
+
+##### 2022/10/23
+
+---
+
+- 新增拦截器，调用`API`时需要使用`token`验证
+- 后端依赖升级
+- `jwt token`过期时间更新为两天
+
+##### 2022/10/20
+
+---
+
+- 修复"路由跳转历史"冗余的缺陷
+
+##### 2022/10/07
+
+---
+
+- 更改`TodayCard`组件待办比例的逻辑, 优化用户体验
+
+##### 2022/10/03
+
+---
+
+- 完成<到期日>功能
+
+##### 2022/9/24
+
+---
+
+- 修复用户名可以为`空格`的程序缺陷
+
+##### 2022/9/22
+
+---
+
+- 新增更改用户名功能
+- 修复由更改`localStorage`所带来的安全漏洞
+- 更改密码时不再需要输入用户名
