@@ -9,10 +9,11 @@ spring:
   redis:
     database: 0
     timeout: 500
-    host: 152.136.154.181
-    port: 6379
+    host: 127.0.0.1
+    port: 5378
     pool:
       max-active: 8
+    password: Hey-ya
 
 server:
   port: 8060
