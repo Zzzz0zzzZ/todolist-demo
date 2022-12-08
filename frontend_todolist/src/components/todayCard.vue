@@ -31,7 +31,7 @@ import { ref } from 'vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
 
-let store = countStore()
+const store = countStore()
 store.updateCount()
 
 const today_weather_city = ref('')

@@ -72,7 +72,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ArrowDown, UserFilled } from '@element-plus/icons-vue'
-import { countStore } from '@/stores/countStore'
 import { ElMessage } from 'element-plus'
 import axios from 'axios'
 import { reactive, ref } from 'vue'
@@ -89,20 +88,15 @@ const rules = reactive({
 })
 
 const form = ref('')
-const store = countStore()
 const username = localStorage.getItem("username")
 const userid = localStorage.getItem("userid")
 const router = useRouter()
 const dialogVisible = ref(false)
-const profile = ref(false)
 
 const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("userid")
     localStorage.removeItem("username")
-    localStorage.removeItem("url")
-    store.username = null
-    store.userid = null
     router.push({ name: "login" })
 }
 
@@ -127,11 +121,11 @@ const change_username = () => {
                 method: 'POST',
                 url: '/api/change_username',
                 data: ({
-                    "username": username,
-                    "new_username": user.new_username
+                    username: username,
+                    new_username: user.new_username
                 }),
                 headers: ({
-                    "token": localStorage.getItem("token")
+                    token: localStorage.getItem("token")
                 })
             }).then(res => {
                 if (res.data == false) {
@@ -163,29 +157,28 @@ const to_change_password = () => {
 }
 
 const url = ref('')
-let blob
 const get_url = () => {
     axios({
         url: `/api/getphoto/${userid}`,
         method: 'GET',
         responseType: 'blob',
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         })
     }).then((res) => {
         if (res.data.size !== 0) {
-            blob = new window.Blob([res.data])
+            let blob = new window.Blob([res.data])
             url.value = window.URL.createObjectURL(blob)
         } else {
             url.value = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201909%2F23%2F20190923182909_LPaCx.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669194227&t=4a2d6114b8faf2bb5c9c83e060fc61d7"
         }
     })
-
 }
 
 get_url()
 
 const uploadview = ref(true)
+const profile = ref(false)
 const upload = () => {
     localStorage.removeItem("url")
     router.go(0)

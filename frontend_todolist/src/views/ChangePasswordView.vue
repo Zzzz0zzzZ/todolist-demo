@@ -35,10 +35,9 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { SHA256 } from '../utils/sha256'
-import { countStore } from '@/stores/countStore'
 
-const store = countStore()
-let username = store.username
+const username = localStorage.getItem("username")
+const userid = localStorage.getItem("userid")
 const user = reactive({
     password: '',
     new_password: '',
@@ -87,12 +86,13 @@ const submit = () => {
                 method: 'POST',
                 url: '/api/change_password',
                 data: ({
-                    "username": username,
-                    "password": SHA256(user.password),
-                    "new_password": SHA256(user.new_password)
+                    userid: userid,
+                    username: username,
+                    password: SHA256(user.password),
+                    new_password: SHA256(user.new_password)
                 }),
                 headers: ({
-                    "token": localStorage.getItem("token")
+                    token: localStorage.getItem("token")
                 })
             }).then(res => {
                 if (res.data !== true) {
@@ -107,8 +107,9 @@ const submit = () => {
                         message: '更改成功',
                         type: 'success'
                     })
-                    store.username = null
-                    store.userid = null
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("userid")
+                    localStorage.removeItem("username")
                     router.push({ name: 'login' })
                 }
             })

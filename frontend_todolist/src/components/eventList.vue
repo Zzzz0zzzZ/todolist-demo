@@ -79,7 +79,7 @@ axios({
     url: `/api/todos/${userid}`,
     method: 'GET',
     headers: ({
-        "token": localStorage.getItem("token")
+        token: localStorage.getItem("token")
     })
 }).then(res => {
     content_list.value = res.data
@@ -96,11 +96,11 @@ const addTodo = (todoObj) => {
         url: '/api/add',
         method: 'POST',
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         }),
         data: ({
-            "userid": userid,
-            "content": todoObj.content
+            userid: userid,
+            content: todoObj.content
         })
     }).then(() => {
         content_list.value.unshift(todoObj)
@@ -108,7 +108,7 @@ const addTodo = (todoObj) => {
             url: `/api/todos/${userid}`,
             method: 'GET',
             headers: ({
-                "token": localStorage.getItem("token")
+                token: localStorage.getItem("token")
             })
         }).then(res => {
             content_list.value = res.data
@@ -122,13 +122,13 @@ const addTodo = (todoObj) => {
     })
 }
 
-let delete_a_todo = (content) => {
+const delete_a_todo = (content) => {
     axios({
         url: '/api/delete',
         method: 'POST',
         data: toRaw(content),
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         })
     }).then(() => {
         content.status = 1
@@ -136,7 +136,7 @@ let delete_a_todo = (content) => {
     })
 }
 
-let complete_a_todo = (content) => {
+const complete_a_todo = (content) => {
     // [完成]按钮点击标志，与框点击事件区分开
     click_complete.value = true
     let content_ori = toRaw(content)
@@ -150,7 +150,7 @@ let complete_a_todo = (content) => {
             status: 1
         }),
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         })
     }).then(() => {
         content.status = 1
@@ -159,7 +159,7 @@ let complete_a_todo = (content) => {
     })
 }
 
-let show_date_picker = (idx) => {
+const show_date_picker = (idx) => {
     // 点框而不是点框中的按钮时 --> [避免完成一个事项时弹出选择框]
     if (!click_complete.value) {
         // 如果一直选的是一个，就完成：展示/隐藏
@@ -176,12 +176,12 @@ let show_date_picker = (idx) => {
 }
 
 // 刷新
-let refresh_list = () => {
+const refresh_list = () => {
     axios({
         url: `/api/todos/${userid}`,
         method: 'GET',
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         })
     }).then(res => {
         content_list.value = res.data
@@ -191,16 +191,18 @@ let refresh_list = () => {
 }
 
 // 清空deadline
-let clear_deadline = (content) => {
+const clear_deadline = (content) => {
+    console.log(content.id);
     axios({
         url: '/api/update',
         method: 'POST',
         data: ({
             id: content.id,
+            userid: userid,
             deadline: ''
         }),
         headers: ({
-            "token": localStorage.getItem("token")
+            token: localStorage.getItem("token")
         })
     }).then(() => {
         refresh_list()
@@ -208,17 +210,17 @@ let clear_deadline = (content) => {
 }
 
 // 设置显示[清空]按钮，供子组件<DatePicker />调用
-let show_clear_btn = (idx) => {
+const show_clear_btn = (idx) => {
     show_clr_btn.value[idx] = true
 }
 
 // 设置隐藏[清空]按钮，供子组件<DatePicker />调用
-let hide_clear_btn = (idx) => {
+const hide_clear_btn = (idx) => {
     show_clr_btn.value[idx] = false
 }
 
 // 动态设置deadline日期颜色
-let set_ddl_color = (ddl) => {
+const set_ddl_color = (ddl) => {
     let text_color = ''
     if (ddl) {
         // 计算deadline剩余日期

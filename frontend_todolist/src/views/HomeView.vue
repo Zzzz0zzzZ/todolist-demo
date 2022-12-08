@@ -58,8 +58,6 @@ if (route.path !== `/todo/todolist/${userid}`) {
   localStorage.removeItem("userid")
   localStorage.removeItem("username")
   localStorage.removeItem("url")
-  store.username = null
-  store.userid = null
   router.push({ name: "login" })
 }
 </script>

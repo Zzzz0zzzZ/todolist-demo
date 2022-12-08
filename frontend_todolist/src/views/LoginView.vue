@@ -31,7 +31,6 @@ import axios from 'axios'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { SHA256 } from '../utils/sha256'
-import { countStore } from '@/stores/countStore'
 
 const user = reactive({
     username: '',
@@ -49,7 +48,6 @@ const rules = reactive({
 
 const form = ref('')
 const router = useRouter()
-const store = countStore()
 
 const submit = () => {
     form.value.validate((valid) => {
@@ -58,8 +56,8 @@ const submit = () => {
                 method: 'POST',
                 url: '/api/login',
                 data: ({
-                    "username": user.username,
-                    "password": SHA256(user.password)
+                    username: user.username,
+                    password: SHA256(user.password)
                 })
             }).then(res => {
                 if (res.data.token === undefined) {
@@ -72,11 +70,9 @@ const submit = () => {
                     localStorage.setItem("token", res.data.token)
                     localStorage.setItem("userid", res.data.userid)
                     localStorage.setItem("username", res.data.username)
-                    store.userid = res.data.userid
-                    store.username = res.data.username
                     router.push({ path: `/todo/todolist/${res.data.userid}` })
                     ElNotification({
-                        title: `welcome ! ${store.username}`,
+                        title: `welcome ! ${localStorage.getItem("username")}`,
                         center: 'true',
                         duration:'2500'
                     })

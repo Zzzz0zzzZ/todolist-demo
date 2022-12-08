@@ -83,8 +83,8 @@ const submit = () => {
                 method: 'POST',
                 url: '/api/register',
                 data: ({
-                    "username": user.username,
-                    "password": SHA256(user.password)
+                    username: user.username,
+                    password: SHA256(user.password)
                 })
             }).then(res => {
                 if (res.data !== true) {

@@ -45,7 +45,7 @@ const shortcuts = [     // 快捷选择
 ]
 
 // 未设置：显示[设置]  已设置：显示[更改]   ｜并根据是否设置的状态，决定是否显示[清空]按钮
-let get_placeholder_value = () => {
+const get_placeholder_value = () => {
     let placeholder_value = ''
     if (props.cont.deadline === '' || props.cont.deadline === null || props.cont.deadline === undefined) {
         placeholder_value = '设置截至日期'
@@ -58,6 +58,7 @@ let get_placeholder_value = () => {
     return placeholder_value
 }
 
+const userid = localStorage.getItem("userid")
 // 持久化 [deadline]
 onUpdated(() => {
     if (value.value != '' && value.value != null) {
@@ -66,10 +67,11 @@ onUpdated(() => {
             method: 'POST',
             data: ({
                 id: props.cont.id,
+                userid: userid,
                 deadline: value.value
             }),
             headers: ({
-                "token": localStorage.getItem("token")
+                token: localStorage.getItem("token")
             })
         }).then(() => {
             emit('refresh')

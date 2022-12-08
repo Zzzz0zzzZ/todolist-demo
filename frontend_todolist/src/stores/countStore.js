@@ -6,19 +6,17 @@ export const countStore = defineStore('countStore', {
         return {
             count_total: null,         // 帖子总数
             count_finish: null,        // 帖子完成数
-            userid: null,
-            username: null
         }
     },
     actions: {
         updateCount() {
-            this.userid = localStorage.getItem('userid')
-            this.username = localStorage.getItem('username')
+            this.userid = localStorage.getItem("userid")
+            this.username = localStorage.getItem("username")
             axios({
                 method: "GET",
                 url: `/api/count_finish/${this.userid}`,
                 headers: ({
-                    "token": localStorage.getItem("token")
+                    token: localStorage.getItem("token")
                 })
             }).then(res => {
                 this.count_finish = parseInt(res.data)
@@ -27,7 +25,7 @@ export const countStore = defineStore('countStore', {
                 method: "GET",
                 url: `/api/count_total/${this.userid}`,
                 headers: ({
-                    "token": localStorage.getItem("token")
+                    token: localStorage.getItem("token")
                 })
             }).then(res => {
                 this.count_total = parseInt(res.data)
