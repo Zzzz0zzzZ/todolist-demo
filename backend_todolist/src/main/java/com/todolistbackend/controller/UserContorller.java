@@ -11,6 +11,7 @@ import com.todolistbackend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -64,31 +65,36 @@ public class UserContorller {
     }
 
     @PostMapping("/change_password")
-    public Boolean change_password(@RequestBody Map<String, String> mp) {
-        QueryWrapper<User> us = new QueryWrapper<>();
-        us.eq("username", mp.get("username")).eq("password", mp.get("password"));
-        User user = userMapper.selectOne(us);
-        if (user != null) {
-            UpdateWrapper<User> update_user = new UpdateWrapper<>();
-            update_user.eq("username", mp.get("username")).set("password", mp.get("new_password"));
-            userMapper.update(new User(), update_user);
-            return true;
+    public Boolean change_password(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
+        if (TokenUtils.checkReq(head.get("token"), Integer.parseInt(mp.get("userid")))) {
+            QueryWrapper<User> us = new QueryWrapper<>();
+            us.eq("username", mp.get("username")).eq("password", mp.get("password"));
+            User user = userMapper.selectOne(us);
+            if (user != null) {
+                UpdateWrapper<User> update_user = new UpdateWrapper<>();
+                update_user.eq("username", mp.get("username")).set("password", mp.get("new_password"));
+                userMapper.update(new User(), update_user);
+                return true;
+            }
         }
         return false;
     }
 
     @PostMapping("/change_username")
-    public Boolean change_username(@RequestBody Map<String, String> mp) {
-        QueryWrapper<User> us = new QueryWrapper<>();
-        us.eq("username", mp.get("new_username"));
-        User user = userMapper.selectOne(us);
-        if (user != null) {
-            return false;
+    public Boolean change_username(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
+        if (TokenUtils.checkReq(head.get("token"), Integer.parseInt(mp.get("userid")))) {
+            QueryWrapper<User> us = new QueryWrapper<>();
+            us.eq("username", mp.get("new_username"));
+            User user = userMapper.selectOne(us);
+            if (user != null) {
+                return false;
+            }
+            UpdateWrapper<User> update_user = new UpdateWrapper<>();
+            update_user.eq("username", mp.get("username")).set("username", mp.get("new_username"));
+            userMapper.update(new User(), update_user);
+            return true;
         }
-        UpdateWrapper<User> update_user = new UpdateWrapper<>();
-        update_user.eq("username", mp.get("username")).set("username", mp.get("new_username"));
-        userMapper.update(new User(), update_user);
-        return true;
+        return false;
     }
 
     @PostMapping("/checkToken")
