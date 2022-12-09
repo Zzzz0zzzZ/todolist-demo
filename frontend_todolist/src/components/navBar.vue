@@ -94,9 +94,6 @@ const router = useRouter()
 const dialogVisible = ref(false)
 
 const logout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userid")
-    localStorage.removeItem("username")
     router.push({ name: "login" })
 }
 
@@ -180,7 +177,6 @@ get_url()
 const uploadview = ref(true)
 const profile = ref(false)
 const upload = () => {
-    localStorage.removeItem("url")
     router.go(0)
     get_url()
     ElMessage.success('上传成功')

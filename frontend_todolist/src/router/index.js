@@ -50,16 +50,15 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/todo/register' || to.path === '/todo/login') {
+  if (to.path === '/todo/register' || to.path === '/todo/login/') {
     localStorage.removeItem("token")
-    localStorage.removeItem("url")
     localStorage.removeItem("userid")
     localStorage.removeItem("username")
     next()
   } else {
     const token = localStorage.getItem("token")
     if (token === null || token === '') {
-      next('/todo/login')
+      next('/todo/login/')
     } else {
       axios({
         method: 'POST',
@@ -71,7 +70,7 @@ router.beforeEach((to, from, next) => {
         if (res.data === true) {
           next()
         } else {
-          next('/todo/login')
+          next('/todo/login/')
         }
       })
     }

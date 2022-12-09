@@ -54,10 +54,6 @@ const router = useRouter()
 const userid = localStorage.getItem("userid")
 
 if (route.path !== `/todo/todolist/${userid}`) {
-  localStorage.removeItem("token")
-  localStorage.removeItem("userid")
-  localStorage.removeItem("username")
-  localStorage.removeItem("url")
   router.push({ name: "login" })
 }
 </script>
