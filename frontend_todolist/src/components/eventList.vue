@@ -192,7 +192,6 @@ const refresh_list = () => {
 
 // 清空deadline
 const clear_deadline = (content) => {
-    console.log(content.id);
     axios({
         url: '/api/update',
         method: 'POST',

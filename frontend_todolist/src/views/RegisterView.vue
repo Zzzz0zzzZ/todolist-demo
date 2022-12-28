@@ -16,6 +16,17 @@
                     <el-input placeholder="请再次输入密码" :prefix-icon="Lock" class="item" v-model="user.password_confirm"
                         show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                 </el-form-item>
+                <el-row>
+                    <el-col :span="15">
+                        <el-form-item prop="verifycode">
+                            <el-input placeholder="请输入验证码" :prefix-icon="Lock" class="item" v-model="user.verifycode"
+                                show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="9">
+                        <img src="/api/getCode" ref="verifycode" @click="refresh">
+                    </el-col>
+                </el-row>
                 <div class="link">
                     <div class="link" @click="onClickAlreadyRegist">已注册?点此登录</div>
                 </div>
@@ -38,7 +49,8 @@ import { SHA256 } from '../utils/sha256'
 const user = reactive({
     username: '',
     password: '',
-    password_confirm: ''
+    password_confirm: '',
+    verifycode: ''
 })
 
 const rules = reactive({
@@ -50,6 +62,9 @@ const rules = reactive({
     ],
     password_confirm: [
         { required: true, message: '请确认密码', trigger: 'blur' }
+    ],
+    verifycode: [
+        { required: true, message: '请输入验证码', trigger: 'blur' }
     ]
 })
 
@@ -84,16 +99,24 @@ const submit = () => {
                 url: '/api/register',
                 data: ({
                     username: user.username,
-                    password: SHA256(user.password)
+                    password: SHA256(user.password),
+                    verifycode: user.verifycode
                 })
             }).then(res => {
-                if (res.data !== true) {
+                if (res.data === 'verifycode_error') {
+                    ElMessage({
+                        showClose: true,
+                        message: '验证码输入错误',
+                        type: 'error'
+                    })
+                    refresh()
+                } else if (res.data === 'username_error') {
                     ElMessage({
                         showClose: true,
                         message: '用户名太受欢迎了',
                         type: 'error'
                     })
-                } else {
+                } else if (res.data === 'success') {
                     ElMessage({
                         showClose: true,
                         message: '注册成功',
@@ -113,6 +136,11 @@ const submit = () => {
             return false
         }
     })
+}
+
+const verifycode = ref('')
+const refresh = () => {
+    verifycode.value.src = '/api/getCode?time' + new Date().getTime()
 }
 </script>
 

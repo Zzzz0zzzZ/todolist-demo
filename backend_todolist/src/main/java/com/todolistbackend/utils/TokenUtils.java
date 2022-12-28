@@ -43,7 +43,7 @@ public class TokenUtils {
         return true;
     }
 
-    public static boolean checkReq(String token,Integer userid) {
+    public static boolean checkReq(String token, Integer userid) {
         Map<String, Claim> map = new HashMap<>();
         try {
             Algorithm algorithm = Algorithm.HMAC256(KEY);
