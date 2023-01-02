@@ -35,7 +35,7 @@
                                         <div class="row" v-show="show_picker[index]">
                                             <div class="col-1"></div>
                                             <div class="col-2">
-                                                <DatePicker :cont="content" @refresh="refresh_list"
+                                                <datePicker :cont="content" @refresh="refresh_list"
                                                     @show_clear_btn="show_clear_btn(index)"
                                                     @hide_clear_btn="hide_clear_btn(index)" />
                                             </div>
@@ -63,7 +63,7 @@ import { reactive, ref, toRaw } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
-import DatePicker from './DatePicker.vue'
+import datePicker from './datePicker.vue'
 import dayjs from 'dayjs'
 
 const content_list = reactive([])

@@ -17,7 +17,7 @@
                     <el-col :span="15">
                         <el-form-item prop="verifycode">
                             <el-input placeholder="请输入验证码" :prefix-icon="Lock" class="item" v-model="user.verifycode"
-                                show-password @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
+                                @paste.capture.prevent="handlePaste" @keyup.enter="submit" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="9">
@@ -55,6 +55,9 @@ const rules = reactive({
     ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' }
+    ],
+    verifycode: [
+        { required: true, message: '请输入验证码', trigger: 'blur' }
     ]
 })
 
@@ -103,11 +106,21 @@ const submit = () => {
                 }
             })
         } else {
-            ElMessage({
-                showClose: true,
-                message: '用户名和密码不能为空哦',
-                type: 'warning'
-            })
+            if (!valid) {
+                if (user.username === '' || user.password === '') {
+                    ElMessage({
+                        showClose: true,
+                        message: '用户名和密码不能为空哦',
+                        type: 'warning'
+                    })
+                } else {
+                    ElMessage({
+                        showClose: true,
+                        message: '验证码不能为空哦',
+                        type: 'warning'
+                    })
+                }
+            }
             return false
         }
     })

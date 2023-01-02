@@ -8,9 +8,7 @@
 </template>
   
 <script setup>
-import { onUpdated, ref } from 'vue'
-import { defineProps } from 'vue'
-import { defineEmits } from 'vue'
+import { onUpdated, ref, defineProps, defineEmits } from 'vue'
 import axios from 'axios'
 
 const emit = defineEmits(['refresh', 'show_clear_btn', 'hide_clear_btn'])   // 父组件eventList中的方法
