@@ -18,6 +18,9 @@
             <div class="row">
               <CheckCalender />
             </div>
+            <div class="row">
+              <UserSettings />
+            </div>
           </div>
         </div>
       </div>
@@ -46,6 +49,7 @@ import EventList from "@/components/eventList.vue"
 import CheckCalender from "@/components/checkCalender.vue"
 import { countStore } from '@/stores/countStore'
 import { useRoute, useRouter } from 'vue-router'
+import UserSettings from "@/components/UserSettings";
 
 const store = countStore()
 store.updateCount()

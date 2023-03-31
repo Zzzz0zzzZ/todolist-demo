@@ -63,7 +63,7 @@ import { reactive, ref, toRaw } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
-import datePicker from './datePicker.vue'
+import DatePicker from './DatePicker.vue'
 import dayjs from 'dayjs'
 
 const content_list = reactive([])
