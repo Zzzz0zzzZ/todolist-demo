@@ -17,7 +17,7 @@ const set = ref("")
 
 onBeforeMount(() => {
   axios({
-    url: `/loc/settings/${localStorage.getItem("userid")}`,
+    url: `/api/settings/${localStorage.getItem("userid")}`,
     method: 'GET',
     headers: ({
       token: localStorage.getItem("token")
@@ -30,7 +30,7 @@ onBeforeMount(() => {
 
 const handleChangeNotification = function (t) {
   axios({
-    url: `/loc/settings`,
+    url: `/api/settings`,
     method: 'POST',
     headers: ({
       token: localStorage.getItem("token")
