@@ -5,7 +5,7 @@ module.exports = defineConfig({
     proxy: {
       // 配置跨域
       '/api': {
-        target: 'http://152.136.154.181:8060',
+        target: 'http://106.12.165.78:8060',
         pathRewrite: { '^/api': '' },
         ws: true,
         changeOrigin: true

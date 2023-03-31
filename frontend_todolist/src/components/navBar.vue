@@ -37,6 +37,7 @@
                     <el-dropdown-menu>
                         <el-dropdown-item @click="to_change_username">更改用户名</el-dropdown-item>
                         <el-dropdown-item @click="to_change_password">更改密码</el-dropdown-item>
+                        <el-dropdown-item @click="to_change_email">更改邮箱</el-dropdown-item>
                         <el-dropdown-item @click="profile = true">上传头像</el-dropdown-item>
                         <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
@@ -72,7 +73,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ArrowDown, UserFilled } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import axios from 'axios'
 import { reactive, ref } from 'vue'
 import profilePhoto from './profilePhoto.vue'
@@ -151,6 +152,38 @@ const change_username = () => {
 
 const to_change_password = () => {
     router.push({ name: "change_password" })
+}
+
+const to_change_email = () => {
+  ElMessageBox.prompt(`更改新邮箱,原邮箱为: ${localStorage.getItem("email") || "未设置"}`, '启用<待办每日提醒服务>', {
+    confirmButtonText: '确认修改',
+    cancelButtonText: '放弃修改',
+    inputPattern:
+        /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+    inputErrorMessage: '不合法的邮箱',
+    inputPlaceholder: "example@email.com"
+  })
+      .then(({ value }) => {
+        axios({
+          url: `/api/setEmails`,
+          method: 'POST',
+          headers: ({
+            token: localStorage.getItem("token")
+          }),
+          data: ({
+            userid: localStorage.getItem("userid"),
+            notification: 1,
+            email: value
+          })
+        }).then(() => {
+          localStorage.setItem("email", value)
+          ElMessage({
+            type: 'success',
+            message: `设置成功，您的邮箱是：${value}`,
+          })
+          window.location.reload()
+        })
+      })
 }
 
 const url = ref('')

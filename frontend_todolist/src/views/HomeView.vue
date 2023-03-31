@@ -16,10 +16,10 @@
               <TodayCard />
             </div>
             <div class="row">
-              <CheckCalender />
+              <UserSettings />
             </div>
             <div class="row">
-              <UserSettings />
+              <CheckCalender />
             </div>
           </div>
         </div>
