@@ -153,4 +153,38 @@ public class UserContorller {
         }
         return "error";
     }
+
+    @GetMapping("/eSettings/{userid}")
+    public String getESettings(@PathVariable Integer userid, @RequestHeader Map<String, String> head) {
+        if (TokenUtils.checkReq(head.get("token"), userid)) {
+            QueryWrapper<User> qw = new QueryWrapper<>();
+            qw.eq("userid", userid);
+            log.info("查询了用户设置");
+            return userMapper.selectOne(qw).getEmail();
+        }
+        return "error";
+    }
+
+    @PostMapping("/setEmails")
+    public String setEmails(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
+        /*
+        * int userid
+        * int notification
+        * string email
+        * */
+        if (TokenUtils.checkReq(head.get("token"), Integer.valueOf(mp.get("userid")))) {
+            // 查询用户
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("userid", mp.get("userid"));
+            User user = userMapper.selectOne(queryWrapper);
+            // 更新字段
+            user.setNotification(mp.get("notification"));
+            user.setEmail(mp.get("email"));
+            int res = userMapper.updateById(user);
+            // 成功判断
+            if(res == 1)    return "success";
+            else return "error";
+        }
+        return "error";
+    }
 }
