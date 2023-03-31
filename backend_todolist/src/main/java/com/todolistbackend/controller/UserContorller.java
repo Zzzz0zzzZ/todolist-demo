@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.todolistbackend.entity.Photo;
+import com.todolistbackend.entity.Todo;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.PhotoMapper;
 import com.todolistbackend.mapper.UserMapper;
 import com.todolistbackend.utils.TokenUtils;
 import com.todolistbackend.utils.VerifyCodeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
+@Slf4j
 public class UserContorller {
     @Autowired
     private UserMapper userMapper;
@@ -121,5 +124,33 @@ public class UserContorller {
     @PostMapping("/checkToken")
     public Boolean checkToken(@RequestBody Map<String, String> mp) {
         return TokenUtils.checkToken(mp.get("token"));
+    }
+
+    @PostMapping("/settings")
+    public String setSettings(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
+        if (TokenUtils.checkReq(head.get("token"), Integer.valueOf(mp.get("userid")))) {
+            // 查询用户
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("userid", mp.get("userid"));
+            User user = userMapper.selectOne(queryWrapper);
+            // 更新字段
+            user.setNotification(mp.get("notification"));
+            int res = userMapper.updateById(user);
+            // 成功判断
+            if(res == 1)    return "success";
+            else return "error";
+        }
+        return "error";
+    }
+
+    @GetMapping("/settings/{userid}")
+    public String getSettings(@PathVariable Integer userid, @RequestHeader Map<String, String> head) {
+        if (TokenUtils.checkReq(head.get("token"), userid)) {
+            QueryWrapper<User> qw = new QueryWrapper<>();
+            qw.eq("userid", userid);
+            log.info("查询了用户设置");
+            return userMapper.selectOne(qw).getNotification();
+        }
+        return "error";
     }
 }

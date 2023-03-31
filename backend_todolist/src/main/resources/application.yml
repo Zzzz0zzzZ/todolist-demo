@@ -14,6 +14,11 @@ spring:
     pool:
       max-active: 8
     password: Hey-ya
+  mail:
+    host: smtp.163.com
+    username:
+    password:
+    default-encoding: UTF-8
 
 server:
   port: 8060
