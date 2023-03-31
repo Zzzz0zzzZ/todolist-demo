@@ -19,6 +19,13 @@ spring:
     username:
     password:
     default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            port: 465
+          ssl:
+            enable: true
 
 server:
   port: 8060

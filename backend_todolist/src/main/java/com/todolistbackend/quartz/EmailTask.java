@@ -26,7 +26,7 @@ public class EmailTask{
     @Autowired
     private TodoMapper todoMapper;
 
-    @Scheduled(cron = "0 0 10,19 ? * *")
+    @Scheduled(cron = "0 0 10,13,19 ? * *")
 //    @Scheduled(cron = "*/10 * * * * ?")
     public void notification() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
