@@ -36,31 +36,35 @@ public class EmailTask{
         users.forEach(user -> {
 
             QueryWrapper<Todo> todoQueryWrapper = new QueryWrapper<>();
-            todoQueryWrapper.eq("userid", user.getUserid());
+            todoQueryWrapper
+                    .eq("userid", user.getUserid())
+                    .eq("status", 0);
             List<Todo> todos = todoMapper.selectList(todoQueryWrapper);
 
-            // 遍历一个用户所有todo
-            StringBuilder stringBuilder = new StringBuilder();
-            todos.forEach(todo -> {
-                stringBuilder
-                        .append("【待办】 ")
-                        .append(todo.getContent())
-                        .append("【截止】 ")
-                        .append(todo.getDeadline())
-                        .append(System.getProperty("line.separator"));
-            });
+            if (todos.size() > 0) {
+                // 遍历一个用户所有todo
+                StringBuilder stringBuilder = new StringBuilder();
+                todos.forEach(todo -> {
+                    stringBuilder
+                            .append("【待办】 ")
+                            .append(todo.getContent())
+                            .append("【截止】 ")
+                            .append(todo.getDeadline())
+                            .append(System.getProperty("line.separator"));
+                });
 
-            // 发邮件: Content用拼接好的字符串
-            try {
-                mailService.sendSimpleMail(
-                        user.getEmail(),
-                        "【todolist】待办提醒",
-                        stringBuilder.toString()
-                );
-                log.info("邮件推送提醒成功, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
-            } catch (Exception e){
-                e.printStackTrace();
-                log.warn("邮件推送提醒失败, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
+                // 发邮件: Content用拼接好的字符串
+                try {
+                    mailService.sendSimpleMail(
+                            user.getEmail(),
+                            "【todolist】待办提醒",
+                            stringBuilder.toString()
+                    );
+                    log.info("邮件推送提醒成功, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
+                } catch (Exception e){
+                    e.printStackTrace();
+                    log.warn("邮件推送提醒失败, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
+                }
             }
         });
     }
