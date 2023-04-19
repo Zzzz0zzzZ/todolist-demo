@@ -22,7 +22,7 @@
                                         </div>
                                         <div class="col-7 content-style">{{ content.content }}</div>
                                       <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
-                                        {{ content.deadline }}({{getDayLeft(content.deadline)}})
+                                        {{ content.deadline }}{{getDayLeft(content.deadline)}}
                                       </div>
                                         <div class="col-1">
                                             <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
@@ -219,7 +219,7 @@ const hide_clear_btn = (idx) => {
     show_clr_btn.value[idx] = false
 }
 
-const getDayLeft = (ddl) => `剩${dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day')}天`
+const getDayLeft = (ddl) => ddl ? `(剩${dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day')}天)` : ""
 
 // 动态设置deadline日期颜色
 const set_ddl_color = (ddl) => {
@@ -230,7 +230,7 @@ const set_ddl_color = (ddl) => {
         let today = todayDate.toISOString().split('T')[0]
         let days_left = dayjs(ddl).diff(today, 'day')
         // 根据日期设置字体颜色
-        if (days_left >= 2) {
+        if (days_left > 3) {
             text_color = 'color: #7ebf50'   // 按钮绿
         }
         else if (days_left >= 0) {
