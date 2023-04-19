@@ -29,7 +29,7 @@
                                                 cancel-button-text="算了" :icon="Delete" icon-color="red"
                                                 @confirm="delete_a_todo(content)">
                                                 <template #reference>
-                                                    <el-button type="danger" :icon="Delete" circle />
+                                                    <el-button @click.stop type="danger" :icon="Delete" circle />
                                                 </template>
                                             </el-popconfirm>
                                         </div>
