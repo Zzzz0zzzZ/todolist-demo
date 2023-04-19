@@ -20,9 +20,10 @@
                                             <el-button type="success" :icon="Check" @click="complete_a_todo(content)"
                                                 circle />
                                         </div>
-                                        <div class="col-8 content-style">{{ content.content }}</div>
-                                        <div class="col-2" :style="set_ddl_color(content.deadline)">{{ content.deadline
-                                        }}</div>
+                                        <div class="col-7 content-style">{{ content.content }}</div>
+                                      <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
+                                        {{ content.deadline }}({{getDayLeft(content.deadline)}})
+                                      </div>
                                         <div class="col-1">
                                             <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
                                                 cancel-button-text="算了" :icon="Delete" icon-color="red"
@@ -218,6 +219,8 @@ const hide_clear_btn = (idx) => {
     show_clr_btn.value[idx] = false
 }
 
+const getDayLeft = (ddl) => `剩${dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day')}天`
+
 // 动态设置deadline日期颜色
 const set_ddl_color = (ddl) => {
     let text_color = ''
@@ -273,5 +276,9 @@ const set_ddl_color = (ddl) => {
 
 .div-aaa {
     height: 500px;
+}
+
+#ddl-text {
+  font-size: 16px;
 }
 </style>
