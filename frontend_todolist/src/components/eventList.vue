@@ -224,13 +224,14 @@ const getDayLeft = (ddl) => ddl ? `(剩${dayjs(ddl).diff(new Date().toISOString(
 // 动态设置deadline日期颜色
 const set_ddl_color = (ddl) => {
     let text_color = ''
+    let ddl_on_change_color = localStorage.getItem('ddl') || 3
     if (ddl) {
         // 计算deadline剩余日期
         let todayDate = new Date()
         let today = todayDate.toISOString().split('T')[0]
         let days_left = dayjs(ddl).diff(today, 'day')
         // 根据日期设置字体颜色
-        if (days_left > 3) {
+        if (days_left > ddl_on_change_color) {
             text_color = 'color: #7ebf50'   // 按钮绿
         }
         else if (days_left >= 0) {
