@@ -44,7 +44,7 @@ const today_date = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + 
 
 axios({
     method: 'GET',
-    url: 'https://v0.yiketianqi.com/api?unescape=1&version=v61&appid=43429654&appsecret=qSjImVc6',
+    url: 'https://v0.yiketianqi.com/api?unescape=1&version=v61&appid=65939434&appsecret=tBWLUn2Q',
 }).then(res => {
     today_weather_city.value = res.data.city
     today_weather_forecast_type.value = res.data.wea

@@ -12,12 +12,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Component
 @Slf4j
-public class EmailTask{
+public class EmailTask {
 
     @Autowired
     private MailService mailService;
@@ -61,7 +60,7 @@ public class EmailTask{
                             stringBuilder.toString()
                     );
                     log.info("邮件推送提醒成功, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     log.warn("邮件推送提醒失败, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
                 }

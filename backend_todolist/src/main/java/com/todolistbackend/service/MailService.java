@@ -19,24 +19,25 @@ public class MailService {
 
     @Autowired
     private JavaMailSender mailSender;
-    public void sendSimpleMail(String to,String subject,String content){
+
+    public void sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setSubject(subject);
         message.setTo(to);
         message.setText(content);
-        try{
+        try {
             mailSender.send(message);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("发送定时邮件失败");
             e.printStackTrace();
         }
 
     }
 
-    public void sendHtmlMail(String to,String subject,String content) throws MessagingException {
+    public void sendHtmlMail(String to, String subject, String content) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message,true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
         helper.setTo(to);
         helper.setSubject(subject);
@@ -44,9 +45,9 @@ public class MailService {
         mailSender.send(message);
     }
 
-    public void sendAttachmentsMail(String to,String subject,String content,String filePath) throws MessagingException {
+    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message,true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
         helper.setTo(to);
         helper.setSubject(subject);
@@ -54,7 +55,7 @@ public class MailService {
 
         FileSystemResource file = new FileSystemResource(new File(filePath));
         String fileName = file.getFilename();
-        helper.addAttachment(fileName,file);
+        helper.addAttachment(fileName, file);
 
         mailSender.send(message);
     }

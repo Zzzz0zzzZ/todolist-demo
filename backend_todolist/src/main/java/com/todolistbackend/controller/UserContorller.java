@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.todolistbackend.entity.Photo;
-import com.todolistbackend.entity.Todo;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.PhotoMapper;
 import com.todolistbackend.mapper.UserMapper;
@@ -137,7 +136,7 @@ public class UserContorller {
             user.setNotification(mp.get("notification"));
             int res = userMapper.updateById(user);
             // 成功判断
-            if(res == 1)    return "success";
+            if (res == 1) return "success";
             else return "error";
         }
         return "error";
@@ -168,10 +167,10 @@ public class UserContorller {
     @PostMapping("/setEmails")
     public String setEmails(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
         /*
-        * int userid
-        * int notification
-        * string email
-        * */
+         * int userid
+         * int notification
+         * string email
+         * */
         if (TokenUtils.checkReq(head.get("token"), Integer.valueOf(mp.get("userid")))) {
             // 查询用户
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -182,7 +181,7 @@ public class UserContorller {
             user.setEmail(mp.get("email"));
             int res = userMapper.updateById(user);
             // 成功判断
-            if(res == 1)    return "success";
+            if (res == 1) return "success";
             else return "error";
         }
         return "error";
