@@ -4,10 +4,18 @@
             <div class="card-body overflow-auto">
                 <div class="row list-header-margin">
                     <div class="col-2 justify-left">待办事项</div>
-                    <div class="col-1">
-                    </div>
                     <div class="col-9">
                         <editAreaVue :addTodo="addTodo" />
+                    </div>
+                    <div class="col-1">
+                      <el-select v-model="v" class="m-2" placeholder="Select" size="small">
+                        <el-option
+                          v-for="item in options"
+                          :key="item.v"
+                          :label="item.label"
+                          :value="item.v"
+                        />
+                      </el-select>
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
@@ -60,7 +68,7 @@
 
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue'
-import { reactive, ref, toRaw } from 'vue'
+import { reactive, ref, toRaw, watch } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
@@ -90,6 +98,32 @@ axios({
         show_picker.value.push(false)
         show_clr_btn.value.push(false)
     }
+})
+
+const v = ref('')
+const options = [
+  {
+    v: 1,
+    label: "按创建时间排序",
+  },
+  {
+    v: 2,
+    label: "按截至时间排序",
+  }
+]
+
+watch(v,(newv)=>{
+  if(newv===1){
+    const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
+    content_list.value.sort((a, b) => {
+        if (sortfunc(a.deadline) === 0x3f3f3f3f && sortfunc(b.deadline) === 0x3f3f3f3f) return a.id - b.id
+        else return sortfunc(a.deadline) - sortfunc(b.deadline)
+    })
+  }else{
+    content_list.value.sort((a, b) => {
+        return b.id - a.id
+    })
+  }
 })
 
 const addTodo = (todoObj) => {
