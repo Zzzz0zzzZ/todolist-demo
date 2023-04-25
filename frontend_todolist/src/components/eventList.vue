@@ -68,7 +68,7 @@
 
 <script setup>
 import { Check, Delete } from '@element-plus/icons-vue'
-import { reactive, ref, toRaw, watch } from 'vue'
+import {reactive, ref, toRaw, watch} from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
@@ -93,6 +93,11 @@ axios({
 }).then(res => {
     content_list.value = res.data
     content_list.value = content_list.value.reverse()
+    const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
+    content_list.value.sort((a, b) => {
+      if (sortfunc(a.deadline) === 0x3f3f3f3f && sortfunc(b.deadline) === 0x3f3f3f3f) return a.id - b.id
+      else return sortfunc(a.deadline) - sortfunc(b.deadline)
+    })
     // 构造数组，每个框分配一个标志，默认不展开[false]，默认不显示[清空]->[false]
     for (let idx = 0; idx < store.getListCount; idx++) {
         show_picker.value.push(false)
@@ -100,18 +105,17 @@ axios({
     }
 })
 
-const v = ref('')
+const v = ref(2)
 const options = [
+  {
+    v: 2,
+    label: "按截止时间排序",
+  },
   {
     v: 1,
     label: "按创建时间排序",
   },
-  {
-    v: 2,
-    label: "按截至时间排序",
-  }
 ]
-
 watch(v,(newv)=>{
   if(newv===2){
     const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
