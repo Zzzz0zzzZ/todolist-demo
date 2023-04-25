@@ -3,19 +3,27 @@
         <div class="card">
             <div class="card-body overflow-auto">
                 <div class="row list-header-margin">
-                    <div class="col-2 justify-left">待办事项</div>
-                    <div class="col-9">
-                        <editAreaVue :addTodo="addTodo" />
+                    <div class="col-2 justify-left">
+                        待办事项
+                        <el-dropdown>
+                            <span class="el-dropdown-link">
+                                
+                                <el-icon class="el-icon--right">
+                                    <arrow-down />
+                                </el-icon>
+                            </span>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item @click="sort_by_ddl">按截止时间排序</el-dropdown-item>
+                                    <el-dropdown-item @click="sort_by_creattime">按创建时间排序</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
                     </div>
                     <div class="col-1">
-                      <el-select v-model="v" class="m-2" placeholder="Select" size="small">
-                        <el-option
-                          v-for="item in options"
-                          :key="item.v"
-                          :label="item.label"
-                          :value="item.v"
-                        />
-                      </el-select>
+                    </div>
+                    <div class="col-9">
+                        <editAreaVue :addTodo="addTodo" />
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
@@ -67,8 +75,8 @@
 </template>
 
 <script setup>
-import { Check, Delete } from '@element-plus/icons-vue'
-import {reactive, ref, toRaw, watch} from 'vue'
+import { Check, Delete,ArrowDown } from '@element-plus/icons-vue'
+import {reactive, ref, toRaw} from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
@@ -82,7 +90,9 @@ const show_picker = ref([])             // 是否展开选择框
 const latest_pick = ref(0)              // 最后展开的框的下标
 const click_complete = ref(false)       // 是否点击[完成]按钮
 const show_clr_btn = ref([])            // 是否显示[清空]按钮
+const INF_MAX = 0x3f3f3f3f              // 如果没设置截止日期则赋值为无穷大
 
+const day_diff = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : INF_MAX   // 计算参数ddl和当前相差的天数
 
 axios({
     url: `/api/todos/${userid}`,
@@ -93,11 +103,8 @@ axios({
 }).then(res => {
     content_list.value = res.data
     content_list.value = content_list.value.reverse()
-    const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
-    content_list.value.sort((a, b) => {
-      if (sortfunc(a.deadline) === 0x3f3f3f3f && sortfunc(b.deadline) === 0x3f3f3f3f) return a.id - b.id
-      else return sortfunc(a.deadline) - sortfunc(b.deadline)
-    })
+    // 初始默认按照截止日期排序
+    sort_by_ddl()
     // 构造数组，每个框分配一个标志，默认不展开[false]，默认不显示[清空]->[false]
     for (let idx = 0; idx < store.getListCount; idx++) {
         show_picker.value.push(false)
@@ -105,30 +112,20 @@ axios({
     }
 })
 
-const v = ref(2)
-const options = [
-  {
-    v: 2,
-    label: "按截止时间排序",
-  },
-  {
-    v: 1,
-    label: "按创建时间排序",
-  },
-]
-watch(v,(newv)=>{
-  if(newv===2){
-    const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
+// 排序方式-按截止日期排序
+const sort_by_ddl = () => {
     content_list.value.sort((a, b) => {
-        if (sortfunc(a.deadline) === 0x3f3f3f3f && sortfunc(b.deadline) === 0x3f3f3f3f) return a.id - b.id
-        else return sortfunc(a.deadline) - sortfunc(b.deadline)
+      if (day_diff(a.deadline) === INF_MAX && day_diff(b.deadline) === INF_MAX) return a.id - b.id
+      else return day_diff(a.deadline) - day_diff(b.deadline)
     })
-  }else{
+}
+
+// 排序方式-按创建日期排序
+const sort_by_creattime = () => {
     content_list.value.sort((a, b) => {
         return b.id - a.id
     })
-  }
-})
+}
 
 const addTodo = (todoObj) => {
     axios({
@@ -319,5 +316,13 @@ const set_ddl_color = (ddl) => {
 
 #ddl-text {
   font-size: 16px;
+}
+
+.el-dropdown-link {
+    font-size: large;
+    display: flex;
+    height: 3.5vh;
+    justify-content: center;
+    align-items: center;
 }
 </style>
