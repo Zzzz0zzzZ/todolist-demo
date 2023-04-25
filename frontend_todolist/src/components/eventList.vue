@@ -113,7 +113,7 @@ const options = [
 ]
 
 watch(v,(newv)=>{
-  if(newv===1){
+  if(newv===2){
     const sortfunc = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : 0x3f3f3f3f
     content_list.value.sort((a, b) => {
         if (sortfunc(a.deadline) === 0x3f3f3f3f && sortfunc(b.deadline) === 0x3f3f3f3f) return a.id - b.id
