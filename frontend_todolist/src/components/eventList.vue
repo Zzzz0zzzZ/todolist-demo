@@ -90,9 +90,9 @@ const show_picker = ref([])             // 是否展开选择框
 const latest_pick = ref(0)              // 最后展开的框的下标
 const click_complete = ref(false)       // 是否点击[完成]按钮
 const show_clr_btn = ref([])            // 是否显示[清空]按钮
-const INF_MAX = 0x3f3f3f3f              // 如果没设置截止日期则赋值为无穷大
+const INF_MIN = -0x3f3f3f3f              // 如果没设置截止日期则赋值为无穷大
 
-const day_diff = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : INF_MAX   // 计算参数ddl和当前相差的天数
+const day_diff = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : INF_MIN   // 计算参数ddl和当前相差的天数
 
 axios({
     url: `/api/todos/${userid}`,
@@ -115,7 +115,7 @@ axios({
 // 排序方式-按截止日期排序
 const sort_by_ddl = () => {
     content_list.value.sort((a, b) => {
-      if (day_diff(a.deadline) === INF_MAX && day_diff(b.deadline) === INF_MAX) return a.id - b.id
+      if (day_diff(a.deadline) === INF_MIN && day_diff(b.deadline) === INF_MIN) return a.id - b.id
       else return day_diff(a.deadline) - day_diff(b.deadline)
     })
 }
@@ -149,6 +149,7 @@ const addTodo = (todoObj) => {
         }).then(res => {
             content_list.value = res.data
             content_list.value = content_list.value.reverse()
+            sort_by_ddl()
             // 新增框，默认将原来打开的框关闭
             show_picker.value[latest_pick.value] = false
             show_picker.value.push(false)
@@ -222,6 +223,7 @@ const refresh_list = () => {
     }).then(res => {
         content_list.value = res.data
         content_list.value = content_list.value.reverse()
+        sort_by_ddl()
         store.updateCount()
     })
 }
