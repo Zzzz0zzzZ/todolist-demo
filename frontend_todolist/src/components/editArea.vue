@@ -1,48 +1,87 @@
 <template>
-    <div class="input-group flex-nowrap todo-header">
-        <input type="text" class="form-control" placeholder="新建待办事项，按回车键确认" aria-describedby="addon-wrapping"
-            v-model="content" @keyup.enter="add">
-    </div>
+  <div class="text-area-btn">
+    <el-button @click="dialogFormVisible = true" round>新增待办</el-button>
+  </div>
+  <el-dialog v-model="dialogFormVisible" title="新增一条待办">
+    <el-form :model="form">
+      <el-form-item label="待办内容" :label-width="formLabelWidth">
+        <el-input v-model="form.content" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="截止时间" :label-width="formLabelWidth">
+        <el-date-picker
+          v-model="form.date"
+          type="date"
+          placeholder="选择截止日期"
+          value-format="YYYY-MM-DD"
+          :shortcuts="shortcuts"
+        />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="add">
+          添加
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
-import { ref, defineProps, onUpdated, onMounted } from 'vue'
-import { editAreaStore } from '../stores/editAreaStore'
+import {ref, reactive} from 'vue'
+import {ElMessage} from "element-plus";
+import {addTodo} from "@/api/todo";
+import {defineEmits} from "vue";
 
-const edStore = editAreaStore()
-const content = ref('')
-const props = defineProps({
-    addTodo: {
-        type: Function,
-        required: true
+const emit = defineEmits(['refresh'])
+const dialogFormVisible = ref(false)
+const formLabelWidth = '140px'
+const form = reactive({
+  content: '',
+  date: ''
+})
+const shortcuts = [     // 快捷选择
+  {
+    text: '今天',
+    value: new Date(),
+  },
+  {
+    text: '明天',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() + 3600 * 1000 * 24)
+      return date
+    },
+  },
+  {
+    text: '一周后',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+      return date
+    },
+  }
+]
+const add = async () => {
+    if (form.content.replace(/\s+/g, '') && form.date) {
+      await addTodo(form.content, form.date)
+      form.content = ""
+      form.date = ""
+      dialogFormVisible.value = false
+      emit('refresh')
     }
-})
-const add = () => {
-    const todoObj = { content: content.value }
-    props.addTodo(todoObj)
-    content.value = ''
+    else {
+      ElMessage.warning("待办内容和截止时间不能为空！")
+    }
 }
-// 切换回来/初始化时，更改content值
-onMounted(() => {
-    content.value = edStore.content_storage
-})
-// 监听输入框内容，变化时存入editAreaStore.content_storage，实现页面切换后输入框内容仍然保持不变
-onUpdated(() => {
-    edStore.store_content(content.value)
-})
 </script>
 
 <style scoped>
-.todo-header input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 7px;
-    margin: 4px;
-}
-
-.todo-header input:focus {
-    outline: none;
-    border-color: rgba(82, 168, 236, 0.8);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+.text-area-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  margin-right: 5px;
 }
 </style>

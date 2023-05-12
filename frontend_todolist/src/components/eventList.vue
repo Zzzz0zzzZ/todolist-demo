@@ -20,10 +20,8 @@
                             </template>
                         </el-dropdown>
                     </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-9">
-                        <editAreaVue :addTodo="addTodo" />
+                    <div class="col-10">
+                        <editAreaVue @refresh="refresh_list"/>
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
