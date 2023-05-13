@@ -66,6 +66,10 @@
                             </div>
                         </div>
                     </template>
+                  <div class="end-notice">
+                    <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
+                  </div>
+
                 </div>
             </div>
         </div>
@@ -310,8 +314,15 @@ const set_ddl_color = (ddl) => {
     transition: 0.3s;
 }
 
+.end-notice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .div-aaa {
-    height: 500px;
+    height: 74vh;
 }
 
 #ddl-text {
