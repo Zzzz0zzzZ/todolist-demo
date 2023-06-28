@@ -4,20 +4,26 @@
     &nbsp;&nbsp;&nbsp;
     <el-button @click="onCLickDeleteAllEvents" type="danger" round plain :disabled="disabledDeleteAll">一键删除</el-button>
   </div>
-  <el-dialog v-model="dialogFormVisible" title="新增一条待办">
+  <el-dialog class="el-dialog-new" v-model="dialogFormVisible" title="新增一条待办">
     <el-form :model="form">
-      <el-form-item label="待办内容" :label-width="formLabelWidth">
-        <el-input v-model="form.content" autocomplete="off" />
-      </el-form-item>
       <el-form-item label="截止时间" :label-width="formLabelWidth">
         <el-date-picker
-          v-model="form.date"
-          type="date"
-          placeholder="选择截止日期"
-          value-format="YYYY-MM-DD"
-          :shortcuts="shortcuts"
+            v-model="form.date"
+            type="date"
+            placeholder="选择截止日期"
+            value-format="YYYY-MM-DD"
+            :shortcuts="shortcuts"
         />
       </el-form-item>
+      <el-form-item label="待办内容" :label-width="formLabelWidth">
+        <el-input v-model="form.content"
+                  autocomplete="off"
+                  :autosize="{ minRows: 6, maxRows: 10 }"
+                  type="textarea"
+                  placeholder="您的待办内容..."/>
+      </el-form-item>
+
+
     </el-form>
     <template #footer>
       <span class="dialog-footer">
@@ -96,5 +102,12 @@ const onCLickDeleteAllEvents = function () {
   flex-direction: row-reverse;
   flex-grow: 1;
   margin-right: 5px;
+}
+
+.el-dialog-new {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+
 }
 </style>
