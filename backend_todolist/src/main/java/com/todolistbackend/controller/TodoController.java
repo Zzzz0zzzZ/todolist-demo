@@ -36,6 +36,16 @@ public class TodoController {
         }
     }
 
+    @PostMapping("/delete-all")
+    public void delAllTodo(@RequestBody Map<String, String> mp, @RequestHeader Map<String, String> head) {
+        Integer userid = Integer.parseInt(mp.get("userid"));
+        if (TokenUtils.checkReq(head.get("token"), userid)) {
+            QueryWrapper<Todo> wrapper = new QueryWrapper<>();
+            wrapper.eq("userid", userid);
+            todoMapper.delete(wrapper);
+        }
+    }
+
     @GetMapping("/count_total/{userid}")
     public long countTodos(@PathVariable Integer userid, @RequestHeader Map<String, String> head) {
         if (TokenUtils.checkReq(head.get("token"), userid)) {

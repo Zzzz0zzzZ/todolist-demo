@@ -3,11 +3,11 @@
         <div class="card">
             <div class="card-body overflow-auto">
                 <div class="row list-header-margin">
-                    <div class="col-2 justify-left">
+                    <div class="col-4 justify-left">
                         待办事项
                         <el-dropdown>
                             <span class="el-dropdown-link">
-                                
+
                                 <el-icon class="el-icon--right">
                                     <arrow-down />
                                 </el-icon>
@@ -20,8 +20,8 @@
                             </template>
                         </el-dropdown>
                     </div>
-                    <div class="col-10">
-                        <editAreaVue @refresh="refresh_list"/>
+                    <div class="col-8">
+                        <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
@@ -35,9 +35,9 @@
                                                 circle />
                                         </div>
                                         <div class="col-7 content-style">{{ content.content }}</div>
-                                      <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
-                                        {{ content.deadline }}{{getDayLeft(content.deadline)}}
-                                      </div>
+                                        <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
+                                            {{ content.deadline }}{{ getDayLeft(content.deadline) }}
+                                        </div>
                                         <div class="col-1">
                                             <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
                                                 cancel-button-text="算了" :icon="Delete" icon-color="red"
@@ -66,9 +66,9 @@
                             </div>
                         </div>
                     </template>
-                  <div class="end-notice">
-                    <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
-                  </div>
+                    <div class="end-notice">
+                        <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
+                    </div>
 
                 </div>
             </div>
@@ -77,12 +77,12 @@
 </template>
 
 <script setup>
-import { Check, Delete,ArrowDown } from '@element-plus/icons-vue'
-import {reactive, ref, toRaw} from 'vue'
+import { Check, Delete, ArrowDown } from '@element-plus/icons-vue'
+import { reactive, ref, toRaw } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
-import DatePicker from './DatePicker.vue'
+import datePicker from './DatePicker.vue'
 import dayjs from 'dayjs'
 
 const content_list = reactive([])
@@ -117,8 +117,8 @@ axios({
 // 排序方式-按截止日期排序
 const sort_by_ddl = () => {
     content_list.value.sort((a, b) => {
-      if (day_diff(a.deadline) === INF_MIN && day_diff(b.deadline) === INF_MIN) return a.id - b.id
-      else return day_diff(a.deadline) - day_diff(b.deadline)
+        if (day_diff(a.deadline) === INF_MIN && day_diff(b.deadline) === INF_MIN) return a.id - b.id
+        else return day_diff(a.deadline) - day_diff(b.deadline)
     })
 }
 
@@ -315,9 +315,9 @@ const set_ddl_color = (ddl) => {
 }
 
 .end-notice {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -326,7 +326,7 @@ const set_ddl_color = (ddl) => {
 }
 
 #ddl-text {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .el-dropdown-link {
