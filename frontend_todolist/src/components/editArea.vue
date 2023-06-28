@@ -1,6 +1,8 @@
 <template>
   <div class="text-area-btn">
-    <el-button @click="dialogFormVisible = true" round>新增待办</el-button>
+    <el-button @click="dialogFormVisible = true" type="primary" round plain>新增待办</el-button>
+    &nbsp;&nbsp;&nbsp;
+    <el-button @click="onCLickDeleteAllEvents" type="danger" round plain :disabled="disabledDeleteAll">一键删除</el-button>
   </div>
   <el-dialog v-model="dialogFormVisible" title="新增一条待办">
     <el-form :model="form">
@@ -75,6 +77,17 @@ const add = async () => {
       ElMessage.warning("待办内容和截止时间不能为空！")
     }
 }
+
+// 处理删除逻辑
+const disabledDeleteAll = ref(false)  // 是否允许删除
+const onCLickDeleteAllEvents = function () {
+  // TODO: 删除所有_逻辑;
+  //  没有待办时候不允许删除;
+
+  //  有待办时候弹框提示
+
+}
+
 </script>
 
 <style scoped>

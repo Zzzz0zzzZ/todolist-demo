@@ -91,7 +91,7 @@ if (route.path !== `/todo/todolist/${userid}`) {
 
 .card-adjust-size {
   size-adjust: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 .div-main {
