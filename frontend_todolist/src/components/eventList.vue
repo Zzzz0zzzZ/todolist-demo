@@ -129,38 +129,6 @@ const sort_by_creattime = () => {
     })
 }
 
-const addTodo = (todoObj) => {
-    axios({
-        url: '/api/add',
-        method: 'POST',
-        headers: ({
-            token: localStorage.getItem("token")
-        }),
-        data: ({
-            userid: userid,
-            content: todoObj.content
-        })
-    }).then(() => {
-        content_list.value.unshift(todoObj)
-        axios({
-            url: `/api/todos/${userid}`,
-            method: 'GET',
-            headers: ({
-                token: localStorage.getItem("token")
-            })
-        }).then(res => {
-            content_list.value = res.data
-            content_list.value = content_list.value.reverse()
-            sort_by_ddl()
-            // 新增框，默认将原来打开的框关闭
-            show_picker.value[latest_pick.value] = false
-            show_picker.value.push(false)
-            show_clr_btn.value.unshift(false)   // 新增的框初始化没有设置deadline,不显示清空按钮
-            store.updateCount()
-        })
-    })
-}
-
 const delete_a_todo = (content) => {
     axios({
         url: '/api/delete',
@@ -287,13 +255,6 @@ const set_ddl_color = (ddl) => {
 <style scoped>
 .list-header-margin {
     margin-bottom: 5px;
-}
-
-.wc-bg {
-    background-color: lightgreen;
-    display: flex;
-    justify-content: center;
-    border-radius: 30%;
 }
 
 .justify-left {
