@@ -6,9 +6,7 @@
 >
 > 新旧地址数据共享，保证用户数据不会丢失。
 
-[To-Do List 新地址 (重磅来袭)](http://106.12.165.78:9974/todo/login/)
-
-[To-Do List 旧地址 (即将废弃)](http://152.136.154.181:4547/todo/login)
+[To-Do List](http://106.12.165.78:9974/todo/login/)
 
 <br/>
 
