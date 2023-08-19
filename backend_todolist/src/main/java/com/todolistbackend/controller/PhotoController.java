@@ -16,12 +16,12 @@ public class PhotoController {
     private PhotoService photoService;
 
     @PostMapping("/setphoto")
-    public void setPhoto(MultipartFile file, Integer userid, @RequestHeader Map<String, String> head) throws IOException {
+    public void setPhoto(MultipartFile file, Integer userid) throws IOException {
         photoService.setPhoto(file, userid);
     }
 
     @GetMapping("/getphoto/{userid}")
-    public byte[] getPhoto(@PathVariable Integer userid, @RequestHeader Map<String, String> head) {
+    public byte[] getPhoto(@PathVariable Integer userid) {
         return photoService.getPhoto(userid);
     }
 }
