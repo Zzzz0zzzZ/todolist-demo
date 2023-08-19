@@ -1,6 +1,5 @@
 package com.todolistbackend;
 
-import jdk.nashorn.internal.objects.annotations.Property;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
