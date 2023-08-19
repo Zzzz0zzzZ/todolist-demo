@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container card-height-adjust">
     <div class="card card-adjust-size ">
       <div class="card-header">
         <div class="row">
@@ -67,6 +67,10 @@ if (route.path !== `/todo/todolist/${userid}`) {
 </script>
 
 <style scoped>
+.card-height-adjust {
+  height: 100vh;
+}
+
 .adj-link-style {
   text-decoration: none;
   color: gray;

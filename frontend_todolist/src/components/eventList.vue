@@ -3,11 +3,25 @@
         <div class="card">
             <div class="card-body overflow-auto">
                 <div class="row list-header-margin">
-                    <div class="col-2 justify-left">待办事项</div>
-                    <div class="col-1">
+                    <div class="col-4 justify-left">
+                        待办事项
+                        <el-dropdown>
+                            <span class="el-dropdown-link">
+
+                                <el-icon class="el-icon--right">
+                                    <arrow-down />
+                                </el-icon>
+                            </span>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item @click="sort_by_ddl">按截止时间排序</el-dropdown-item>
+                                    <el-dropdown-item @click="sort_by_creattime">按创建时间排序</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
                     </div>
-                    <div class="col-9">
-                        <editAreaVue :addTodo="addTodo" />
+                    <div class="col-8">
+                        <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
                     </div>
                 </div>
                 <div class="div-aaa overflow-auto">
@@ -21,9 +35,9 @@
                                                 circle />
                                         </div>
                                         <div class="col-7 content-style">{{ content.content }}</div>
-                                      <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
-                                        {{ content.deadline }}{{getDayLeft(content.deadline)}}
-                                      </div>
+                                        <div class="col-3" :style="set_ddl_color(content.deadline)" id="ddl-text">
+                                            {{ content.deadline }}{{ getDayLeft(content.deadline) }}
+                                        </div>
                                         <div class="col-1">
                                             <el-popconfirm title="确定要删除吗？请三思而后行！" confirm-button-text="确认"
                                                 cancel-button-text="算了" :icon="Delete" icon-color="red"
@@ -52,6 +66,10 @@
                             </div>
                         </div>
                     </template>
+                    <div class="end-notice">
+                        <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -59,12 +77,12 @@
 </template>
 
 <script setup>
-import { Check, Delete } from '@element-plus/icons-vue'
+import { Check, Delete, ArrowDown } from '@element-plus/icons-vue'
 import { reactive, ref, toRaw } from 'vue'
 import editAreaVue from './editArea.vue'
 import { countStore } from '@/stores/countStore'
 import axios from 'axios'
-import DatePicker from './DatePicker.vue'
+import datePicker from './DatePicker.vue'
 import dayjs from 'dayjs'
 
 const content_list = reactive([])
@@ -74,7 +92,9 @@ const show_picker = ref([])             // 是否展开选择框
 const latest_pick = ref(0)              // 最后展开的框的下标
 const click_complete = ref(false)       // 是否点击[完成]按钮
 const show_clr_btn = ref([])            // 是否显示[清空]按钮
+const INF_MIN = -0x3f3f3f3f              // 如果没设置截止日期则赋值为无穷大
 
+const day_diff = (ddl) => ddl ? dayjs(ddl).diff(new Date().toISOString().split('T')[0], 'day') : INF_MIN   // 计算参数ddl和当前相差的天数
 
 axios({
     url: `/api/todos/${userid}`,
@@ -85,6 +105,8 @@ axios({
 }).then(res => {
     content_list.value = res.data
     content_list.value = content_list.value.reverse()
+    // 初始默认按照截止日期排序
+    sort_by_ddl()
     // 构造数组，每个框分配一个标志，默认不展开[false]，默认不显示[清空]->[false]
     for (let idx = 0; idx < store.getListCount; idx++) {
         show_picker.value.push(false)
@@ -92,34 +114,18 @@ axios({
     }
 })
 
-const addTodo = (todoObj) => {
-    axios({
-        url: '/api/add',
-        method: 'POST',
-        headers: ({
-            token: localStorage.getItem("token")
-        }),
-        data: ({
-            userid: userid,
-            content: todoObj.content
-        })
-    }).then(() => {
-        content_list.value.unshift(todoObj)
-        axios({
-            url: `/api/todos/${userid}`,
-            method: 'GET',
-            headers: ({
-                token: localStorage.getItem("token")
-            })
-        }).then(res => {
-            content_list.value = res.data
-            content_list.value = content_list.value.reverse()
-            // 新增框，默认将原来打开的框关闭
-            show_picker.value[latest_pick.value] = false
-            show_picker.value.push(false)
-            show_clr_btn.value.unshift(false)   // 新增的框初始化没有设置deadline,不显示清空按钮
-            store.updateCount()
-        })
+// 排序方式-按截止日期排序
+const sort_by_ddl = () => {
+    content_list.value.sort((a, b) => {
+        if (day_diff(a.deadline) === INF_MIN && day_diff(b.deadline) === INF_MIN) return a.id - b.id
+        else return day_diff(a.deadline) - day_diff(b.deadline)
+    })
+}
+
+// 排序方式-按创建日期排序
+const sort_by_creattime = () => {
+    content_list.value.sort((a, b) => {
+        return b.id - a.id
     })
 }
 
@@ -187,6 +193,7 @@ const refresh_list = () => {
     }).then(res => {
         content_list.value = res.data
         content_list.value = content_list.value.reverse()
+        sort_by_ddl()
         store.updateCount()
     })
 }
@@ -250,13 +257,6 @@ const set_ddl_color = (ddl) => {
     margin-bottom: 5px;
 }
 
-.wc-bg {
-    background-color: lightgreen;
-    display: flex;
-    justify-content: center;
-    border-radius: 30%;
-}
-
 .justify-left {
     font-display: left;
     font-weight: bold;
@@ -275,11 +275,26 @@ const set_ddl_color = (ddl) => {
     transition: 0.3s;
 }
 
+.end-notice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .div-aaa {
-    height: 500px;
+    height: 74vh;
 }
 
 #ddl-text {
-  font-size: 16px;
+    font-size: 16px;
+}
+
+.el-dropdown-link {
+    font-size: large;
+    display: flex;
+    height: 3.5vh;
+    justify-content: center;
+    align-items: center;
 }
 </style>

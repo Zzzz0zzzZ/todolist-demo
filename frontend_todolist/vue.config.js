@@ -17,5 +17,6 @@ module.exports = defineConfig({
         changeOrigin: true
       }
     }
-  }
+  },
+  lintOnSave:false //关闭eslint检查
 })

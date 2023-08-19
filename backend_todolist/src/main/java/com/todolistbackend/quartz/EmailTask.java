@@ -5,7 +5,7 @@ import com.todolistbackend.entity.Todo;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.TodoMapper;
 import com.todolistbackend.mapper.UserMapper;
-import com.todolistbackend.service.MailService;
+import com.todolistbackend.service.impl.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

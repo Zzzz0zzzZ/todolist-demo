@@ -1,23 +1,23 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://152.136.154.181:3306/todolist
-    username: teashirt
-    password: 123456
+    url: ${mysql.host}
+    username: ${mysql.username}
+    password: ${mysql.password}
   main:
     banner-mode: off
   redis:
     database: 0
     timeout: 500
-    host: 127.0.0.1
-    port: 5378
+    host: ${redis.host}
+    port: ${redis.port}
     pool:
       max-active: 8
-    password: Hey-ya
+    password: ${redis.password}
   mail:
     host: smtp.163.com
-    username:
-    password:
+    username: ${mail.username}
+    password: ${mail.password}
     default-encoding: UTF-8
     properties:
       mail:
