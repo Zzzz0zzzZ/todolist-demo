@@ -1,30 +1,27 @@
 <template>
   <div class="container">
     <div class="inner-flex">
-      <button type="button" class="btn btn-outline-secondary"
-      @click="showBox">显示设置</button>
+      <button type="button" class="btn btn-outline-secondary" @click="showBox">显示设置</button>
     </div>
   </div>
-
 </template>
 <script setup>
-import {ElMessage, ElMessageBox} from "element-plus";
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const showBox = () => {
   let ddl = localStorage.getItem('ddl')
   let ddl_str = `当前${ddl}天`
-  ElMessageBox.prompt(`设置ddl剩余多少天时，颜色变红: ${ddl ? ddl_str : "默认3天"}`, 'ddl<视觉提醒服务>', {
+  ElMessageBox.prompt(`设置ddl剩余多少天时，颜色变红: ${ddl ? ddl_str : '默认3天'}`, 'ddl<视觉提醒服务>', {
     confirmButtonText: '确认设置',
     cancelButtonText: '再想想',
-    inputPlaceholder: "xxx(天)",
+    inputPlaceholder: 'xxx(天)',
     inputPattern: /^\d+$/,
-    inputErrorMessage:"只能为数字, 且不能为空!"
+    inputErrorMessage: '只能为数字, 且不能为空!'
+  }).then(({ value }) => {
+    localStorage.setItem('ddl', value)
+    ElMessage.success(`${value}`)
+    window.location.reload()
   })
-      .then(({ value }) => {
-        localStorage.setItem("ddl", value)
-        ElMessage.success(`${value}`)
-        window.location.reload()
-      })
 }
 </script>
 
@@ -48,6 +45,6 @@ const showBox = () => {
 }
 
 .msg-text::after {
-  content: "(beta)";
+  content: '(beta)';
 }
 </style>
