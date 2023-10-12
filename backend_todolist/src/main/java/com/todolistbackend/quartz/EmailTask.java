@@ -5,9 +5,9 @@ import com.todolistbackend.entity.Todo;
 import com.todolistbackend.entity.User;
 import com.todolistbackend.mapper.TodoMapper;
 import com.todolistbackend.mapper.UserMapper;
-import com.todolistbackend.service.impl.MailService;
+import com.todolistbackend.service.MailService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +16,13 @@ import java.util.List;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class EmailTask {
+    private final MailService mailService;
 
-    @Autowired
-    private MailService mailService;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private TodoMapper todoMapper;
+    private final UserMapper userMapper;
+
+    private final TodoMapper todoMapper;
 
     @Scheduled(cron = "0 0 10,13,19 ? * *")
 //    @Scheduled(cron = "*/10 * * * * ?")
@@ -40,7 +39,7 @@ public class EmailTask {
                     .eq("status", 0);
             List<Todo> todos = todoMapper.selectList(todoQueryWrapper);
 
-            if (todos.size() > 0) {
+            if (!todos.isEmpty()) {
                 // 遍历一个用户所有todo
                 StringBuilder stringBuilder = new StringBuilder();
                 todos.forEach(todo -> {
@@ -61,7 +60,6 @@ public class EmailTask {
                     );
                     log.info("邮件推送提醒成功, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
                 } catch (Exception e) {
-                    e.printStackTrace();
                     log.warn("邮件推送提醒失败, 用户为: " + user.getUsername() + "邮箱为: " + user.getEmail());
                 }
             }

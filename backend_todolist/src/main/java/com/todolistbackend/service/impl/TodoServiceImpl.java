@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.todolistbackend.entity.Todo;
 import com.todolistbackend.mapper.TodoMapper;
 import com.todolistbackend.service.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -13,9 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
-    @Autowired
-    private TodoMapper todoMapper;
+    private final TodoMapper todoMapper;
 
     private long culTodayTodo(QueryWrapper<Todo> wrapper) {
         Date date = new Date();
