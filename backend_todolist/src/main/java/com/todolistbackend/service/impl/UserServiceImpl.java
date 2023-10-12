@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(String username, String password, String verifycode, HttpSession httpSession) {
-        if (!VerifyCodeUtils.checkCode("verifycode", httpSession)) {
+        if (!VerifyCodeUtils.checkCode(verifycode, httpSession)) {
             return "verifycode_error";
         }
 
