@@ -10,18 +10,17 @@ import com.todolistbackend.mapper.UserMapper;
 import com.todolistbackend.service.UserService;
 import com.todolistbackend.utils.TokenUtils;
 import com.todolistbackend.utils.VerifyCodeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private PhotoMapper photoMapper;
+    private final PhotoMapper photoMapper;
 
     @Override
     public JSONObject login(String username, String password, Integer error_submit, String verifycode, HttpSession httpSession) {

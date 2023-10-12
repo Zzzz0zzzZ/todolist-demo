@@ -1,20 +1,16 @@
 package com.todolistbackend.controller;
 
 import com.todolistbackend.entity.Todo;
-import com.todolistbackend.mapper.TodoMapper;
 import com.todolistbackend.service.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 public class TodoController {
-    @Autowired
-    private TodoMapper todoMapper;
-
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @GetMapping("/todos/{userid}")
     public String getTodos(@PathVariable Integer userid) {

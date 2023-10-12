@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.todolistbackend.service.UserService;
 import com.todolistbackend.utils.TokenUtils;
 import com.todolistbackend.utils.VerifyCodeUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +16,9 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class UserContorller {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public JSONObject login(@RequestBody Map<String, String> mp, HttpSession httpSession) {

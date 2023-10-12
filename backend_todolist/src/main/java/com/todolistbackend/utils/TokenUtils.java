@@ -36,26 +36,12 @@ public class TokenUtils {
     public static Boolean checkToken(String token) {
         try {
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(KEY)).withIssuer("teashirt").build();
-            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            jwtVerifier.verify(token);
         } catch (IllegalArgumentException | JWTVerificationException e) {
             return false;
         }
         return true;
     }
 
-    public static boolean checkReq(String token, Integer userid) {
-        Map<String, Claim> map = new HashMap<>();
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(KEY);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("teashirt")
-                    .build();
-            DecodedJWT jwt = verifier.verify(token);
-            map = jwt.getClaims();
-        } catch (JWTVerificationException e) {
-            e.printStackTrace();
-        }
-        return Objects.equals(map.get("userid").asInt(), userid);
-    }
 }
 

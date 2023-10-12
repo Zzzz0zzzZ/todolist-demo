@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.todolistbackend.entity.Photo;
 import com.todolistbackend.mapper.PhotoMapper;
 import com.todolistbackend.service.PhotoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,26 +15,25 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@RequiredArgsConstructor
 public class PhotoServiceImpl implements PhotoService {
-    @Autowired
-    private PhotoMapper photoMapper;
-
+    private final PhotoMapper photoMapper;
+    private final String photoRedisBaseKey = "todo_photo_";
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    private final String photoRedisBaseKey = "todo_photo_";
     @Override
     public void setPhoto(MultipartFile file, Integer userid) throws IOException {
         byte[] bytes = file.getBytes();
         UpdateWrapper<Photo> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("userid", userid).set("data", bytes);
         photoMapper.update(new Photo(), updateWrapper);
-        redisTemplate.opsForValue().set(photoRedisBaseKey+userid, bytes, 3, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(photoRedisBaseKey + userid, bytes, 3, TimeUnit.DAYS);
     }
 
     @Override
     public byte[] getPhoto(Integer userid) {
-        String photoRedisKey = photoRedisBaseKey+userid;
+        String photoRedisKey = photoRedisBaseKey + userid;
         // 从redis获取photo
         byte[] photo = (byte[]) redisTemplate.opsForValue().get(photoRedisKey);
         // 判断是否在redis
