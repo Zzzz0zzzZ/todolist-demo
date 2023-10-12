@@ -4,7 +4,7 @@ import calenderView from '../views/CalenderView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ChangePasswordView from '../views/ChangePasswordView'
-import NotFoundView from '../views/NotFoundView';
+import NotFoundView from '../views/NotFoundView'
 import axios from 'axios'
 
 const routes = [
@@ -51,12 +51,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/todo/register' || to.path === '/todo/login/') {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userid")
-    localStorage.removeItem("username")
+    localStorage.removeItem('token')
+    localStorage.removeItem('userid')
+    localStorage.removeItem('username')
     next()
   } else {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
     if (token === null || token === '') {
       next('/todo/login/')
     } else {
@@ -66,7 +66,7 @@ router.beforeEach((to, from, next) => {
         data: {
           token: token
         }
-      }).then(res => {
+      }).then((res) => {
         if (res.data === true) {
           next()
         } else {

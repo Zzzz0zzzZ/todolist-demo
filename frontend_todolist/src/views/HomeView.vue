@@ -1,6 +1,6 @@
 <template>
   <div class="container card-height-adjust">
-    <div class="card card-adjust-size ">
+    <div class="card card-adjust-size">
       <div class="card-header">
         <div class="row">
           <NavBar />
@@ -22,7 +22,7 @@
               <CheckCalender />
             </div>
             <div class="row">
-              <ShowSettings/>
+              <ShowSettings />
             </div>
           </div>
         </div>
@@ -31,11 +31,11 @@
         <div class="row">
           <div class="col-4"></div>
           <div class="col-4">
-            <span>@contributers:&nbsp;&nbsp;&nbsp;</span>
-            <img src="@/assets/user_photo.png" class="adj-footer-img">
+            <span>@contributors:&nbsp;&nbsp;&nbsp;</span>
+            <img src="../assets/user_photo_1.png" class="adj-footer-img" />
             <a target="_blank" href="https://github.com/Zzzz0zzzZ" class="adj-link-style">Zzzz0zzzZ</a>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <img src="@/assets/user_photo_2.png" class="adj-footer-img">
+            <img src="@/assets/user_photo_2.png" class="adj-footer-img" />
             <a target="_blank" href="https://github.com/teashirtt" class="adj-link-style">teashirtt</a>
             <div class="col-4"></div>
           </div>
@@ -46,23 +46,23 @@
 </template>
 
 <script setup>
-import TodayCard from "../components/todayCard.vue"
-import NavBar from "@/components/navBar.vue"
-import EventList from "@/components/eventList.vue"
-import CheckCalender from "@/components/checkCalender.vue"
+import TodayCard from '../components/TodayCard.vue'
+import NavBar from '@/components/NavBar.vue'
+import EventList from '@/components/EventList.vue'
+import CheckCalender from '@/components/CheckCalender.vue'
 import { countStore } from '@/stores/countStore'
 import { useRoute, useRouter } from 'vue-router'
-import UserSettings from "@/components/UserSettings";
-import ShowSettings from "@/components/ShowSettings";
+import UserSettings from '@/components/UserSettings'
+import ShowSettings from '@/components/ShowSettings'
 
 const store = countStore()
 store.updateCount()
 const route = useRoute()
 const router = useRouter()
-const userid = localStorage.getItem("userid")
+const userid = localStorage.getItem('userid')
 
 if (route.path !== `/todo/todolist/${userid}`) {
-  router.push({ name: "login" })
+  router.push({ name: 'login' })
 }
 </script>
 
