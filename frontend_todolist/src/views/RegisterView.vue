@@ -13,7 +13,7 @@
             class="item"
             v-model="user.password"
             show-password
-            @paste.capture.prevent="handlePaste"
+            @paste.capture.prevent
             @keyup.enter="submit" />
         </el-form-item>
         <el-form-item prop="password_confirm">
@@ -23,7 +23,7 @@
             class="item"
             v-model="user.password_confirm"
             show-password
-            @paste.capture.prevent="handlePaste"
+            @paste.capture.prevent
             @keyup.enter="submit" />
         </el-form-item>
         <el-row>
@@ -34,12 +34,12 @@
                 :prefix-icon="Lock"
                 class="item"
                 v-model="user.verifycode"
-                @paste.capture.prevent="handlePaste"
+                @paste.capture.prevent
                 @keyup.enter="submit" />
             </el-form-item>
           </el-col>
           <el-col :span="9">
-            <img src="/api/getCode" ref="verifycode" @click="refresh" />
+            <img :src="() => '/api/getCode'" ref="verifycode" @click="refresh" />
           </el-col>
         </el-row>
         <div class="link">

@@ -10,7 +10,7 @@
             class="item"
             v-model="user.password"
             show-password
-            @paste.capture.prevent="handlePaste"
+            @paste.capture.prevent
             @keyup.enter="submit" />
         </el-form-item>
         <el-form-item prop="new_password">
@@ -20,7 +20,7 @@
             class="item"
             v-model="user.new_password"
             show-password
-            @paste.capture.prevent="handlePaste"
+            @paste.capture.prevent
             @keyup.enter="submit" />
         </el-form-item>
         <el-form-item prop="new_password_confirm">
@@ -30,7 +30,7 @@
             class="item"
             v-model="user.new_password_confirm"
             show-password
-            @paste.capture.prevent="handlePaste"
+            @paste.capture.prevent
             @keyup.enter="submit" />
         </el-form-item>
         <el-form-item>

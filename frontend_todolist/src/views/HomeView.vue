@@ -46,14 +46,14 @@
 </template>
 
 <script setup>
-import TodayCard from '../components/TodayCard.vue'
+import { useRoute, useRouter } from 'vue-router'
+import TodayCard from '@/components/TodayCard.vue'
 import NavBar from '@/components/NavBar.vue'
 import EventList from '@/components/EventList.vue'
 import CheckCalender from '@/components/CheckCalender.vue'
 import { countStore } from '@/stores/countStore'
-import { useRoute, useRouter } from 'vue-router'
-import UserSettings from '@/components/UserSettings'
-import ShowSettings from '@/components/ShowSettings'
+import UserSettings from '@/components/UserSettings.vue'
+import ShowSettings from '@/components/ShowSettings.vue'
 
 const store = countStore()
 store.updateCount()

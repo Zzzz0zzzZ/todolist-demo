@@ -28,8 +28,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { countStore } from '@/stores/countStore'
 import axios from 'axios'
+import { countStore } from '@/stores/countStore'
 
 const store = countStore()
 store.updateCount()
