@@ -3,8 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import calenderView from '../views/CalenderView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import ChangePasswordView from '../views/ChangePasswordView'
-import NotFoundView from '../views/NotFoundView'
+import ChangePasswordView from '../views/ChangePasswordView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 import axios from 'axios'
 
 const routes = [

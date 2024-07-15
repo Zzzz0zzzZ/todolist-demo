@@ -22,7 +22,7 @@ const tohome = () => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   margin: 0;
 }
