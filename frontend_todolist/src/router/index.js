@@ -1,42 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import calenderView from '../views/CalenderView.vue'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import ChangePasswordView from '../views/ChangePasswordView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
 import axios from 'axios'
 
 const routes = [
   {
     path: '/todo/todolist/:userid',
     name: 'home',
-    component: HomeView
+    component: () => import('@/views/HomeView.vue')
   },
   {
     path: '/todo/calender/',
     name: 'calender',
-    component: calenderView
+    component: import('@/views/CalenderView.vue')
   },
   {
     path: '/todo/login/',
     name: 'login',
-    component: LoginView
+    component: () => import('@/views/LoginView.vue')
   },
   {
     path: '/todo/register/',
     name: 'register',
-    component: RegisterView
+    component: () => import('@/views/RegisterView.vue')
   },
   {
     path: '/todo/change_password/',
     name: 'change_password',
-    component: ChangePasswordView
+    component: () => import('@/views/ChangePasswordView.vue')
   },
   {
     path: '/todo/404/',
     name: '404',
-    component: NotFoundView
+    component: () => import('@/views/NotFoundView.vue')
   },
   {
     path: '/:catchAll(.*)',
