@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <img src="../assets/404_img.jpg" alt="" />
+    <img src="@/assets/404_img.jpg" alt="" />
     <h1>404</h1>
     <div id="btn">
       <el-button type="info" plain size="large" @click="tohome">返回</el-button>

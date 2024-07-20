@@ -32,7 +32,7 @@
           <div class="col-4"></div>
           <div class="col-4">
             <span>@contributors:&nbsp;&nbsp;&nbsp;</span>
-            <img src="../assets/user_photo_1.png" class="adj-footer-img" />
+            <img src="@/assets/user_photo_1.png" class="adj-footer-img" />
             <a target="_blank" href="https://github.com/Zzzz0zzzZ" class="adj-link-style">Zzzz0zzzZ</a>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <img src="@/assets/user_photo_2.png" class="adj-footer-img" />
