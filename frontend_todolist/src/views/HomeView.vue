@@ -19,7 +19,7 @@
               <UserSettings />
             </div>
             <div class="row">
-              <CheckCalender />
+              <checkCalender />
             </div>
             <div class="row">
               <ShowSettings />
@@ -50,7 +50,7 @@ import { useRoute, useRouter } from 'vue-router'
 import TodayCard from '@/components/TodayCard.vue'
 import NavBar from '@/components/NavBar.vue'
 import EventList from '@/components/EventList.vue'
-import CheckCalender from '@/components/CheckCalender.vue'
+import checkCalender from '@/components/checkCalender.vue'
 import { countStore } from '@/stores/countStore'
 import UserSettings from '@/components/UserSettings.vue'
 import ShowSettings from '@/components/ShowSettings.vue'
