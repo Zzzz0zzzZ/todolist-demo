@@ -6,14 +6,6 @@ spring:
     password: ${mysql.password}
   main:
     banner-mode: off
-  redis:
-    database: 0
-    timeout: 500
-    host: ${redis.host}
-    port: ${redis.port}
-    pool:
-      max-active: 8
-    password: ${redis.password}
   mail:
     host: smtp.163.com
     username: ${mail.username}
