@@ -1,43 +1,43 @@
 <template>
-  <div class="box">
-    <div class="login-container">
-      <h2 style="color: white">更改密码</h2>
+  <div class="flex items-center justify-center h-screen bg-[#2f4f4f]">
+    <div class="w-72">
+      <div class="text-white text-xl text-center mb-2">更改密码</div>
       <el-form :rules="rules" :model="user" ref="form">
         <el-form-item prop="password">
           <el-input
             placeholder="请输入原密码"
             :prefix-icon="Lock"
-            class="item"
             v-model="user.password"
             show-password
             @paste.capture.prevent
-            @keyup.enter="submit" />
+            @keyup.enter="submit"
+            class="h-11" />
         </el-form-item>
         <el-form-item prop="new_password">
           <el-input
             placeholder="请输入更改密码"
             :prefix-icon="Lock"
-            class="item"
             v-model="user.new_password"
             show-password
             @paste.capture.prevent
-            @keyup.enter="submit" />
+            @keyup.enter="submit"
+            class="h-11" />
         </el-form-item>
         <el-form-item prop="new_password_confirm">
           <el-input
             placeholder="请再次输入更改密码"
             :prefix-icon="Lock"
-            class="item"
             v-model="user.new_password_confirm"
             show-password
             @paste.capture.prevent
-            @keyup.enter="submit" />
+            @keyup.enter="submit"
+            class="h-11" />
         </el-form-item>
         <el-form-item>
-          <el-button type="info" class="item" @click="return_home">返回</el-button>
+          <el-button type="info" class="h-11 w-full" @click="return_home">返回</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="item" @click="submit">更改密码</el-button>
+          <el-button type="primary" class="h-11 w-full" @click="submit">更改密码</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -133,27 +133,3 @@ const submit = () => {
   })
 }
 </script>
-
-<style scoped>
-.box {
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-color: darkslategrey;
-}
-
-.login-container {
-  width: 300px;
-}
-
-.item {
-  width: 100%;
-  height: 45px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-</style>

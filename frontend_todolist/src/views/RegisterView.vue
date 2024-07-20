@@ -1,30 +1,30 @@
 <template>
-  <div class="box">
-    <div class="login-container">
-      <h2 style="color: white">注册</h2>
+  <div class="flex items-center justify-center h-screen bg-[#556b2f]">
+    <div class="w-72">
+      <div class="text-white text-xl text-center mb-2">注册</div>
       <el-form :rules="rules" :model="user" ref="form">
         <el-form-item prop="username">
-          <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" class="item" v-model="user.username" @keyup.enter="submit" />
+          <el-input placeholder="请输入用户名" :prefix-icon="UserFilled" v-model="user.username" @keyup.enter="submit" class="h-11" />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             placeholder="请输入密码"
             :prefix-icon="Lock"
-            class="item"
             v-model="user.password"
             show-password
             @paste.capture.prevent
-            @keyup.enter="submit" />
+            @keyup.enter="submit"
+            class="h-11" />
         </el-form-item>
         <el-form-item prop="password_confirm">
           <el-input
             placeholder="请再次输入密码"
             :prefix-icon="Lock"
-            class="item"
             v-model="user.password_confirm"
             show-password
             @paste.capture.prevent
-            @keyup.enter="submit" />
+            @keyup.enter="submit"
+            class="h-11" />
         </el-form-item>
         <el-row>
           <el-col :span="15">
@@ -32,21 +32,21 @@
               <el-input
                 placeholder="请输入验证码"
                 :prefix-icon="Lock"
-                class="item"
                 v-model="user.verifycode"
                 @paste.capture.prevent
-                @keyup.enter="submit" />
+                @keyup.enter="submit"
+                class="h-11" />
             </el-form-item>
           </el-col>
           <el-col :span="9">
             <img :src="() => '/api/getCode'" ref="verifycode" @click="refresh" />
           </el-col>
         </el-row>
-        <div class="link">
-          <div class="link" @click="onClickAlreadyRegister">已注册?点此登录</div>
+        <div class="text-right mb-1">
+          <div @click="onClickAlreadyRegister">已注册?点此登录</div>
         </div>
         <el-form-item>
-          <el-button type="primary" class="item" @click="submit">注册</el-button>
+          <el-button type="primary" class="h-11 w-full" @click="submit">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -154,37 +154,8 @@ const submit = () => {
 }
 
 const verifycode = ref('')
+// FIXME 修复下
 const refresh = () => {
   verifycode.value.src = '/api/getCode?time' + new Date().getTime()
 }
 </script>
-
-<style scoped>
-.box {
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-color: darkolivegreen;
-}
-
-.login-container {
-  width: 300px;
-}
-
-.item {
-  width: 100%;
-  height: 45px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.link {
-  color: indigo;
-  text-align: right;
-  cursor: pointer;
-}
-</style>
