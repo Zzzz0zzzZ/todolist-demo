@@ -6,13 +6,11 @@
 >
 > 新旧地址数据共享，保证用户数据不会丢失。
 
-[To-Do List](http://106.12.165.78:9974/todo/login/)
-
 <br/>
 
 ## 项目功能
 
-2. 【记录】待办事项
+1. 【记录】待办事项
 2. 【提醒】邮箱推送
 
 <br/>
@@ -21,17 +19,24 @@
 
 ##### 前端
 
-Vue3 + Bootstrap + Element Plus 
+Vue3 + Bootstrap + Element Plus
 
 ##### 后端
 
-Springboot + MyBatis-Plus + MySQL + Redis
+Springboot + MyBatis-Plus + MySQL
 
 <br/>
 
 ## 更新日志
 
 > 本项目自 2022/9/20 的提交后新增更新日志
+
+##### 2024/07/20
+
+---
+
+- 引入 Vite 和 TypeScript
+- 移除 Redis
 
 ##### 2023/04/25
 
@@ -43,7 +48,7 @@ Springboot + MyBatis-Plus + MySQL + Redis
 
 ---
 
-- 新增<tdl显示方式设置>
+- 新增<tdl 显示方式设置>
 
 ##### 2023/04/19
 
@@ -87,7 +92,7 @@ Springboot + MyBatis-Plus + MySQL + Redis
 
 ---
 
-- 更换天气数据`API`接口   [天气API接口](http://www.tianqiapi.com/)
+- 更换天气数据`API`接口 [天气 API 接口](http://www.tianqiapi.com/)
 - 新增登录成功时的欢迎弹窗
 
 ##### 2022/10/24
