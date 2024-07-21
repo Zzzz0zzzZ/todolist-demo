@@ -1,81 +1,79 @@
 <template>
-  <div class="container">
-    <div class="card">
-      <div class="card-body overflow-auto">
-        <div class="row list-header-margin">
-          <div class="col-4 justify-left">
-            待办事项
-            <el-dropdown>
-              <span class="el-dropdown-link">
-                <el-icon class="el-icon--right">
-                  <arrow-down />
-                </el-icon>
-              </span>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item @click="sort_by_ddl">按截止时间排序</el-dropdown-item>
-                  <el-dropdown-item @click="sort_by_create_time">按创建时间排序</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-          <div class="col-8">
-            <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
-          </div>
+  <div class="card h-full">
+    <div class="card-body overflow-auto">
+      <div class="row list-header-margin">
+        <div class="col-4 justify-left">
+          待办事项
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="sort_by_ddl">按截止时间排序</el-dropdown-item>
+                <el-dropdown-item @click="sort_by_create_time">按创建时间排序</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
-        <div class="list overflow-auto">
-          <template v-for="(content, index) in content_list.value">
-            <div class="row margin-1 hover-when-mouse-on" v-if="content.status === 0" :key="content + index">
-              <div class="card" @click="show_date_picker(index)">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-1">
-                      <el-button type="success" :icon="Check" @click="complete_a_todo(content)" circle />
+        <div class="col-8">
+          <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
+        </div>
+      </div>
+      <div class="list overflow-auto">
+        <template v-for="(content, index) in content_list.value">
+          <div class="row margin-1 hover-when-mouse-on" v-if="content.status === 0" :key="content + index">
+            <div class="card" @click="show_date_picker(index)">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-1">
+                    <el-button type="success" :icon="Check" @click="complete_a_todo(content)" circle />
+                  </div>
+                  <div class="col-7 content-style">{{ content.content }}</div>
+                  <div class="col-3" :style="set_ddl_color(content.deadline)">{{ content.deadline }}{{ getDayLeft(content.deadline) }}</div>
+                  <div class="col-1">
+                    <el-popconfirm
+                      title="确定要删除吗？请三思而后行！"
+                      confirm-button-text="确认"
+                      cancel-button-text="算了"
+                      :icon="Delete"
+                      icon-color="red"
+                      @confirm="delete_a_todo(content)">
+                      <template #reference>
+                        <el-button @click.stop type="danger" :icon="Delete" circle />
+                      </template>
+                    </el-popconfirm>
+                  </div>
+                  <div class="row" v-show="show_picker[index]">
+                    <div class="col-1"></div>
+                    <div class="col-2">
+                      <datePicker
+                        :cont="content"
+                        @refresh="refresh_list"
+                        @show_clear_btn="show_clear_btn(index)"
+                        @hide_clear_btn="hide_clear_btn(index)" />
                     </div>
-                    <div class="col-7 content-style">{{ content.content }}</div>
-                    <div class="col-3" :style="set_ddl_color(content.deadline)">{{ content.deadline }}{{ getDayLeft(content.deadline) }}</div>
-                    <div class="col-1">
-                      <el-popconfirm
-                        title="确定要删除吗？请三思而后行！"
-                        confirm-button-text="确认"
-                        cancel-button-text="算了"
-                        :icon="Delete"
-                        icon-color="red"
-                        @confirm="delete_a_todo(content)">
-                        <template #reference>
-                          <el-button @click.stop type="danger" :icon="Delete" circle />
-                        </template>
-                      </el-popconfirm>
-                    </div>
-                    <div class="row" v-show="show_picker[index]">
-                      <div class="col-1"></div>
-                      <div class="col-2">
-                        <datePicker
-                          :cont="content"
-                          @refresh="refresh_list"
-                          @show_clear_btn="show_clear_btn(index)"
-                          @hide_clear_btn="hide_clear_btn(index)" />
-                      </div>
-                      <div class="col-6"></div>
-                      <div class="col-2">
-                        <button
-                          v-show="show_clr_btn[index]"
-                          type="button"
-                          class="btn btn-light btn-sm"
-                          style="color: gray"
-                          @click="clear_deadline(content)">
-                          &nbsp;&nbsp;清空日期&nbsp;&nbsp;
-                        </button>
-                      </div>
+                    <div class="col-6"></div>
+                    <div class="col-2">
+                      <button
+                        v-show="show_clr_btn[index]"
+                        type="button"
+                        class="btn btn-light btn-sm"
+                        style="color: gray"
+                        @click="clear_deadline(content)">
+                        &nbsp;&nbsp;清空日期&nbsp;&nbsp;
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </template>
-          <div class="end-notice">
-            <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
           </div>
+        </template>
+        <div class="end-notice">
+          <div style="margin-top: 10px; color: grey">------已经到底啦------</div>
         </div>
       </div>
     </div>

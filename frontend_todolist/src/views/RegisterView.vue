@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-screen bg-[#556b2f]">
+  <div class="flex items-center justify-center h-screen bg-RegisterView">
     <div class="w-72">
       <div class="text-white text-xl text-center mb-2">注册</div>
       <el-form :rules="rules" :model="user" ref="form">

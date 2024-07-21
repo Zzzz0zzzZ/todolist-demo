@@ -1,34 +1,18 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a target="_blank" class="navbar-brand" href="https://github.com/Zzzz0zzzZ/todolist-demo">
-        <div class="font-title">To-Do List</div>
+  <div class="h-24 w-full flex items-center px-3 justify-between bg-bar">
+    <div class="flex items-center gap-3">
+      <a target="_blank" href="https://github.com/Zzzz0zzzZ/todolist-demo">
+        <div class="font-bold text-lg hover:text-xl duration-300">To-Do List</div>
       </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse adj-where" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <img class="img-adj" :src="url" />
-          </li>
-        </ul>
-      </div>
+      <img class="w-12 h-12 rounded-full hover:rotate-[720deg] duration-500" :src="url" />
     </div>
-    <router-link :to="{ path: `/todo/todolist/${userid}` }" class="router-link-active">
-      <div class="font-title hometitle home-style">Home</div>
-    </router-link>
-    <span>&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <div class="userpart">
+    <div class="flex items-center">
+      <router-link :to="{ path: `/todo/todolist/${userid}` }">
+        <div class="font-bold cursor-pointer underline">Home</div>
+      </router-link>
+      <span class="mx-2.5">|</span>
       <el-dropdown>
-        <span class="el-dropdown-link">
+        <span class="flex items-center text-lg">
           {{ username }}
           <el-icon class="el-icon--right">
             <arrow-down />
@@ -45,32 +29,33 @@
         </template>
       </el-dropdown>
     </div>
-    <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
-      <div class="box">
-        <div class="login-container">
-          <el-form :rules="rules" :model="user" ref="form">
-            <el-form-item prop="new_username">
-              <el-input
-                placeholder="请输入新用户名"
-                :prefix-icon="UserFilled"
-                class="item"
-                v-model="user.new_username"
-                @keyup.enter="change_username" />
-            </el-form-item>
-          </el-form>
-        </div>
+  </div>
+
+  <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
+    <div class="box">
+      <div class="login-container">
+        <el-form :rules="rules" :model="user" ref="form">
+          <el-form-item prop="new_username">
+            <el-input
+              placeholder="请输入新用户名"
+              :prefix-icon="UserFilled"
+              class="item"
+              v-model="user.new_username"
+              @keyup.enter="change_username" />
+          </el-form-item>
+        </el-form>
       </div>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="change_username">更改</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">
-      <profilePhoto @change="upload" />
-    </el-dialog>
-  </nav>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="change_username">更改</el-button>
+      </span>
+    </template>
+  </el-dialog>
+  <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">
+    <profilePhoto @change="upload" />
+  </el-dialog>
 </template>
 
 <script setup>
@@ -100,11 +85,7 @@ const logout = () => {
 }
 
 const check = () => {
-  if (user.new_username.match(/^[ ]*$/)) {
-    return false
-  } else {
-    return true
-  }
+  return !user.new_username.match(/^[ ]*$/)
 }
 
 const to_change_username = () => {
@@ -215,82 +196,3 @@ const upload = () => {
   ElMessage.success('上传成功')
 }
 </script>
-
-<style scoped>
-.home-style {
-  text-decoration: underline;
-}
-
-.navbar {
-  height: 80px;
-}
-
-.hometitle {
-  cursor: pointer;
-  font-size: large;
-  margin-right: 12px;
-}
-
-.user-photo {
-  border-radius: 50%;
-  line-height: 50%;
-}
-
-.router-link-active {
-  text-decoration: none;
-  color: black;
-}
-
-.img-adj {
-  height: 52px;
-  width: 52px;
-  border-radius: 50%;
-  transition: transform 0.5s ease-out;
-}
-
-.img-adj:hover {
-  height: 56px;
-  width: 56px;
-  transform: rotateZ(720deg);
-}
-
-.adj-where {
-  text-align: right;
-}
-
-.font-title {
-  font-family: '站酷酷黑 Regular';
-  font-weight: bolder;
-  src:
-    url('//at.alicdn.com/wf/webfont/thn1lMFJ8K4a/CBopGTQxjP2mk9OlxDMGZ.woff2') format('woff2'),
-    url('//at.alicdn.com/wf/webfont/thn1lMFJ8K4a/QP6dA6oMVAoUu_UG5Cc73.woff') format('woff');
-  font-display: swap;
-}
-
-.font-title:hover {
-  text-shadow: 0px 0px 10px grey;
-  font-size: larger;
-  transition: 0.3s;
-}
-
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-
-.el-dropdown-link {
-  font-size: large;
-  display: flex;
-  height: 10vh;
-  justify-content: center;
-  align-items: center;
-}
-
-.userpart {
-  display: flex;
-  margin-right: 6px;
-  width: auto;
-}
-</style>

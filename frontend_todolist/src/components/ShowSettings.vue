@@ -27,7 +27,6 @@ const showBox = () => {
 
 <style scoped>
 .container {
-  margin-top: 5px;
   padding: 16px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;

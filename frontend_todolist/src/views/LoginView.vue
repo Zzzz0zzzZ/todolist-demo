@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-screen bg-[#7b68ee]">
+  <div class="flex items-center justify-center h-screen bg-LoginView">
     <div class="w-72">
       <div class="text-white text-xl text-center mb-2">登录</div>
       <!--TODO 三个页面封装成通用逻辑 -->

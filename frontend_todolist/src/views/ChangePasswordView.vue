@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-screen bg-[#2f4f4f]">
+  <div class="flex items-center justify-center h-screen bg-ChangePasswordView">
     <div class="w-72">
       <div class="text-white text-xl text-center mb-2">更改密码</div>
       <el-form :rules="rules" :model="user" ref="form">
