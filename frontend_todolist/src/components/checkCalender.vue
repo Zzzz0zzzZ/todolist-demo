@@ -1,41 +1,30 @@
 <template>
-  <div class="container mar">
-    <div class="card hover-when-mouse-on">
-      <div class="card-body">
-        <div class="row">
-          <div class="col">
-            <router-link :to="{ name: 'calender' }" class="router-link-active">
-              <button type="button" class="btn btn-outline-primary">查看日历</button>
-            </router-link>
-          </div>
-          <div class="col">
-            <a target="_blank" href="https://github.com/Zzzz0zzzZ/todolist-demo" class="router-link-active">
-              <button type="button" class="btn btn-outline-secondary">联系作者</button>
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="card hover-when-mouse-on">
+    <div class="p-3 flex justify-around">
+      <router-link :to="{ name: 'calender' }" class="router-link-active">
+        <button type="button" class="btn btn-outline-primary">查看日历</button>
+      </router-link>
+      <button type="button" class="btn btn-outline-secondary" @click="showBox">显示设置</button>
     </div>
   </div>
 </template>
 
-<style scoped>
-.mar {
-  padding: 0px;
-}
+<script setup>
+import { ElMessage, ElMessageBox } from 'element-plus'
 
-.router-link-active {
-  text-decoration: none;
-  color: #fff;
+const showBox = () => {
+  let ddl = localStorage.getItem('ddl')
+  let ddl_str = `当前${ddl}天`
+  ElMessageBox.prompt(`设置ddl剩余多少天时，颜色变红: ${ddl ? ddl_str : '默认3天'}`, 'ddl<视觉提醒服务>', {
+    confirmButtonText: '确认设置',
+    cancelButtonText: '再想想',
+    inputPlaceholder: 'xxx(天)',
+    inputPattern: /^\d+$/,
+    inputErrorMessage: '只能为数字, 且不能为空!'
+  }).then(({ value }) => {
+    localStorage.setItem('ddl', value)
+    ElMessage.success(`${value}`)
+    window.location.reload()
+  })
 }
-
-.hover-when-mouse-on:hover {
-  box-shadow: 0px 0px 10px grey;
-  transition: 0.3s;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-}
-</style>
+</script>

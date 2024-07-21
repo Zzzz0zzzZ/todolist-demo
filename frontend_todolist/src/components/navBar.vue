@@ -30,7 +30,6 @@
       </el-dropdown>
     </div>
   </div>
-
   <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
     <div class="box">
       <div class="login-container">

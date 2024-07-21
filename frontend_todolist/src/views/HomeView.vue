@@ -10,7 +10,6 @@
           <TodayCard />
           <UserSettings />
           <checkCalender />
-          <ShowSettings />
         </div>
       </div>
       <Footer />
@@ -26,7 +25,6 @@ import EventList from '@/components/EventList.vue'
 import checkCalender from '@/components/checkCalender.vue'
 import { countStore } from '@/stores/countStore'
 import UserSettings from '@/components/UserSettings.vue'
-import ShowSettings from '@/components/ShowSettings.vue'
 import Footer from '@/components/Footer.vue'
 
 const store = countStore()
