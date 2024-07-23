@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1536px] mx-auto">
+  <div class="w-[1500px] mx-auto">
     <div class="card h-screen">
       <navBar />
       <div class="flex h-full m-3 gap-3">

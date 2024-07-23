@@ -1,28 +1,18 @@
 <template>
-  <div class="card hover-when-mouse-on">
-    <div class="card-body">
-      <div class="row">
-        <h5 class="card-title">Today</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ today_date }} {{ today_week }}</h6>
-        <div class="today-info-body">
-          <el-progress type="dashboard" :percentage="store.getPortion" v-if="store.getPortion < 100">
-            <template #default="{ percentage }">
-              <span class="percentage-value">{{ percentage }}%</span>
-              <span class="percentage-label">今日待办</span>
-            </template>
-          </el-progress>
-          <el-progress type="dashboard" :percentage="store.getPortion" status="success" v-else>
-            <template #default="{ percentage }">
-              <span class="percentage-value">{{ percentage }}%</span>
-              <span class="percentage-label">今日待办</span>
-            </template>
-          </el-progress>
-        </div>
-      </div>
-      <p class="card-text">城市：{{ today_weather_city }}</p>
-      <p class="card-text">天气：{{ today_weather_forecast_type }}</p>
-      <p class="card-text">气温：{{ today_weather_forecast_low }} - {{ today_weather_forecast_high }}</p>
+  <div class="card hover-when-mouse-on p-3">
+    <div>Today</div>
+    <div class="text-grey text-sm">{{ today_date }} {{ today_week }}</div>
+    <div class="text-center mt-2">
+      <el-progress type="dashboard" :percentage="store.getPortion" :status="store.getPortion === 100 ? 'success' : undefined">
+        <template #default="{ percentage }">
+          <div class="mt-2.5 text-3xl">{{ percentage }}%</div>
+          <div class="text-sm">今日待办</div>
+        </template>
+      </el-progress>
     </div>
+    <div>城市：{{ today_weather_city }}</div>
+    <div>天气：{{ today_weather_forecast_type }}</div>
+    <div>气温：{{ today_weather_forecast_low }} - {{ today_weather_forecast_high }}</div>
   </div>
 </template>
 
@@ -55,52 +45,8 @@ axios({
 </script>
 
 <style scoped>
-.demo-progress .el-progress--line {
-  margin-bottom: 15px;
-  width: 350px;
-}
-
-.demo-progress .el-progress--circle {
-  margin-right: 15px;
-}
-
-.today-info-body {
-  text-align: center;
-}
-
 .hover-when-mouse-on:hover {
   box-shadow: 0px 0px 10px grey;
   transition: 0.3s;
-}
-
-.percentage-value {
-  display: block;
-  margin-top: 10px;
-  font-size: 28px;
-}
-
-.percentage-label {
-  display: block;
-  margin-top: 10px;
-  font-size: 12px;
-}
-
-.demo-progress .el-progress--line {
-  margin-bottom: 15px;
-  width: 350px;
-}
-
-.demo-progress .el-progress--circle {
-  margin-right: 15px;
-}
-
-.router-link-active {
-  text-decoration: none;
-  color: #fff;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="text-center">
     <el-upload
       class="avatar-uploader"
       :show-file-list="false"
@@ -11,7 +11,7 @@
       ref="uploadRef"
       :on-change="changeAvatar"
       :data="{ userid: userid }">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+      <img v-if="imageUrl" :src="imageUrl" class="w-40 h-40" />
       <el-icon v-else class="avatar-uploader-icon">
         <Plus />
       </el-icon>
@@ -65,18 +65,6 @@ const submitUpload = () => {
 </script>
 
 <style scoped>
-.avatar-uploader .avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>
-
-<style>
-.box {
-  text-align: center;
-}
-
 .avatar-uploader .el-upload {
   border: 1px dashed var(--el-border-color);
   border-radius: 6px;
