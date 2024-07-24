@@ -1,19 +1,15 @@
 <template>
-  <div class="w-[1500px] mx-auto">
-    <div class="card h-screen">
-      <navBar />
-      <div class="flex h-full m-3 gap-3">
-        <div class="w-3/4">
-          <EventList />
-        </div>
-        <div class="flex flex-col w-1/4 gap-2">
-          <TodayCard />
-          <UserSettings />
-          <checkCalender />
-        </div>
+  <div class="card h-screen w-[1500px] mx-auto">
+    <navBar />
+    <div class="flex h-full m-3 gap-3">
+      <EventList class="w-3/4" />
+      <div class="flex flex-col w-1/4 gap-2">
+        <TodayCard />
+        <UserSettings />
+        <checkCalender />
       </div>
-      <Footer />
     </div>
+    <Footer />
   </div>
 </template>
 

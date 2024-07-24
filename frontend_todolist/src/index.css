@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.card-hover {
+  @apply hover:shadow-card hover:rounded-md duration-300;
+}

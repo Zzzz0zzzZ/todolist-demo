@@ -1,5 +1,5 @@
 <template>
-  <div class="card hover-when-mouse-on">
+  <div class="card card-hover">
     <div class="p-3 flex justify-around">
       <router-link :to="{ name: 'calender' }" class="router-link-active">
         <button type="button" class="btn btn-outline-primary">查看日历</button>

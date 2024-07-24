@@ -1,5 +1,5 @@
 <template>
-  <div class="card hover-when-mouse-on p-3">
+  <div class="card card-hover p-3">
     <div>Today</div>
     <div class="text-grey text-sm">{{ today_date }} {{ today_week }}</div>
     <div class="text-center mt-2">
@@ -43,10 +43,3 @@ axios({
   today_week.value = res.data.week
 })
 </script>
-
-<style scoped>
-.hover-when-mouse-on:hover {
-  box-shadow: 0px 0px 10px grey;
-  transition: 0.3s;
-}
-</style>

@@ -20,7 +20,7 @@
       <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
     </div>
     <div v-for="(content, index) in content_list.value" :key="content + index">
-      <div class="row mx-1.5 my-2 hover-when-mouse-on" v-if="content.status === 0">
+      <div class="row mx-1.5 my-2 card-hover" v-if="content.status === 0">
         <div class="card p-3" @click="show_date_picker(index)">
           <div class="flex">
             <div class="w-1/12">
@@ -234,9 +234,8 @@ const set_ddl_color = (ddl) => {
 </script>
 
 <style scoped>
-.hover-when-mouse-on:hover {
-  border-radius: 8%;
+/*@apply hover:shadow-card duration-300 rounded-8*/
+/*border-radius: 8%;
   box-shadow: 0px 0px 5px grey;
-  transition: 0.3s;
-}
+  transition: 0.3s;*/
 </style>

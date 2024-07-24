@@ -9,6 +9,9 @@ export default {
         LoginView: '#7b68ee',
         RegisterView: '#556b2f',
         ChangePasswordView: '#2f4f4f'
+      },
+      boxShadow: {
+        card: '0px 0px 5px grey'
       }
     }
   },
