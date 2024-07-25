@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import BaiduCalendar from 'vue-baidu-calendar'
 import router from './router'
 import pinia from './stores/store'
 import ElementPlus from 'element-plus'
@@ -14,7 +13,7 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-app.use(router).use(pinia).use(ElementPlus).use(BaiduCalendar).mount('#app')
+app.use(router).use(pinia).use(ElementPlus).mount('#app')
 
 window.addEventListener('storage', function (e) {
   localStorage.setItem(e.key, e.oldValue)

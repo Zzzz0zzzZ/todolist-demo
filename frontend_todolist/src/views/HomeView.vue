@@ -6,7 +6,7 @@
       <div class="flex flex-col w-1/4 gap-2">
         <TodayCard />
         <UserSettings />
-        <checkCalender />
+        <ExtraCard />
       </div>
     </div>
     <Footer />
@@ -18,7 +18,7 @@ import { useRoute, useRouter } from 'vue-router'
 import TodayCard from '@/components/TodayCard.vue'
 import navBar from '@/components/navBar.vue'
 import EventList from '@/components/EventList.vue'
-import checkCalender from '@/components/checkCalender.vue'
+import ExtraCard from '@/components/ExtraCard.vue'
 import { countStore } from '@/stores/countStore'
 import UserSettings from '@/components/UserSettings.vue'
 import Footer from '@/components/Footer.vue'

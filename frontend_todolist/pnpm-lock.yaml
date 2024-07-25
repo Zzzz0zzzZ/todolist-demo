@@ -35,12 +35,6 @@ importers:
       vue:
         specifier: ^3.3.4
         version: 3.4.31(typescript@5.5.3)
-      vue-baidu-calendar:
-        specifier: ^1.0.8
-        version: 1.0.8(vue@3.4.31(typescript@5.5.3))
-      vue-calendar-component:
-        specifier: ^2.8.2
-        version: 2.8.2
       vue-router:
         specifier: ^4.0.3
         version: 4.4.0(vue@3.4.31(typescript@5.5.3))
@@ -939,14 +933,6 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
-  vue-baidu-calendar@1.0.8:
-    resolution: {integrity: sha512-zuqkfaZt81C2hnG0Mk1DeMz1JrhWV2WEsfn2OOCOfwh2k+HLmGwidWAvurTvVWeEZeC6jfuSbb2Iebbp4YyDDA==}
-    peerDependencies:
-      vue: ^3.0.4
-
-  vue-calendar-component@2.8.2:
-    resolution: {integrity: sha512-BJh7xOBzM7QVcapcN4EbPQ1eZ8Pii1/oy+dzqjZTilRSIDD7SRPdFpnUJwZvs8lCrhtBAyJbYFsdm2SogXWHVQ==}
-
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
@@ -1788,12 +1774,6 @@ snapshots:
       fsevents: 2.3.3
 
   vscode-uri@3.0.8: {}
-
-  vue-baidu-calendar@1.0.8(vue@3.4.31(typescript@5.5.3)):
-    dependencies:
-      vue: 3.4.31(typescript@5.5.3)
-
-  vue-calendar-component@2.8.2: {}
 
   vue-demi@0.14.8(vue@3.4.31(typescript@5.5.3)):
     dependencies:

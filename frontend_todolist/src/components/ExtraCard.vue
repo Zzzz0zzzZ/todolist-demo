@@ -1,9 +1,7 @@
 <template>
-  <div class="card card-hover">
-    <div class="p-3 flex justify-around">
-      <router-link :to="{ name: 'calender' }" class="router-link-active">
-        <button type="button" class="btn btn-outline-primary">查看日历</button>
-      </router-link>
+  <div class="card card-hover p-3">
+    <div class="flex justify-around">
+      <button type="button" class="btn btn-outline-secondary" @click="toAuthor">联系作者</button>
       <button type="button" class="btn btn-outline-secondary" @click="showBox">显示设置</button>
     </div>
   </div>
@@ -26,5 +24,9 @@ const showBox = () => {
     ElMessage.success(`${value}`)
     window.location.reload()
   })
+}
+
+const toAuthor = () => {
+  window.open('https://github.com/Zzzz0zzzZ/todolist-demo', '_blank')
 }
 </script>
