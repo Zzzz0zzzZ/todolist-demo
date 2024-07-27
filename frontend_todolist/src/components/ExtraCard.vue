@@ -1,10 +1,12 @@
 <template>
-  <div class="container">
-    <div class="inner-flex">
-      <button type="button" class="btn btn-outline-secondary" @click="showBox">显示设置</button>
+  <div class="card card-hover p-4">
+    <div class="flex justify-around">
+      <el-button plain @click="toAuthor">联系作者</el-button>
+      <el-button plain @click="showBox">显示设置</el-button>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -23,28 +25,8 @@ const showBox = () => {
     window.location.reload()
   })
 }
+
+const toAuthor = () => {
+  window.open('https://github.com/Zzzz0zzzZ/todolist-demo', '_blank')
+}
 </script>
-
-<style scoped>
-.container {
-  margin-top: 5px;
-  padding: 16px;
-  border: 1px solid #d3d3d3;
-  border-radius: 5px;
-}
-
-.container:hover {
-  box-shadow: 0 0 10px #808080;
-  transition: 0.3s;
-}
-
-.inner-flex {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.msg-text::after {
-  content: '(beta)';
-}
-</style>

@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply border rounded-md border-gray-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card hover:rounded-md duration-300;
+  }
+}

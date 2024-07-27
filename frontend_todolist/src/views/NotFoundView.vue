@@ -1,10 +1,7 @@
 <template>
-  <div class="">
-    <img src="@/assets/404_img.jpg" alt="" />
-    <h1>404</h1>
-    <div id="btn">
-      <el-button type="info" plain size="large" @click="tohome">返回</el-button>
-    </div>
+  <div class="flex flex-col gap-3 justify-center items-center h-screen bg-[url('@/assets/404_img.jpg')] bg-cover">
+    <div class="text-6xl text-white">404</div>
+    <el-button type="info" plain size="large" @click="tohome">返回</el-button>
   </div>
 </template>
 
@@ -21,29 +18,3 @@ const tohome = () => {
   }
 }
 </script>
-
-<style scoped>
-* {
-  margin: 0;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  position: absolute;
-}
-
-h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 390px;
-  color: azure;
-  font-size: 150px;
-}
-
-#btn {
-  text-align: center;
-}
-</style>

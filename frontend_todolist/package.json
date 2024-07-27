@@ -11,21 +11,22 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "axios": "^0.27.2",
-    "bootstrap": "^5.2.0",
-    "core-js": "^3.8.3",
     "dayjs": "^1.11.5",
     "element-plus": "^2.2.15",
     "image-conversion": "^2.1.1",
     "pinia": "^2.0.22",
     "vue": "^3.3.4",
-    "vue-baidu-calendar": "^1.0.8",
-    "vue-calendar-component": "^2.8.2",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
     "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.6",
     "typescript": "^5.5.3",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.3",
     "vite": "^4.4.5",
     "vue-tsc": "^2.0.26"
   }
