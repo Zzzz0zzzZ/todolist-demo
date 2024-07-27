@@ -1,6 +1,6 @@
 <template>
   <div class="card h-full p-5">
-    <div class="flex justify-between mb-2">
+    <div class="flex justify-between mb-4 mx-1.5">
       <div class="font-bold text-lg flex align-middle">
         待办事项
         <el-dropdown>
@@ -19,8 +19,8 @@
       </div>
       <editAreaVue @refresh="refresh_list" :todo_count="toRaw(content_list.value)" />
     </div>
-    <div v-for="(content, index) in content_list.value" :key="content + index">
-      <div class="row mx-1.5 my-2 card-hover" v-if="content.status === 0">
+    <div v-for="(content, index) in content_list" :key="content + index">
+      <div class="mx-1.5 my-2 card-hover" v-if="content.status === 0">
         <div class="card py-4 px-5" @click="show_date_picker(index)">
           <div class="flex">
             <div class="w-1/12">
@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, toRaw } from 'vue'
+import { ref, toRaw } from 'vue'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { Check, Delete, ArrowDown } from '@element-plus/icons-vue'
@@ -68,7 +68,7 @@ import editAreaVue from './EditArea.vue'
 import { countStore } from '@/stores/countStore'
 import datePicker from './DatePicker.vue'
 
-const content_list = reactive([])
+const content_list = ref([])
 const store = countStore()
 const userid = localStorage.getItem('userid')
 const show_picker = ref([]) // 是否展开选择框
@@ -232,10 +232,3 @@ const set_ddl_color = (ddl) => {
   return text_color
 }
 </script>
-
-<style scoped>
-/*@apply hover:shadow-card duration-300 rounded-8*/
-/*border-radius: 8%;
-  box-shadow: 0px 0px 5px grey;
-  transition: 0.3s;*/
-</style>

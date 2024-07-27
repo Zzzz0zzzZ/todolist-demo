@@ -29,26 +29,15 @@
         </template>
       </el-dropdown>
     </div>
-    <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
-      <div class="box">
-        <div class="login-container">
-          <el-form :rules="rules" :model="user" ref="form">
-            <el-form-item prop="new_username">
-              <el-input
-                placeholder="请输入新用户名"
-                :prefix-icon="UserFilled"
-                class="item"
-                v-model="user.new_username"
-                @keyup.enter="change_username" />
-            </el-form-item>
-          </el-form>
-        </div>
-      </div>
+    <el-dialog v-model="dialogVisible" title="更改用户名" width="20%" draggable>
+      <el-form :rules="rules" :model="user" ref="form">
+        <el-form-item prop="new_username">
+          <el-input placeholder="请输入新用户名" :prefix-icon="UserFilled" v-model="user.new_username" @keyup.enter="change_username" />
+        </el-form-item>
+      </el-form>
       <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="change_username">更改</el-button>
-        </span>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="change_username">更改</el-button>
       </template>
     </el-dialog>
     <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">

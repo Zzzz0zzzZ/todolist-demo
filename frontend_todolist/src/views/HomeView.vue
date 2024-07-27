@@ -1,7 +1,7 @@
 <template>
-  <div class="card h-screen w-[1500px] mx-auto relative flex flex-col">
-    <NavBar class="absolute top-0 h-20 w-full" />
-    <div class="flex pt-20 pb-16 m-4 gap-4 h-full">
+  <div class="card h-screen w-[1400px] mx-auto relative flex flex-col">
+    <NavBar class="absolute top-0 h-24 w-full" />
+    <div class="flex pt-24 pb-16 m-4 gap-4 h-full">
       <EventList class="w-3/4" />
       <div class="flex flex-col w-1/4 gap-2">
         <TodayCard />
