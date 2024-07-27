@@ -29,7 +29,7 @@ declare module 'vue' {
     EventList: typeof import('./src/components/eventList.vue')['default']
     ExtraCard: typeof import('./src/components/ExtraCard.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
-    NavBar: typeof import('./src/components/navBar.vue')['default']
+    NavBar: typeof import('./src/components/NavBar.vue')['default']
     ProfilePhoto: typeof import('./src/components/profilePhoto.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

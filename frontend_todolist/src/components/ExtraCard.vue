@@ -1,8 +1,8 @@
 <template>
-  <div class="card card-hover p-3">
+  <div class="card card-hover p-4">
     <div class="flex justify-around">
-      <button type="button" class="btn btn-outline-secondary" @click="toAuthor">联系作者</button>
-      <button type="button" class="btn btn-outline-secondary" @click="showBox">显示设置</button>
+      <el-button plain @click="toAuthor">联系作者</el-button>
+      <el-button plain @click="showBox">显示设置</el-button>
     </div>
   </div>
 </template>

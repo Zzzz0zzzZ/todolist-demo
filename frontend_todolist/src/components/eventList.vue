@@ -1,5 +1,5 @@
 <template>
-  <div class="card h-full p-3">
+  <div class="card h-full p-5">
     <div class="flex justify-between mb-2">
       <div class="font-bold text-lg flex align-middle">
         待办事项
@@ -21,7 +21,7 @@
     </div>
     <div v-for="(content, index) in content_list.value" :key="content + index">
       <div class="row mx-1.5 my-2 card-hover" v-if="content.status === 0">
-        <div class="card p-3" @click="show_date_picker(index)">
+        <div class="card py-4 px-5" @click="show_date_picker(index)">
           <div class="flex">
             <div class="w-1/12">
               <el-button type="success" :icon="Check" @click="complete_a_todo(content)" circle />

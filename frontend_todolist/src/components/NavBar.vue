@@ -1,5 +1,5 @@
 <template>
-  <div class="h-24 w-full flex items-center px-3 justify-between bg-bar">
+  <div class="flex items-center px-5 justify-between bg-bar">
     <div class="flex items-center gap-3">
       <a target="_blank" href="https://github.com/Zzzz0zzzZ/todolist-demo">
         <div class="font-bold text-lg hover:text-xl duration-300">To-Do List</div>
@@ -29,32 +29,32 @@
         </template>
       </el-dropdown>
     </div>
-  </div>
-  <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
-    <div class="box">
-      <div class="login-container">
-        <el-form :rules="rules" :model="user" ref="form">
-          <el-form-item prop="new_username">
-            <el-input
-              placeholder="请输入新用户名"
-              :prefix-icon="UserFilled"
-              class="item"
-              v-model="user.new_username"
-              @keyup.enter="change_username" />
-          </el-form-item>
-        </el-form>
+    <el-dialog v-model="dialogVisible" title="更改用户名" width="30%" draggable>
+      <div class="box">
+        <div class="login-container">
+          <el-form :rules="rules" :model="user" ref="form">
+            <el-form-item prop="new_username">
+              <el-input
+                placeholder="请输入新用户名"
+                :prefix-icon="UserFilled"
+                class="item"
+                v-model="user.new_username"
+                @keyup.enter="change_username" />
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
-    </div>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="change_username">更改</el-button>
-      </span>
-    </template>
-  </el-dialog>
-  <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">
-    <profilePhoto @change="upload" />
-  </el-dialog>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="change_username">更改</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="profile" title="上传头像" width="30%" draggable v-if="uploadview">
+      <profilePhoto @change="upload" />
+    </el-dialog>
+  </div>
 </template>
 
 <script setup>

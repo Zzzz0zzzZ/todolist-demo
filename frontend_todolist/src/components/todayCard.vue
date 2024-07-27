@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-hover p-3">
+  <div class="card card-hover p-4">
     <div>Today</div>
     <div class="text-grey text-sm">{{ today_date }} {{ today_week }}</div>
     <div class="text-center mt-2">

@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-hover p-3">
+  <div class="card card-hover p-4">
     <div class="flex justify-between items-center">
       <div>消息提醒服务(beta)</div>
       <el-radio-group v-model="set">
