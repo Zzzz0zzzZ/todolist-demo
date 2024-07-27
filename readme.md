@@ -19,7 +19,7 @@
 
 ##### 前端
 
-Vue3 + Bootstrap + Element Plus
+Vue3 + Tailwind CSS + Element Plus
 
 ##### 后端
 
@@ -30,6 +30,13 @@ Springboot + MyBatis-Plus + MySQL
 ## 更新日志
 
 > 本项目自 2022/9/20 的提交后新增更新日志
+
+##### 2024/07/27
+
+---
+
+- 使用 Tailwind CSS 重构样式
+- 打包产物优化
 
 ##### 2024/07/20
 
