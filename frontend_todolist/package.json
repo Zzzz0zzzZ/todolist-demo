@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "dev": "vite -m dev",
+    "doe": "vite -m pro",
+    "build": "vue-tsc && vite build -m pro",
     "format": "prettier --write  \"src/**/*.js\" \"src/**/*.ts\" \"src/**/*.vue\""
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@types/node": "^22.1.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
